@@ -15,4 +15,4 @@ https://marcus7.itch.io/shanti-manti
 
 You can download the Unity Project here:
 
-https://link.link
+https://mega.nz/file/AjM0iaoQ#i6E_Nl66DN5_WbWqldS1usPPGqP2eh3DloB_8WQnJ3A
