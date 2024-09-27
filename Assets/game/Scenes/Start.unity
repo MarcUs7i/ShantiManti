@@ -609,7 +609,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -40, y: -65}
+  m_AnchoredPosition: {x: -60, y: -40}
   m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &133844057
@@ -747,32 +747,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d790f502f90764bb3d4c02870b98a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: LevelSelect
-  start: Start
-  levelselect: LevelSelect
-  levelTutorial: levelTutorial
-  level1: level1
-  level2: level2
-  level3: level3
-  level4: level4
-  level5: level5
-  level6: level6
-  level7: level7
-  level8: level8
-  level9: level9
-  level10: level10
-  level11: level11
-  level12: level12
-  level13: level13
-  level14: level14
-  level15: level15
-  level16: level16
-  level17: level17
-  level18: level18
-  level19: level19
-  level20: level20
-  bonus: bonus
-  about: About
+  scenes:
+  - Start
+  - LevelSelect
+  - levelTutorial
+  - level1
+  - level2
+  - level3
+  - level4
+  - level5
+  - level6
+  - level7
+  - level8
+  - level9
+  - level10
+  - level11
+  - level12
+  - level13
+  - level14
+  - level15
+  - level16
+  - level17
+  - level18
+  - level19
+  - level20
+  - bonus
+  - About
+  standardUI:
+  - {fileID: 757622826}
+  - {fileID: 1534272371}
+  - {fileID: 2077052637}
+  secondUI:
+  - {fileID: 1145183729}
+  changeWhenEnabledUI: []
+  changeWhenDisabledUI:
+  - {fileID: 1198550610}
+  - {fileID: 626197108}
   sceneFader: {fileID: 2273668184668631824}
 --- !u!4 &134660639
 Transform:
@@ -1807,8 +1817,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 13}
-  m_SizeDelta: {x: 250, y: 150}
+  m_AnchoredPosition: {x: 3, y: 0}
+  m_SizeDelta: {x: 280, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &469781835
 MonoBehaviour:
@@ -1830,8 +1840,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Version: 2.1\nMade with Unity 2021.3.9f1\nRelease Date: 01.09.2023\nThanks
-    to Shant Haijnian, \n                 Simon Tismonar\n"
+  m_text: 'Version: 2.1
+
+    Made with Unity 2021.3.33f1
+
+    Release Date: 01.09.2023
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1858,8 +1873,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4601,7 +4616,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 40, y: -65}
+  m_AnchoredPosition: {x: 60, y: -40}
   m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1071939532
@@ -5155,7 +5170,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 5}
-  m_SizeDelta: {x: 300, y: 200}
+  m_SizeDelta: {x: 300, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1166592186
 MonoBehaviour:
@@ -6090,7 +6105,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 134660638}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: Play
+        m_MethodName: LevelSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

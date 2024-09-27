@@ -207,7 +207,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 --- !u!95 &13219021
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -224,7 +224,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &13219022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1787,32 +1788,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d790f502f90764bb3d4c02870b98a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: Start
-  start: Start
-  levelselect: LevelSelect
-  levelTutorial: levelTutorial
-  level1: level1
-  level2: level2
-  level3: level3
-  level4: level4
-  level5: level5
-  level6: level6
-  level7: level7
-  level8: level8
-  level9: level9
-  level10: level10
-  level11: level11
-  level12: level12
-  level13: level13
-  level14: level14
-  level15: level15
-  level16: level16
-  level17: level17
-  level18: level18
-  level19: level19
-  level20: level20
-  bonus: bonus
-  about: About
+  scenes:
+  - Start
+  - LevelSelect
+  - levelTutorial
+  - level1
+  - level2
+  - level3
+  - level4
+  - level5
+  - level6
+  - level7
+  - level8
+  - level9
+  - level10
+  - level11
+  - level12
+  - level13
+  - level14
+  - level15
+  - level16
+  - level17
+  - level18
+  - level19
+  - level20
+  - bonus
+  - About
+  standardUI: []
+  secondUI: []
+  changeWhenEnabledUI: []
+  changeWhenDisabledUI: []
   sceneFader: {fileID: 301995584}
 --- !u!4 &263201670
 Transform:
@@ -8324,7 +8329,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1726973745
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -8341,7 +8346,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1726973746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8603,7 +8609,7 @@ MonoBehaviour:
   animator: {fileID: 1732107369}
 --- !u!95 &1732107369
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -8620,7 +8626,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1732107370
 MonoBehaviour:
   m_ObjectHideFlags: 0
