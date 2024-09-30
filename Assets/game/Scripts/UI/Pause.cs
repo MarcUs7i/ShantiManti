@@ -49,7 +49,7 @@ public class Pause : MonoBehaviour
             Jump.SetActive(!IsPause);
             Crouch.SetActive(!IsPause);
             Fire.SetActive(!IsPause);
-            if (Image != null && !IsPause)
+            if (Image != null && IsPause)
             {
                 Image.SetActive(false);
             }

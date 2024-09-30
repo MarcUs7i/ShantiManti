@@ -5,108 +5,51 @@ using UnityEngine.UI;
 
 public class CloudsToggle : MonoBehaviour
 {
-    public static int cloudsMoveInt;
-    public static bool cloudsCanMove = true;
+    public static bool cloudsCanMove;
     public Toggle cloudsToggle;
-    //public GameObject imageOfToggleOn;
-
-    int checkInStorage = 0;
     bool previousCloudsCanMoveState;
-    bool loaded = false;
+    bool changingStates = false;
 
     void Start()
     {
-        PlayerSaving.LoadingPlayer = true;
-        checkInStorage = 0;
-        StartCoroutine(waitToLoadData());
+        changingStates = true;
+
+        cloudsCanMove = PlayerSaving.movingClouds;
+        cloudsToggle.isOn = cloudsCanMove;
+        previousCloudsCanMoveState = cloudsCanMove;
+
+        changingStates = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(checkInStorage == 0)
-        {
-            checkInStorage++;
-            cloudsMoveInt = PlayerSaving.cloudMove;
-            if(cloudsMoveInt == 0)
-            {
-                cloudsToggle.isOn = true;
-                //imageOfToggleOn.SetActive(true);
-                cloudsCanMove = true;
-            }
-            if(cloudsMoveInt == 1)
-            {
-                //imageOfToggleOn.SetActive(false);
-                cloudsToggle.isOn = false;
-                cloudsCanMove = false;
-            }
-        }
-
         if (Input.GetKeyDown(KeyCode.C))
         {
             ChangeBool();
         }
 
-        /*if ((PlayerSaving.cloudMove != 0 && cloudsCanMove) && checkInStorage != 1)
-        {
-            PlayerSaving.cloudMove = 0;
-            PlayerSaving.SavingPlayer = true;
-        }
-        else if ((PlayerSaving.cloudMove != 1 && !cloudsCanMove) && checkInStorage != 1)
-        {
-            PlayerSaving.cloudMove = 1;
-            PlayerSaving.SavingPlayer = true;
-        }*/
-
-        if (cloudsCanMove != previousCloudsCanMoveState && loaded)
+        if (cloudsCanMove != previousCloudsCanMoveState)
         {
             //Debug.Log("State changed. Saving Clouds state: " + cloudsCanMove);
-            PlayerSaving.cloudMove = cloudsCanMove ? 0 : 1;
-            PlayerSaving.SavingPlayer = true;
+            PlayerSaving.movingClouds = cloudsCanMove;
+            PlayerSaving.SavePlayer();
             previousCloudsCanMoveState = cloudsCanMove;
         }
-
-        checkInStorage++;
     }
 
     public void ChangeBool()
     {
-        if(cloudsCanMove)
+        if (changingStates)
         {
-            cloudsToggle.isOn = false;
-            //imageOfToggleOn.SetActive(false);
-            cloudsCanMove = false;
+            return;
         }
-        else if(!cloudsCanMove)
-        {
-            cloudsToggle.isOn = true;
-            //imageOfToggleOn.SetActive(true);
-            cloudsCanMove = true;
-        }
-        //Debug.Log("Clouds state changed by user: " + cloudsCanMove);
-    }
+        changingStates = true;
 
-    IEnumerator waitToLoadData()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        cloudsMoveInt = PlayerSaving.cloudMove;
-        /*if(cloudsMoveInt == 0)
-        {
-            cloudsToggle.isOn = true;
-            //imageOfToggleOn.SetActive(true);
-            cloudsCanMove = true;
-        }
-        if(cloudsMoveInt == 1)
-        {
-            //imageOfToggleOn.SetActive(false);
-            cloudsToggle.isOn = false;
-            cloudsCanMove = false;
-        }*/
-        cloudsToggle.isOn = (cloudsMoveInt == 0);
-        cloudsCanMove = (cloudsMoveInt == 0);
-        previousCloudsCanMoveState = cloudsCanMove;
+        cloudsToggle.isOn = !cloudsCanMove;
+        cloudsCanMove = !cloudsCanMove;
+        
+        changingStates = false;
         //Debug.Log("Clouds state changed by user: " + cloudsCanMove);
-        loaded = true;
     }
 }

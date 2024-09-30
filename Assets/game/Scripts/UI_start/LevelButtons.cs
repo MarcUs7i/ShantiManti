@@ -21,8 +21,8 @@ public class LevelButtons : MonoBehaviour
         }
         mainMenu = FindObjectOfType<MainMenu>().GetComponent<MainMenu>();
 
-        PlayerSaving.LoadingPlayer = true;
-        level = PlayerSaving.levels;
+        PlayerSaving.LoadPlayer();
+        level = PlayerSaving.level;
 
         InitializeButtonListeners();
         UpdateButtons();
@@ -52,7 +52,7 @@ public class LevelButtons : MonoBehaviour
         {
             if (data.button.interactable)
             {
-                data.button.onClick.AddListener(() => mainMenu.StartLevels(data.level));
+                data.button.onClick.AddListener(() => mainMenu.StartLevel(data.level));
             }
         }
     }

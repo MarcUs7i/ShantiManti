@@ -4,74 +4,46 @@ using UnityEngine;
 
 public class PlayerSaving : MonoBehaviour
 {
-    public static int levels = 0;
-    public static int savedCoins = 0;
-    public static int tutorial = 0;
-    public static int cloudMove = 0;
-    public static bool SavingPlayer = false;
-    public static bool LoadingPlayer = false;
-    public static bool DeleteingPlayer = false;
+    public static int level = 0;
+    public static int coins = 0;
+    public static bool hasCompletedTutorial = false;
+    public static bool movingClouds = true;
     public static bool Deleteing = false;
 
-    void Update()
+    void Awake()
     {
-        /*if (levels != Endlevel.level)
-        {
-            Endlevel.level = levels;
-        }
-        if (savedCoins != SC_2DCoin.totalCoins && Loading == false)
-        {
-            SC_2DCoin.totalCoins = savedCoins;
-        }*/
-        if(SavingPlayer == true)
-        {
-            SavingPlayer = false;
-            SavePlayer();
-        }
-        if (LoadingPlayer == true)
-        {
-            LoadingPlayer = false;
-            LoadPlayer();
-        }
-        if (DeleteingPlayer == true)
-        {
-            DeleteingPlayer = false;
-            DeletePlayer();
-        }
-        /*if (Input.GetKeyDown(KeyCode.L))
-        {
-            levels = 1;
-            SavingPlayer = true;
-        }*/
+        LoadPlayer();
     }
 
-    public void SavePlayer()
+    public static void SavePlayer()
     {
-        SaveSystem.SavePlayer(this);
+        SaveSystem.SavePlayer();
         Debug.Log("Saved");
+        Debug.Log($"Saved level: {level}, coins: {coins}, tutorial: {hasCompletedTutorial}, cloudsMove: {movingClouds}");
     }
 
-    public void LoadPlayer()
+    public static void LoadPlayer()
     {
         PlayerData data = SaveSystem.LoadPlayer();
 
-        levels = data.level;
-        savedCoins = data.coins;
-        tutorial = data.tutorial;
-        cloudMove = data.cloudsMoveData;
+        level = data.savedLevels;
+        coins = data.savedCoins;
+        hasCompletedTutorial = data.tutorial;
+        movingClouds = data.cloudsMove;
 
         Debug.Log("Loaded");
-        SC_2DCoin.totalCoins = savedCoins;
-        Endlevel.level = levels;
+        Debug.Log($"Loaded level: {level}, coins: {coins}, tutorial: {hasCompletedTutorial}, cloudsMove: {movingClouds}");
+        SC_2DCoin.totalCoins = coins;
+        Endlevel.level = level;
     }
 
-    public void DeletePlayer()
+    public static void DeletePlayer()
     {
         Deleteing = true;
-        savedCoins = 0;
-        levels = 0;
-        tutorial = 0;
-        cloudMove = 0;
+        level = 0;
+        coins = 0;
+        hasCompletedTutorial = false;
+        movingClouds = true;
 
         // For MusicToggle.cs
         PlayerPrefs.SetInt("MusicToggled", 1);
@@ -81,7 +53,7 @@ public class PlayerSaving : MonoBehaviour
         PlayerPrefs.SetFloat("SoundVolume", 0.75f);
         PlayerPrefs.Save();
 
-        SaveSystem.SavePlayer(this);
+        SaveSystem.SavePlayer();
         Debug.Log("Deleted");
     }
 }

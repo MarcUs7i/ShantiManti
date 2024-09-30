@@ -304,22 +304,22 @@ public class PlayerHealth : MonoBehaviour
 		if (SC_2DCoin.totalCoins > 0 && health <= 0)
         {
             // Subtract coins based on the level
-            if (Endlevel.LevelForCoinBool <= 5)
+            if (PlayerSaving.level <= 5)
             {
                 SC_2DCoin.totalCoins -= 5;
                 minus = true;
             }
-            else if (Endlevel.LevelForCoinBool <= 9 && Endlevel.LevelForCoinBool >= 6)
+            else if (PlayerSaving.level <= 9 && PlayerSaving.level >= 6)
             {
                 SC_2DCoin.totalCoins -= 10;
                 minus = true;
             }
-            else if (Endlevel.LevelForCoinBool <= 15 && Endlevel.LevelForCoinBool >= 10)
+            else if (PlayerSaving.level <= 15 && PlayerSaving.level >= 10)
             {
                 SC_2DCoin.totalCoins -= 15;
                 minus = true;
             }
-            else if (Endlevel.LevelForCoinBool <= 20 && Endlevel.LevelForCoinBool >= 16)
+            else if (PlayerSaving.level <= 20 && PlayerSaving.level >= 16)
             {
                 SC_2DCoin.totalCoins -= 20;
                 minus = true;
@@ -332,9 +332,9 @@ public class PlayerHealth : MonoBehaviour
             }
 
             // Save the updated coin count
-            PlayerSaving.savedCoins = SC_2DCoin.totalCoins;
-            PlayerSaving.SavingPlayer = true;
-            Debug.Log("Saved " + PlayerSaving.savedCoins);
+            PlayerSaving.coins = SC_2DCoin.totalCoins;
+            PlayerSaving.SavePlayer();
+            Debug.Log("Saved " + PlayerSaving.coins);
         }
 		SoundBar.SceneReloaded = true;
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

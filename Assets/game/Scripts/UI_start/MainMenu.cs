@@ -3,13 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
-	public string[] scenes = {"Start", "LevelSelect", "levelTutorial", "level1", "level2", "level3", "level4", "level5", "level6", "level7", "level8", "level9", "level10", "level11", "level12", "level13", "level14", "level15", "level16", "level17", "level18", "level19", "level20", "bonus", "About"};
+	private string[] scenes = {"MarcPresents", "Start", "LevelSelect", "levelTutorial", "level1", "level2", "level3", "level4", "level5", "level6", "level7", "level8", "level9", "level10", "level11", "level12", "level13", "level14", "level15", "level16", "level17", "level18", "level19", "level20", "bonus", "About"};
 
 	public GameObject[] standardUI;
 	public GameObject[] secondUI;
 	public GameObject[] changeWhenEnabledUI;
 	public GameObject[] changeWhenDisabledUI;
-	public static int Tutorial;
+	public static bool tutorial;
 
 	public SceneFader sceneFader;
 
@@ -17,31 +17,32 @@ public class MainMenu : MonoBehaviour {
 
 	void Awake()
 	{
-		PlayerSaving.LoadingPlayer = true;
-		Tutorial = PlayerSaving.tutorial;
+		//PlayerSaving.LoadPlayer();
+		tutorial = PlayerSaving.hasCompletedTutorial;
 	}
 
 	public void StartScene()
-	{
-		sceneFader.FadeTo(scenes[0]);
-		ExitLevel = true;
-	}
-
-	public void LevelSelect()
 	{
 		sceneFader.FadeTo(scenes[1]);
 		ExitLevel = true;
 	}
 
-	public void StartLevels(int level)
+	public void LevelSelect()
 	{
-		if (level == 1 && Tutorial == 0)
+		sceneFader.FadeTo(scenes[2]);
+		ExitLevel = true;
+	}
+
+	public void StartLevel(int level)
+	{
+		tutorial = PlayerSaving.hasCompletedTutorial;
+		if (level == 1 && !tutorial)
 		{
-			sceneFader.FadeTo(scenes[2]);
+			sceneFader.FadeTo(scenes[3]);
 			ExitLevel = false;
 			return;
 		}
-		level += 2;
+		level += 3;
 		sceneFader.FadeTo(scenes[level]);
 		ExitLevel = false;
 	}

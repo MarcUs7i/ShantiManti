@@ -5,40 +5,59 @@ using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
-    public Button level1;
-    public static bool pressedBack = true;
+    public Button button;
+    public GameObject[] menus;
+    MainMenu mainMenu;
+    int currentPage = 0;
 
     void Awake()
     {
-        //level1 = GetComponent<Button>();
-        level1.interactable = false;
-        StartCoroutine(WaitForTutorial());
+        mainMenu = FindObjectOfType<MainMenu>().GetComponent<MainMenu>();
+        button.interactable = false;
+        button.onClick.AddListener(() => StartCoroutine(StartGame()));
     }
 
-    void Update()
+    public void NextPage()
     {
-        if(!pressedBack)
+        if (currentPage < menus.Length - 1)
         {
-            StartCoroutine(WaitForTutorial());
+            menus[currentPage].SetActive(false);
+            currentPage++;
+            menus[currentPage].SetActive(true);
+        }
+
+        if (currentPage == menus.Length - 1)
+        {
+            StartCoroutine(ActivateStartLevelButton());
         }
     }
 
-    IEnumerator WaitForTutorial()
+    public void PreviousPage()
+    {
+        if (currentPage > 0)
+        {
+            menus[currentPage].SetActive(false);
+            currentPage--;
+            menus[currentPage].SetActive(true);
+        }
+
+        if (currentPage == menus.Length - 2)
+        {
+            StopAllCoroutines();
+        }
+    }
+
+    IEnumerator StartGame()
+    {
+        PlayerSaving.hasCompletedTutorial = true;
+        PlayerSaving.SavePlayer();
+        yield return new WaitForSeconds(0.5f);
+        mainMenu.StartLevel(1);
+    }
+
+    IEnumerator ActivateStartLevelButton()
     {
         yield return new WaitForSeconds(4.0f);
-        if(!pressedBack)
-        {
-            level1.interactable = true;
-        }
-    }
-
-    public void backButton()
-    {
-        pressedBack = true;
-    }
-
-    public void nextButton()
-    {
-        pressedBack = false;
+        button.interactable = true;
     }
 }

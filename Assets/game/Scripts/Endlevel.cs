@@ -7,22 +7,21 @@ public class Endlevel : MonoBehaviour
     public string levelToLoad = "Level2";
     public SceneFader sceneFader;
     public static int level = 0;
-    public int SetLevel = 1;
+    private int SetLevel;
     public static bool nextLevel = false;
-    public static int LevelForCoinBool = 0;
 
     void Awake()
     {
         //Make Collider2D as trigger 
         GetComponent<Collider2D>().isTrigger = true;
-        level = PlayerSaving.levels;
-        PlayerSaving.LoadingPlayer = true;
+        level = PlayerSaving.level;
+        //PlayerSaving.LoadPlayer();
         Debug.Log(level);
+        SetLevel = GetValueForSetLevel();
     }
 
     void OnTriggerEnter2D(Collider2D c2d)
     {
-        //Destroy the coin if Object tagged Player comes in contact with it
         if (c2d.CompareTag("Player"))
         {
             level = SetLevel;
@@ -34,18 +33,15 @@ public class Endlevel : MonoBehaviour
     void Update()
     {
         //Debug.Log(level);
-        if (level != PlayerSaving.levels && PlayerSaving.Deleteing == false)
+        if (level != PlayerSaving.level && !PlayerSaving.Deleteing)
         {
-            if (PlayerSaving.levels < level)
+            if (PlayerSaving.level < level)
             {
-                PlayerSaving.levels = level;
-                PlayerSaving.SavingPlayer = true;
+                PlayerSaving.level = level;
+                PlayerSaving.SavePlayer();
                 //Debug.Log("Saved " + PlayerSaving.levels + " Level");
             }
         }
-
-        // this one is not just for coin bool used. It's used in Pause.cs too!
-        LevelForCoinBool = SetLevel;
 
         if (nextLevel == true)
         {
@@ -54,5 +50,18 @@ public class Endlevel : MonoBehaviour
             Debug.Log(level);
             sceneFader.FadeTo(levelToLoad);
         }
+    }
+
+    public int GetValueForSetLevel()
+    {
+        string levelInString = "";
+        for(int i = 0; i < levelToLoad.Length; i++)
+        {
+            if (char.IsDigit(levelToLoad[i]))
+            {
+                levelInString += levelToLoad[i];
+            }
+        }
+        return int.Parse(levelInString);
     }
 }

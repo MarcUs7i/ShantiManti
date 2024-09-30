@@ -21,13 +21,13 @@ public class Clouds : MonoBehaviour
 
     void Update()
     {
-        float distance = Vector2.Distance(transform.position, destroyPoint.position);
-        int distanceOfDestroyPoint = (int)Math.Round(distance);
+        float distanceX = destroyPoint.position.x - transform.position.x;
+
         if (!Pause.IsPause && CloudsToggle.cloudsCanMove)
         {
             transform.position += Vector3.right * Time.deltaTime * speed;
             //rb.velocity = transform.right * speed;
-            if (distanceOfDestroyPoint <= 0)
+            if (distanceX <= 0)
             {
                 Instantiate(cloudPrefab, clonePoint.position, Quaternion.identity);
                 Destroy(gameObject);
@@ -35,7 +35,6 @@ public class Clouds : MonoBehaviour
         }
 
         UpdateYPosition(transform);
-        UpdateYPosition(destroyPoint);
         UpdateYPosition(clonePoint);
     }
 

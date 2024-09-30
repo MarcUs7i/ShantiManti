@@ -41,7 +41,7 @@ public class CheckDeleted : MonoBehaviour
             }
             count++;
             Exit = 0;
-            if (PlayerSaving.levels == 0 && PlayerSaving.savedCoins == 0 && PlayerSaving.tutorial == 0 && PlayerSaving.cloudMove == 0)
+            if (PlayerSaving.level == 0 && PlayerSaving.coins == 0 && !PlayerSaving.hasCompletedTutorial && PlayerSaving.movingClouds)
             {
                 
                 Deleted.SetActive(true);
@@ -52,7 +52,7 @@ public class CheckDeleted : MonoBehaviour
         }
         if (count == 1 || count == 2)
         {
-            PlayerSaving.DeleteingPlayer = true;
+            PlayerSaving.DeletePlayer();
             if (Delete == 0)
             {
                 StartCoroutine(WaitForDelete());
@@ -61,10 +61,10 @@ public class CheckDeleted : MonoBehaviour
             {
                 return;
             }
-            PlayerSaving.LoadingPlayer = true;
+            PlayerSaving.LoadPlayer();
         	count++;
             Delete = 0;
-            if (PlayerSaving.levels == 0 && PlayerSaving.savedCoins == 0 && PlayerSaving.tutorial == 0 && PlayerSaving.cloudMove == 0)
+            if (PlayerSaving.level == 0 && PlayerSaving.coins == 0 && !PlayerSaving.hasCompletedTutorial && PlayerSaving.movingClouds)
             {
                 Deleted.SetActive(true);
                 Debug.Log("Done Stage: " + count);

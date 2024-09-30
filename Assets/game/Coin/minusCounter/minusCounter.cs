@@ -27,11 +27,10 @@ public class minusCounter : MonoBehaviour
             PlayerHealth.minus = false;
             Destroy(gameObject);
         }
-        if (Endlevel.LevelForCoinBool <= 5 && PlayerHealth.minus == true)
+        if (PlayerSaving.level <= 5 && PlayerHealth.minus == true)
 		{
             if (SC_2DCoin.totalCoins < 5)
             {
-                //counterText.text = "-" + SC_2DCoin.totalCoins + " ";
                 Destroy(gameObject);
             }
             if (SC_2DCoin.totalCoins >= 5)
@@ -41,11 +40,10 @@ public class minusCounter : MonoBehaviour
             PlayerHealth.minus = false;
             StartCoroutine(Animation());
 		}
-        if (Endlevel.LevelForCoinBool <= 9 && Endlevel.LevelForCoinBool >= 6 && PlayerHealth.minus == true)
+        if (PlayerSaving.level <= 9 && PlayerSaving.level >= 6 && PlayerHealth.minus == true)
 		{
 			if (SC_2DCoin.totalCoins < 10)
             {
-                //counterText.text = "-" + SC_2DCoin.totalCoins;
                 Destroy(gameObject);
             }
             if (SC_2DCoin.totalCoins >= 10)
@@ -55,11 +53,10 @@ public class minusCounter : MonoBehaviour
             PlayerHealth.minus = false;
             StartCoroutine(Animation());
 		}
-		if (Endlevel.LevelForCoinBool <= 15 && Endlevel.LevelForCoinBool >= 10 && PlayerHealth.minus == true)
+		if (PlayerSaving.level <= 15 && PlayerSaving.level >= 10 && PlayerHealth.minus == true)
 		{
 			if (SC_2DCoin.totalCoins < 15)
             {
-                //counterText.text = "-" + SC_2DCoin.totalCoins;
                 Destroy(gameObject);
             }
             if (SC_2DCoin.totalCoins >= 15)
@@ -69,11 +66,10 @@ public class minusCounter : MonoBehaviour
             PlayerHealth.minus = false;
             StartCoroutine(Animation());
 		}
-		if (Endlevel.LevelForCoinBool <= 20 && Endlevel.LevelForCoinBool >= 16 && PlayerHealth.minus == true)
+		if (PlayerSaving.level <= 20 && PlayerSaving.level >= 16 && PlayerHealth.minus == true)
 		{
 			if (SC_2DCoin.totalCoins < 20)
             {
-                //counterText.text = "-" + SC_2DCoin.totalCoins;
                 Destroy(gameObject);
             }
             if (SC_2DCoin.totalCoins >= 20)

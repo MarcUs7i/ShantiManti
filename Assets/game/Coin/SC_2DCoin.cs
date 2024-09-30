@@ -16,8 +16,8 @@ public class SC_2DCoin : MonoBehaviour
     {
         //Make Collider2D as trigger 
         GetComponent<Collider2D>().isTrigger = true;
-        PlayerSaving.LoadingPlayer = true;
-        totalCoins = PlayerSaving.savedCoins;
+        //PlayerSaving.LoadPlayer();
+        totalCoins = PlayerSaving.coins;
     }
 
     void OnTriggerEnter2D(Collider2D c2d)
@@ -28,7 +28,6 @@ public class SC_2DCoin : MonoBehaviour
             //Add coin to counter
             totalCoins++;
             //Test: Print total number of coins
-            Debug.Log("You currently have " + SC_2DCoin.totalCoins + " Coins.");
             IsPlaying = true;
             //Destroy coin
             Destroy(gameObject);
@@ -46,11 +45,10 @@ public class SC_2DCoin : MonoBehaviour
 
     void Update()
     {
-        if (totalCoins != PlayerSaving.savedCoins && PlayerSaving.Deleteing == false)
+        if (totalCoins != PlayerSaving.coins && !PlayerSaving.Deleteing)
         {
-            PlayerSaving.savedCoins = totalCoins;
-            PlayerSaving.SavingPlayer = true;
-            Debug.Log("Saved " + PlayerSaving.savedCoins);
+            PlayerSaving.coins = totalCoins;
+            PlayerSaving.SavePlayer();
         }
     }
 }
