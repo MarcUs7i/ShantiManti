@@ -36,7 +36,6 @@ public class Aleksei : MonoBehaviour
 
     Path path;
     int currentWaypoint = 0;
-    //bool reachedEndOfPath = false;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -52,7 +51,6 @@ public class Aleksei : MonoBehaviour
 
     bool DamageAnim = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -81,7 +79,6 @@ public class Aleksei : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (Pause.IsPause == false && FirstStop == false && Attacking == false && Stop == false)
@@ -92,12 +89,7 @@ public class Aleksei : MonoBehaviour
             }
             if (currentWaypoint >= path.vectorPath.Count)
             {
-                //reachedEndOfPath = true;
                 return;
-            }
-            else
-            {
-                //reachedEndOfPath = false;
             }
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] -rb.position).normalized;
@@ -111,6 +103,7 @@ public class Aleksei : MonoBehaviour
             {
                 currentWaypoint++;
             }
+
             //You can make look it differently, if you delete 'rb.velocity' and add 'force' instead.
             if (rb.velocity.x >= 0.01f)
             {
@@ -232,7 +225,7 @@ public class Aleksei : MonoBehaviour
     IEnumerator ColAttack()
     {
         animator.SetBool("SwordAttack", true);
-        Enemy.TakedDamage = true;
+        Enemy.TookDamage = true;
         yield return new WaitForSeconds(2.0f);
         animator.SetBool("SwordAttack", false);
     }

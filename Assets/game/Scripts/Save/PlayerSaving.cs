@@ -8,7 +8,7 @@ public class PlayerSaving : MonoBehaviour
     public static int coins = 0;
     public static bool hasCompletedTutorial = false;
     public static bool movingClouds = true;
-    public static bool Deleteing = false;
+    public static bool Deleting = false;
 
     void Awake()
     {
@@ -18,7 +18,6 @@ public class PlayerSaving : MonoBehaviour
     public static void SavePlayer()
     {
         SaveSystem.SavePlayer();
-        Debug.Log("Saved");
         Debug.Log($"Saved level: {level}, coins: {coins}, tutorial: {hasCompletedTutorial}, cloudsMove: {movingClouds}");
     }
 
@@ -31,7 +30,6 @@ public class PlayerSaving : MonoBehaviour
         hasCompletedTutorial = data.tutorial;
         movingClouds = data.cloudsMove;
 
-        Debug.Log("Loaded");
         Debug.Log($"Loaded level: {level}, coins: {coins}, tutorial: {hasCompletedTutorial}, cloudsMove: {movingClouds}");
         SC_2DCoin.totalCoins = coins;
         Endlevel.level = level;
@@ -39,7 +37,7 @@ public class PlayerSaving : MonoBehaviour
 
     public static void DeletePlayer()
     {
-        Deleteing = true;
+        Deleting = true;
         level = 0;
         coins = 0;
         hasCompletedTutorial = false;

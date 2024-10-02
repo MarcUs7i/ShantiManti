@@ -8,84 +8,51 @@ public class minusCounter : MonoBehaviour
     Text counterText;
     public Animator animator;
 
-    // Start is called before the first frame update
     void Awake()
     {
         counterText = GetComponent<Text>();
     }
 
-    // Update is called once per frame
     void Start()
     {
-        if (PlayerHealth.minus == false)
+        if (!PlayerHealth.minus)
         {
             Destroy(gameObject);
-            //Debug.Log("false");
+            return;
         }
-        if (SC_2DCoin.totalCoins <= 0 && PlayerHealth.minus == true)
-        {
-            PlayerHealth.minus = false;
-            Destroy(gameObject);
-        }
-        if (PlayerSaving.level <= 5 && PlayerHealth.minus == true)
-		{
-            if (SC_2DCoin.totalCoins < 5)
-            {
-                Destroy(gameObject);
-            }
-            if (SC_2DCoin.totalCoins >= 5)
-            {
-                counterText.text = "-5 ";
-            }
-            PlayerHealth.minus = false;
-            StartCoroutine(Animation());
-		}
-        if (PlayerSaving.level <= 9 && PlayerSaving.level >= 6 && PlayerHealth.minus == true)
-		{
-			if (SC_2DCoin.totalCoins < 10)
-            {
-                Destroy(gameObject);
-            }
-            if (SC_2DCoin.totalCoins >= 10)
-            {
-                counterText.text = "-10";
-            }
-            PlayerHealth.minus = false;
-            StartCoroutine(Animation());
-		}
-		if (PlayerSaving.level <= 15 && PlayerSaving.level >= 10 && PlayerHealth.minus == true)
-		{
-			if (SC_2DCoin.totalCoins < 15)
-            {
-                Destroy(gameObject);
-            }
-            if (SC_2DCoin.totalCoins >= 15)
-            {
-                counterText.text = "-15";
-            }
-            PlayerHealth.minus = false;
-            StartCoroutine(Animation());
-		}
-		if (PlayerSaving.level <= 20 && PlayerSaving.level >= 16 && PlayerHealth.minus == true)
-		{
-			if (SC_2DCoin.totalCoins < 20)
-            {
-                Destroy(gameObject);
-            }
-            if (SC_2DCoin.totalCoins >= 20)
-            {
-                counterText.text = "-20";
-            }
-            PlayerHealth.minus = false;
-            StartCoroutine(Animation());
-		}
 
-        /*if (PlayerHealth.minus == true)
+        if (SC_2DCoin.totalCoins <= 0)
         {
-            StartCoroutine(Animation());
             PlayerHealth.minus = false;
-        }*/
+            Destroy(gameObject);
+            return;
+        }
+
+        // Define the level ranges for each coin deduction
+        int[] levelRanges = { 5, 10, 15, 20 };
+
+        // Loop through the level ranges
+        for (int i = 0; i < levelRanges.Length; i++)
+        {
+            // Check if player's level is within the range for the current coin value
+            if (PlayerSaving.level <= levelRanges[i] && (i == 0 || PlayerSaving.level > levelRanges[i - 1]))
+            {
+                if (SC_2DCoin.totalCoins + levelRanges[i] < levelRanges[i])
+                {
+                    Destroy(gameObject);
+                    PlayerHealth.minus = false;
+                    return;
+                }
+
+                counterText.text = "-" + levelRanges[i].ToString();
+                break;
+            }
+        }
+
+        PlayerHealth.minus = false;
+        StartCoroutine(Animation());
     }
+
 
     IEnumerator Animation()
     {

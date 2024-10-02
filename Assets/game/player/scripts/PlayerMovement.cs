@@ -13,43 +13,31 @@ public class PlayerMovement : MonoBehaviour {
 	public static float horizontalMove = 0f;
 	public static bool jump = false;
 	public static bool crouch = false;
-	bool IsPauseing = false;
-	bool IsPlay = false;
 	bool moveLeft;
 	bool moveRight;
-	/*public static bool AllowJump = true;
-	public float JumpTime = 0.35f;
-
-	public static bool AllowJumpIndicator = false;*/
 
 	void Start()
 	{
-		/*AllowJumpIndicator = false;
-		AllowJump = true;*/
 		crouch = false;
 	}
 
 	// Update is called once per frame
-	void Update () {
-		IsPlay = SC_2DCoin.IsPlaying;
-		IsPauseing = Pause.IsPause;
-
-		if (IsPlay == true)
+	void Update()
+	{
+		if (SC_2DCoin.playCoinSound == true)
 		{
 			audioSource.Play();
-			SC_2DCoin.IsPlaying = false;
+			SC_2DCoin.playCoinSound = false;
 		}
 
-		if (IsPauseing == false)
+		if (!Pause.IsPause)
 		{
-			//Debug.Log(horizontalMove);
-
 			//UI buttons
-			if (moveLeft && Bonus.BonusForJump == false)
+			if (moveLeft && !Bonus.BonusForJump)
 			{
 				horizontalMove = -40f;
 			}
-			if (moveRight && Bonus.BonusForJump == false)
+			if (moveRight && !Bonus.BonusForJump)
 			{
 				horizontalMove = 40f;
 			}
@@ -57,28 +45,26 @@ public class PlayerMovement : MonoBehaviour {
 			{
 				horizontalMove = 0f;
 			}
-			if (horizontalMove == 0f && Bonus.BonusForJump == false)
+			if (horizontalMove == 0f && !Bonus.BonusForJump)
 			{
 				horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 			}
 	
 			animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-			//If you want to use JumpWait() then add here | this code:  && AllowJump == true
-														//V
-			if (Input.GetButtonDown("Jump") && Bonus.BonusForJump == false)
+			if (Input.GetButtonDown("Jump") && !Bonus.BonusForJump)
 			{
 				jump = true;
 				animator.SetBool("IsJumping", true);
 			}
 
-			if (Enemy.TakedDamage == true)
+			if (Enemy.TookDamage)
 			{
 				jump = true;
 				animator.SetBool("IsJumping", true);
 			}
 
-			if (Input.GetButtonDown("Crouch") && Bonus.BonusForJump == false)
+			if (Input.GetButtonDown("Crouch") && !Bonus.BonusForJump)
 			{
 				crouch = true;
 			}
@@ -86,12 +72,6 @@ public class PlayerMovement : MonoBehaviour {
 			{
 				crouch = false;
 			}
-
-			/*if (AllowJumpIndicator)
-			{
-				StartCoroutine(JumpWait());
-				AllowJumpIndicator = false;
-			}*/
 
 		}
 	}
@@ -151,13 +131,4 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		crouch = false;
 	}
-
-
-	/*IEnumerator JumpWait()
-	{
-		AllowJump = false;
-		yield return new WaitForSeconds(JumpTime);
-		AllowJump = true;
-
-	}*/
 }

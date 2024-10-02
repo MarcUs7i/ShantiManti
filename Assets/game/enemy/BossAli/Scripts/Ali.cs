@@ -37,7 +37,6 @@ public class Ali : MonoBehaviour
 
     Path path;
     int currentWaypoint = 0;
-    //bool reachedEndOfPath = false;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -54,7 +53,6 @@ public class Ali : MonoBehaviour
 
     bool DamageAnim = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -83,7 +81,6 @@ public class Ali : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (Pause.IsPause == false && FirstStop == false && Attacking == false && Stop == false)
@@ -94,12 +91,7 @@ public class Ali : MonoBehaviour
             }
             if (currentWaypoint >= path.vectorPath.Count)
             {
-                //reachedEndOfPath = true;
                 return;
-            }
-            else
-            {
-                //reachedEndOfPath = false;
             }
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] -rb.position).normalized;
@@ -113,6 +105,7 @@ public class Ali : MonoBehaviour
             {
                 currentWaypoint++;
             }
+
             //You can make look it differently, if you delete 'rb.velocity' and add 'force' instead.
             if (rb.velocity.x >= 0.01f)
             {
@@ -250,7 +243,7 @@ public class Ali : MonoBehaviour
         animator.SetBool("SwordAttack", true);
         yield return new WaitForSeconds(0.1f);
         Attacking = true;
-        Enemy.TakedDamage = true;
+        Enemy.TookDamage = true;
         yield return new WaitForSeconds(2.0f);
         animator.SetBool("SwordAttack", false);
         
@@ -261,7 +254,7 @@ public class Ali : MonoBehaviour
     IEnumerator ColAttack()
     {
         animator.SetBool("SwordAttack", true);
-        Enemy.TakedDamage = true;
+        Enemy.TookDamage = true;
         yield return new WaitForSeconds(2.0f);
         animator.SetBool("SwordAttack", false);
     }

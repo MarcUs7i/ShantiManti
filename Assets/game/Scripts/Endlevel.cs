@@ -15,7 +15,6 @@ public class Endlevel : MonoBehaviour
         //Make Collider2D as trigger 
         GetComponent<Collider2D>().isTrigger = true;
         level = PlayerSaving.level;
-        //PlayerSaving.LoadPlayer();
         Debug.Log(level);
         SetLevel = GetValueForSetLevel();
     }
@@ -32,8 +31,7 @@ public class Endlevel : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log(level);
-        if (level != PlayerSaving.level && !PlayerSaving.Deleteing)
+        if (level != PlayerSaving.level && !PlayerSaving.Deleting)
         {
             if (PlayerSaving.level < level)
             {
@@ -43,7 +41,7 @@ public class Endlevel : MonoBehaviour
             }
         }
 
-        if (nextLevel == true)
+        if (nextLevel)
         {
             nextLevel = false;
             level = SetLevel;

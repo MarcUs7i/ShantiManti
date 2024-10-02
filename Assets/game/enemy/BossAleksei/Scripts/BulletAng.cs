@@ -11,7 +11,6 @@ public class BulletAng : MonoBehaviour
     public Vector3 desiredRotation0 = new Vector3(0f, 0f, 24f); // Change this to your desired rotation
     public Vector3 desiredRotation1 = new Vector3(0f, 0f, -24f); // Change this to your desired rotation
 
-    // Start is called before the first frame update
     void Start()
     {
         if (Aleksei.BulletAngDirection == 0f)
@@ -30,7 +29,7 @@ public class BulletAng : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Enemy.TakedDamage = true;
+            Enemy.TookDamage = true;
         }
 
         Instantiate(impactEffect, transform.position, transform.rotation);

@@ -24,7 +24,6 @@ public class BirdBoss : MonoBehaviour
 
     Path path;
     int currentWaypoint = 0;
-    //bool reachedEndOfPath = false;
     bool start = false;
     public float StartRange = 20f;
 
@@ -45,7 +44,6 @@ public class BirdBoss : MonoBehaviour
 
     bool Stop = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -71,7 +69,6 @@ public class BirdBoss : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (Pause.IsPause == false && Stop == false && start == true)
@@ -82,12 +79,7 @@ public class BirdBoss : MonoBehaviour
             }
             if (currentWaypoint >= path.vectorPath.Count)
             {
-                //reachedEndOfPath = true;
                 return;
-            }
-            else
-            {
-                //reachedEndOfPath = false;
             }
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] -rb.position).normalized;
@@ -101,6 +93,7 @@ public class BirdBoss : MonoBehaviour
             {
                 currentWaypoint++;
             }
+
             //You can make look it differently, if you delete 'rb.velocity' and add 'force' instead.
             if (rb.velocity.x >= 0.01f)
             {
@@ -187,7 +180,7 @@ public class BirdBoss : MonoBehaviour
     IEnumerator Attack()
     {
         animator.SetBool("Attack", true);
-        Enemy.TakedDamage = true;
+        Enemy.TookDamage = true;
         yield return new WaitForSeconds(2.0f);
         animator.SetBool("Attack", false);
     }

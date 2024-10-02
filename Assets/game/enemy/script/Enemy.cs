@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public static bool TakedDamage = false;
+    public static bool TookDamage = false;
 
     void OnTriggerEnter2D(Collider2D c2d)
     {
         if (c2d.CompareTag("Player"))
         {
-            TakedDamage = true;
+            TookDamage = true;
         }
     }
 

@@ -68,7 +68,7 @@ public class Zoltan : MonoBehaviour
             {
                 // The player is colliding with the side or bottom of the enemy, or the player is not colliding with the top of the enemy from above
                 // Destroy the player game object
-                Enemy.TakedDamage = true;
+                Enemy.TookDamage = true;
             }
         }
     }

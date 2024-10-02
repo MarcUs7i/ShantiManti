@@ -17,7 +17,6 @@ public class Claudia : MonoBehaviour
 
     Path path;
     int currentWaypoint = 0;
-    //bool reachedEndOfPath = false;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -29,14 +28,10 @@ public class Claudia : MonoBehaviour
     // Health
     public int health = 100;
     public GameObject deathEffect;
-
     bool TimeStopHearting = false;
-
     bool StopAttack = false;
-
     bool InNear = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -65,7 +60,6 @@ public class Claudia : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (Pause.IsPause == false && Stop == false && InNear == true && StopAttack == false)
@@ -76,12 +70,7 @@ public class Claudia : MonoBehaviour
             }
             if (currentWaypoint >= path.vectorPath.Count)
             {
-                //reachedEndOfPath = true;
                 return;
-            }
-            else
-            {
-                //reachedEndOfPath = false;
             }
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] -rb.position).normalized;
@@ -95,6 +84,7 @@ public class Claudia : MonoBehaviour
             {
                 currentWaypoint++;
             }
+            
             //You can make look it differently, if you delete 'rb.velocity' and add 'force' instead.
             if (rb.velocity.x >= 0.01f)
             {
@@ -159,7 +149,7 @@ public class Claudia : MonoBehaviour
         StopAttack = true;
         //Stop = true;
         animator.SetBool("Attack", true);
-        Enemy.TakedDamage = true;
+        Enemy.TookDamage = true;
         yield return new WaitForSeconds(2.0f);
         animator.SetBool("Attack", false);
         StopAttack = false;

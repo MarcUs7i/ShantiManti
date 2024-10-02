@@ -7,7 +7,6 @@ public class PlayerHealth : MonoBehaviour
 {
 
 	public int health = 100;
-
 	public GameObject deathEffect;
 	bool CoinHealth = false;
 	public static bool minus;
@@ -34,308 +33,52 @@ public class PlayerHealth : MonoBehaviour
 			TakeDamage(20);
 		}*/
 		
-		if (DiePlayer.KillPlayer == true)
+		if (DiePlayer.KillPlayer)
 		{
 			DiePlayer.KillPlayer = false;
 			Die();
 		}
 
 
-		if(Enemy.TakedDamage == true && Pause.IsPause == false)
+		if(Enemy.TookDamage && !Pause.IsPause)
 		{
 			TakeDamage(20);
-			Enemy.TakedDamage = false;
+			Enemy.TookDamage = false;
 		}
-		if (SC_2DCoin.totalCoins == 20 && CoinHealth == false)
+		
+		if (SC_2DCoin.totalCoins % 20 == 0 && SC_2DCoin.totalCoins > 0)
 		{
 			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 40 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 60 && CoinHealth == false)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 80 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 100 && CoinHealth == false)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 120 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 140 && CoinHealth == false)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 160 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 180 && CoinHealth == false)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 200 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 220 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 240 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 260 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 280 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 300 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 320 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 340 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 360 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 380 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 400 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 420 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 440 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 460 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 480 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 500 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 520 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 540 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 560 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 580 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 600 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 620 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 640 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 660 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 680 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 700 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 720 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 740 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 760 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 780 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 800 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 820 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 840 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 860 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 880 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 900 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 920 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 940 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 960 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
-		}
-		if (SC_2DCoin.totalCoins == 980 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = true;
-		}
-		if (SC_2DCoin.totalCoins == 1000 && CoinHealth == true)
-		{
-			health = 100;
-			CoinHealth = false;
+			CoinHealth = !CoinHealth;
 		}
 	}
 
 
 	void Die()
 	{
-		if (SC_2DCoin.totalCoins > 0 && health <= 0)
-        {
-            // Subtract coins based on the level
-            if (PlayerSaving.level <= 5)
-            {
-                SC_2DCoin.totalCoins -= 5;
-                minus = true;
-            }
-            else if (PlayerSaving.level <= 9 && PlayerSaving.level >= 6)
-            {
-                SC_2DCoin.totalCoins -= 10;
-                minus = true;
-            }
-            else if (PlayerSaving.level <= 15 && PlayerSaving.level >= 10)
-            {
-                SC_2DCoin.totalCoins -= 15;
-                minus = true;
-            }
-            else if (PlayerSaving.level <= 20 && PlayerSaving.level >= 16)
-            {
-                SC_2DCoin.totalCoins -= 20;
-                minus = true;
-            }
+		int[] coinDeductions = { 5, 10, 15, 20 };
+		for (int i = 0; i < coinDeductions.Length; i++)
+		{
+			if (SC_2DCoin.totalCoins > coinDeductions[i] && health <= 0)
+			{
+				// Subtract coins based on the level
+				if (PlayerSaving.level <= coinDeductions[i])
+				{
+					SC_2DCoin.totalCoins -= coinDeductions[i];
+					minus = true;
+				}
 
-            // Ensure the totalCoins does not go below 0
-            if (SC_2DCoin.totalCoins < 0)
-            {
-                SC_2DCoin.totalCoins = 0;
-            }
+				// Ensure the totalCoins does not go below 0
+				if (SC_2DCoin.totalCoins < 0)
+				{
+					SC_2DCoin.totalCoins = 0;
+				}
 
-            // Save the updated coin count
-            PlayerSaving.coins = SC_2DCoin.totalCoins;
-            PlayerSaving.SavePlayer();
-            Debug.Log("Saved " + PlayerSaving.coins);
-        }
+				// Save the updated coin count
+				PlayerSaving.coins = SC_2DCoin.totalCoins;
+				PlayerSaving.SavePlayer();
+			}
+		}
 		SoundBar.SceneReloaded = true;
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}

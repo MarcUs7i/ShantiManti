@@ -22,7 +22,6 @@ public class Kimberley : MonoBehaviour
 
     Path path;
     int currentWaypoint = 0;
-    //bool reachedEndOfPath = false;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -38,7 +37,6 @@ public class Kimberley : MonoBehaviour
 
     public Collider2D groundCheckCollider;
 
-    // Start is called before the first frame update
     void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -86,7 +84,6 @@ public class Kimberley : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         distance = Vector2.Distance(transform.position, player.position);
@@ -98,12 +95,7 @@ public class Kimberley : MonoBehaviour
             }
             if (currentWaypoint >= path.vectorPath.Count)
             {
-                //reachedEndOfPath = true;
                 return;
-            }
-            else
-            {
-                //reachedEndOfPath = false;
             }
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] -rb.position).normalized;

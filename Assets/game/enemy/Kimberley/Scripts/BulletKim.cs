@@ -26,7 +26,7 @@ public class BulletKim : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Enemy.TakedDamage = true;
+            Enemy.TookDamage = true;
         }
 
         Instantiate(impactEffect, transform.position, transform.rotation);

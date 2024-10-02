@@ -9,7 +9,6 @@ public class Bullet : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject impactEffect;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb.velocity = transform.right * speed;
@@ -17,7 +16,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        EnemyDeath enemy = hitInfo.GetComponent<EnemyDeath> ();
+        EnemyDeath enemy = hitInfo.GetComponent<EnemyDeath>();
         if (enemy != null)
         {
             enemy.TakeDamage(damage);
