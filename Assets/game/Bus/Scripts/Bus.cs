@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class Bus : MonoBehaviour
 {
-    public Animator animator;
+    private Animator animator;
     public float speed = 20f;
-    bool start = false;
+    bool moveBus = false;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (start == true)
+        if (moveBus)
         {
             transform.position += Vector3.right * speed * Time.deltaTime;
         }
@@ -35,7 +33,7 @@ public class Bus : MonoBehaviour
     IEnumerator Run()
     {
         animator.SetBool("Run", true);
-        start= true;
+        moveBus = true;
         yield return new WaitForSeconds(5.0f);
         Endlevel.nextLevel = true;
     }
