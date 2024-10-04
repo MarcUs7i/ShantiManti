@@ -52,6 +52,11 @@ public class Endlevel : MonoBehaviour
 
     public int GetValueForSetLevel()
     {
+        if(!levelToLoad.StartsWith("level"))
+        {
+            return 0;
+        }
+        
         string levelInString = "";
         for(int i = 0; i < levelToLoad.Length; i++)
         {

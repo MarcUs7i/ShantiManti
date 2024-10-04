@@ -35,7 +35,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1829792180
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -52,7 +52,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &1829792179
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -141,7 +142,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2235643186762485068
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -158,7 +159,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4976842300819991897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,20 +173,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2e21abc31bd534793a01f7afb61b5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hauer: {fileID: 5947294273481416654}
-  PauseButton: {fileID: 0}
-  LeftButton: {fileID: 0}
-  RightButton: {fileID: 0}
-  JumpButton: {fileID: 0}
-  CrouchButton: {fileID: 0}
-  FireButton: {fileID: 0}
+  disableObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   range: 15
   speed: 5
-  animator: {fileID: 2235643186762485068}
-  GFX: {fileID: 1829792180}
-  wait1: 3
-  wait2: 0.5
-  waitAfter: 7
-  childTransform: {fileID: 1829792178}
-  sceneFader: {fileID: 0}
-  levelToLoad: About
+  secondsToWalk: 3
+  secondsToFall: 0.5
+  timeout: 7

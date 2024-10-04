@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Run
+  m_Name: GoToPickUpLocation
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -36,10 +36,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: RunAfter
+    m_ConditionEvent: GoToStation
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: IdleAfter
+    m_ConditionEvent: StayAtPickUpLocation
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 39560242735867865}
@@ -62,7 +62,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Idle
+  m_Name: StartPos
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -87,33 +87,33 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Rettung
+  m_Name: Ambulance
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Run
+  - m_Name: GoToPickUpLocation
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: IdleAfter
+    m_Controller: {fileID: 0}
+  - m_Name: StayAtPickUpLocation
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: RunAfter
+    m_Controller: {fileID: 0}
+  - m_Name: GoToStation
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: IdleAfterAfter
+    m_Controller: {fileID: 0}
+  - m_Name: StayAtStation
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -134,7 +134,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RunAfter
+  m_Name: GoToStation
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -163,7 +163,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Run
+    m_ConditionEvent: GoToPickUpLocation
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3818453853444625711}
@@ -223,10 +223,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IdleAfter
+    m_ConditionEvent: StayAtPickUpLocation
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: Run
+    m_ConditionEvent: GoToPickUpLocation
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3577931333472580055}
@@ -249,7 +249,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IdleAfter
+  m_Name: PickUpLocationPos
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -278,10 +278,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: Run
+    m_ConditionEvent: GoToPickUpLocation
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: IdleAfterAfter
+    m_ConditionEvent: StayAtStation
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1563684429154557748}
@@ -306,10 +306,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IdleAfterAfter
+    m_ConditionEvent: StayAtStation
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: RunAfter
+    m_ConditionEvent: GoToStation
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 9146907305561845000}
@@ -332,7 +332,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IdleAfterAfter
+  m_Name: StationPos
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

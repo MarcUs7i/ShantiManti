@@ -5,44 +5,46 @@ using UnityEngine.UI;
 
 public class Bonus : MonoBehaviour
 {
-    public Transform Hauer;
-    public GameObject PauseButton;
-    public GameObject LeftButton;
-    public GameObject RightButton;
-    public GameObject JumpButton;
-    public GameObject CrouchButton;
-    public GameObject FireButton;
+    private Transform Hauer;
+    public GameObject[] disableObjects;
     private Transform player;
-    private Rigidbody2D rb;
+    private Animator animator;
+    private Animator GFX;
+    private Transform childTransform;
+    private MainMenu mainMenu;
+    private Ambulance ambulance;
+    
+    public static bool BonusForJump = false;
+
+    [Header("Settings")]
     public float range = 15f;
     public float speed = 5f;
 
-    public static bool BonusForJump = false;
-    public Animator animator;
-    public Animator GFX;
-    bool walk = true;
-    bool start = true;
-    public float wait1 = 3f;
-    public float wait2 = 1f;
-    public float waitAfter = 5.0f;
-    public Transform childTransform;
-    public SceneFader sceneFader;
-    public string levelToLoad = "About";
+    [Header("Timings")]
+    public float secondsToWalk = 3f;
+    public float secondsToFall = 0.5f;
+    public float timeout = 7.0f;
 
-    // Start is called before the first frame update
+    bool walk = true;
+    bool isCoroutineRunning = false;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        Hauer = this.GetComponent<Transform>();
+        childTransform = Hauer.GetChild(0);
+        mainMenu = GameObject.FindObjectOfType<MainMenu>().GetComponent<MainMenu>();
 
-        // get the enemy's Rigidbody2D component
-        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        GFX = childTransform.GetComponent<Animator>();
+
+        ambulance = GameObject.FindObjectOfType<Ambulance>().GetComponent<Ambulance>();
+
         BonusForJump = false;
         walk = false;
-        start = true;
-        GFX.SetBool("Stop", false);
+        GFX.SetBool("WalkAnimation", walk);
     }
 
-    // Update is called once per frame
     void Update()
     {
         float distance = Vector2.Distance(transform.position, player.position);
@@ -50,28 +52,21 @@ public class Bonus : MonoBehaviour
         {
             Vector3 newPosition = new Vector3(12.60997f, -20.81544f, 0f);
             player.transform.position = newPosition;
-            PauseButton.SetActive(false);
-            LeftButton.SetActive(false);
-            RightButton.SetActive(false);
-            JumpButton.SetActive(false);
-            CrouchButton.SetActive(false);
-            FireButton.SetActive(false);
+            foreach (GameObject disableObject in disableObjects)
+            {
+                disableObject.SetActive(false);
+            }
             BonusForJump = true;
-            if (walk)
-            {
-                animator.SetBool("Walk", true);
-            }
-            if (!walk)
-            {
-                animator.SetBool("Walk", false);
-            }
-            if (start)
+
+            animator.SetBool("WalkTransform", walk);
+
+            if (!isCoroutineRunning)
             {
                 StartCoroutine(StartWalk());
             }
-            if (Rettung.finished)
+            if (ambulance.allowedToKillHauer)
             {
-                Rettung.finished = false;
+                ambulance.allowedToKillHauer = false;
                 Destroy(childTransform.gameObject);
             }
             
@@ -80,21 +75,26 @@ public class Bonus : MonoBehaviour
 
     IEnumerator StartWalk()
     {
-        GFX.SetBool("Stop", false);
-        start = false;
+        isCoroutineRunning = true;
         walk = true;
-        yield return new WaitForSeconds(wait1);
+        GFX.SetBool("WalkAnimation", walk);
+
+        yield return new WaitForSeconds(secondsToWalk);
+
         walk = false;
-        GFX.SetBool("Stop", true);
+        GFX.SetBool("WalkAnimation", walk);
         animator.SetBool("Fall", true);
-        yield return new WaitForSeconds(wait2);
+
+        yield return new WaitForSeconds(secondsToFall);
+
         animator.SetBool("Fall", false);
-        animator.SetBool("After", true);
-        Rettung.runScript = true;
-        yield return new WaitForSeconds(waitAfter);
+        animator.SetBool("LayOnTheGround", true);
+        StartCoroutine(ambulance.Script());
+
+        yield return new WaitForSeconds(timeout);
+        
         BonusForJump = false;
-        sceneFader.FadeTo(levelToLoad);
-        MainMenu.ExitLevel = true;
+        mainMenu.About();
         
     }
 }
