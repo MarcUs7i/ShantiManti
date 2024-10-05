@@ -32,7 +32,9 @@ public static class SaveSystem
         else
         {
             Debug.LogError("SaveFile not found in " + path);
-            return null;
+            Debug.Log("Creating new save file...");
+            SavePlayer();
+            return LoadPlayer();
         }
     }
     

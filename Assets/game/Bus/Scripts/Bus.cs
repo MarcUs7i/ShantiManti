@@ -35,6 +35,8 @@ public class Bus : MonoBehaviour
         animator.SetBool("Run", true);
         moveBus = true;
         yield return new WaitForSeconds(5.0f);
-        Endlevel.nextLevel = true;
+        
+        Endlevel endLevelInstance = FindObjectOfType<Endlevel>().GetComponent<Endlevel>();
+        endLevelInstance.GoToNextLevel();
     }
 }

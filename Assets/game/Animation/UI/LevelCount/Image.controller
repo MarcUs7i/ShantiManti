@@ -35,7 +35,7 @@ AnimatorController:
   m_Name: Image
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Disable
+  - m_Name: Fade
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -63,7 +63,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Disable
+    m_ConditionEvent: Fade
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6532693886344616546}
@@ -112,7 +112,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LevelCount2
+  m_Name: Fading
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
