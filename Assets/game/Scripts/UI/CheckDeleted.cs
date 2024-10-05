@@ -16,7 +16,6 @@ public class CheckDeleted : MonoBehaviour
     int Delete = 0;
     int Exit = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         count = 0;
@@ -25,7 +24,6 @@ public class CheckDeleted : MonoBehaviour
         Exit = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //Debug.Log("Delete Stage: " + count);

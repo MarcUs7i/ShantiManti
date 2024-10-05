@@ -94,7 +94,7 @@ public class Bonus : MonoBehaviour
         yield return new WaitForSeconds(timeout);
         
         BonusForJump = false;
-        mainMenu.About();
+        mainMenu.AboutScene();
         
     }
 }

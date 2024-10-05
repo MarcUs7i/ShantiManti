@@ -1,41 +1,32 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour {
-
+public class MainMenu : MonoBehaviour
+{
 	private string[] scenes = {"MarcPresents", "Start", "LevelSelect", "levelTutorial", "level1", "level2", "level3", "level4", "level5", "level6", "level7", "level8", "level9", "level10", "level11", "level12", "level13", "level14", "level15", "level16", "level17", "level18", "level19", "level20", "bonus", "About"};
 
+	[Header("UIs")]
 	public GameObject[] standardUI;
 	public GameObject[] secondUI;
-	public GameObject[] changeWhenEnabledUI;
-	public GameObject[] changeWhenDisabledUI;
-	public static bool tutorial;
+	[Header("The UI changes only if the following are enabled/disabled")]
+	public GameObject[] changeOnlyWhenEnabledUI;
+	public GameObject[] changeOnlyWhenDisabledUI;
 
-	public SceneFader sceneFader;
-
+	private SceneFader sceneFader;
 	public static bool ExitLevel = false;
 
-	void Awake()
+	void Start()
 	{
-		//PlayerSaving.LoadPlayer();
-		tutorial = PlayerSaving.hasCompletedTutorial;
+		sceneFader = FindObjectOfType<SceneFader>().GetComponent<SceneFader>();
 	}
 
-	public void StartScene()
-	{
-		sceneFader.FadeTo(scenes[1]);
-		ExitLevel = true;
-	}
-
-	public void LevelSelect()
-	{
-		sceneFader.FadeTo(scenes[2]);
-		ExitLevel = true;
-	}
+	public void StartScene() => LoadScene(1);
+	public void LevelSelect() => LoadScene(2);
+	public void AboutScene() => LoadScene(scenes.Length - 1);
 
 	public void StartLevel(int level)
 	{
-		tutorial = PlayerSaving.hasCompletedTutorial;
+		bool tutorial = PlayerSaving.hasCompletedTutorial;
 		if (level == 1 && !tutorial)
 		{
 			sceneFader.FadeTo(scenes[3]);
@@ -47,9 +38,9 @@ public class MainMenu : MonoBehaviour {
 		ExitLevel = false;
 	}
 
-	public void About()
+	public void LoadScene(int scene)
 	{
-		sceneFader.FadeTo(scenes[^1]);
+		sceneFader.FadeTo(scenes[scene]);
 		ExitLevel = true;
 	}
 
@@ -65,11 +56,11 @@ public class MainMenu : MonoBehaviour {
 	public void ToggleUI()
 	{
 		//The check
-		foreach (GameObject ui in changeWhenEnabledUI)
+		foreach (GameObject ui in changeOnlyWhenEnabledUI)
 		{
 			if (!ui.activeSelf) return;
 		}
-		foreach (GameObject ui in changeWhenDisabledUI)
+		foreach (GameObject ui in changeOnlyWhenDisabledUI)
 		{
 			if (ui.activeSelf) return;
 		}
@@ -105,9 +96,12 @@ public class MainMenu : MonoBehaviour {
 
 			//Pause in game is handled in Pause.cs
 		}
-		if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) && SceneManager.GetActiveScene().name == "Start")
+		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
 		{
-			LevelSelect();
+			if(SceneManager.GetActiveScene().name == "Start")
+			{
+				LevelSelect();
+			}
 		}
 	}
 
