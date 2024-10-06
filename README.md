@@ -13,6 +13,6 @@ https://marcus7.itch.io/shanti-manti
 
 # Source Code
 
-Alternatively, you can download the Unity Project here:
+Alternatively, you can download the Unity Project (v2.1) here:
 
 https://mega.nz/file/87VVwRBY#zERlghmzkOoKwcOmoc9TY1WAISUGK3yA2lg5QrNEGH4
