@@ -272,7 +272,6 @@ public class Ali : MonoBehaviour
 
         transitioningToStage2 = false;
         StopHurting = false;
-        DamageAnim = false;
     }
 
     IEnumerator BulletAttacked()
