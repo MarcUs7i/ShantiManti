@@ -6,31 +6,18 @@ public class BulletAli : MonoBehaviour
 {
     public float speed = 20f;
     public int damage = 40;
-    public Rigidbody2D rb;
     public GameObject impactEffect;
-    private SpriteRenderer spriteRenderer;
+    Rigidbody2D rb;
+    SpriteRenderer spriteRenderer;
 
-    // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
         Vector3 newScale = transform.localScale;
-        if (Ali.BulletAliDirection == 0f)
-        {
-            rb.velocity = -transform.right * speed;
-            newScale.x *= -1; // Flipping along the X-axis
-        }
-        if (Ali.BulletAliDirection == 1f)
-        {
-            rb.velocity = transform.right * speed;
-        }
-        transform.localScale = newScale;
-    }
 
-    public void Flip()
-    {
-        Vector3 newScale = transform.localScale;
-        newScale.x *= -1; // Flipping along the X-axis
+        newScale.x *= Ali.BulletAliDirection;
+        rb.velocity = transform.right * Ali.BulletAliDirection * speed;
         transform.localScale = newScale;
     }
 

@@ -89,7 +89,7 @@ public class Aleksei : MonoBehaviour
         }
 
         float distance = Vector2.Distance(transform.position, player.position);
-        if (distance < range && Attacking == false && !transitioningToStage2)
+        if (distance < range && !Attacking && !transitioningToStage2)
         {
             if (path == null)
             {

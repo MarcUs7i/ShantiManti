@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class AliHealthBar : MonoBehaviour
 {
-    public Ali ali;
-	public Animator animator;
+    Ali ali;
+	Animator animator;
 	int NewHealth = 100;
 
 	void Start()
 	{
+		ali = GetComponentInParent<Ali>();
+		animator = GetComponent<Animator>();
 		animator.SetBool("100", true);
 	}
 
