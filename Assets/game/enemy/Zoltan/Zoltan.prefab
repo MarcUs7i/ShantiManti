@@ -225,4 +225,5 @@ MonoBehaviour:
   range: 10
   speed: 5
   groundCheckCollider: {fileID: 4120503342754605680}
+  collisionWithPlayerCollider: {fileID: 5808843570160950719}
   deathEffect: {fileID: 1755349173569476, guid: 3c45864be6a059a4a82a25e285298338, type: 3}

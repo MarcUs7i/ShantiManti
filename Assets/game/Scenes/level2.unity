@@ -29133,10 +29133,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3650605710375081848, guid: ad180bd9dbc48b24cb65ac52928f9626, type: 3}
-      propertyPath: playerAnimator
-      value: 
-      objectReference: {fileID: 820667358}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad180bd9dbc48b24cb65ac52928f9626, type: 3}
 --- !u!4 &1392712637 stripped
@@ -32266,10 +32262,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8174632731044781324, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
-      propertyPath: playerAnimator
-      value: 
-      objectReference: {fileID: 820667358}
     - target: {fileID: 8496836896711832325, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
       propertyPath: m_Name
       value: Justin

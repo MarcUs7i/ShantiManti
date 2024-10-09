@@ -5,39 +5,40 @@ using Pathfinding;
 
 public class Claudia : MonoBehaviour
 {
-
-    public Transform target;
+    [Header("Speed & Range")]
     public float speed = 200f;
+    public float range = 10f;
+
+    [Header("Pathfinding")]
     public float nextWaypointDistance = 3f;
 
-    public float range = 10f; // the range at which the enemy will start moving towards the player
-    float distance;
-    public Transform enemyGFX;
-    private Transform player; // reference to the player's transform
-
     Path path;
-    int currentWaypoint = 0;
-
     Seeker seeker;
+    Transform player;
     Rigidbody2D rb;
-    public Animator animator;
-    bool Stop = false;
+    Transform enemyGFX;
+    Animator animator;
+    Collider2D groundCheckCollider;
 
-    public Collider2D groundCheckCollider;
-
-    // Health
+    [Header("Health")]
     public int health = 100;
     public GameObject deathEffect;
-    bool TimeStopHearting = false;
+
+    bool StopHurting = false;
     bool StopAttack = false;
+    bool Stop = false;
     bool InNear = false;
+    int currentWaypoint = 0;
 
     void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
+        groundCheckCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        enemyGFX = GetComponentInChildren<SpriteRenderer>().transform;
 
 
         InvokeRepeating("UpdatePath", 0f, .5f);
@@ -47,7 +48,7 @@ public class Claudia : MonoBehaviour
     {
         if (seeker.IsDone())
         {
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+            seeker.StartPath(rb.position, player.position, OnPathComplete);
         }
     }
 
@@ -62,7 +63,13 @@ public class Claudia : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Pause.IsPause == false && Stop == false && InNear == true && StopAttack == false)
+        if (Pause.IsPause)
+        {
+            return;
+        }
+
+        float distance = Vector2.Distance(transform.position, player.position);
+        if (Stop == false && InNear == true && StopAttack == false)
         {
             if (path == null)
             {
@@ -78,7 +85,7 @@ public class Claudia : MonoBehaviour
 
             rb.AddForce(force);
 
-            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+            distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
             if (distance < nextWaypointDistance)
             {
@@ -95,8 +102,9 @@ public class Claudia : MonoBehaviour
                 enemyGFX.transform.localScale = new Vector3(1f, 1f, 1f);
             }
         }
+
         distance = Vector2.Distance(transform.position, player.position);
-        if (distance < range && Pause.IsPause == false)
+        if (distance < range)
         {
             InNear = true;
             distance = Vector2.Distance(transform.position, player.position);
@@ -105,12 +113,19 @@ public class Claudia : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        // check if the enemy is not on the ground
+        if (!IsOnGround())
+        {
+            // destroy the enemy game object
+            DestroyEnemy();
+        }
         
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" && StopAttack == false)
+        if (collision.gameObject.tag == "Player" && !StopAttack)
         {
             StartCoroutine(Attack());
         }
@@ -118,7 +133,8 @@ public class Claudia : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Bullet" && distance < range && TimeStopHearting == false)
+        float distance = Vector2.Distance(transform.position, player.position);
+        if (collider.gameObject.tag == "Bullet" && distance < range && !StopHurting)
         {
             StartCoroutine(BulletAttacked());
             TakeDamage(50);
@@ -127,57 +143,38 @@ public class Claudia : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (MainMenu.ExitLevel == false)
+        if (!MainMenu.ExitLevel)
 		{
 			health -= damage;
 
 			if (health <= 0)
 			{
-				Die();
+				DestroyEnemy();
 			}
 		}
-    }
-
-    void Die ()
-    {
-        Instantiate(deathEffect, transform.position, Quaternion.identity);
-        Destroy(gameObject);
     }
 
     IEnumerator Attack()
     {
         StopAttack = true;
-        //Stop = true;
+
         animator.SetBool("Attack", true);
         Enemy.TookDamage = true;
         yield return new WaitForSeconds(2.0f);
         animator.SetBool("Attack", false);
+
         StopAttack = false;
-        //Stop = false;
     }
 
     IEnumerator BulletAttacked()
     {
         Stop = true;
         animator.SetBool("Damage", true);
-        TimeStopHearting = true;
+        StopHurting = true;
         yield return new WaitForSeconds(2.0f);
-        TimeStopHearting = false;
+        StopHurting = false;
         animator.SetBool("Damage", false);
         Stop = false;
-    }
-
-    void Update()
-    {
-        if (Pause.IsPause == false)
-        {
-            // check if the enemy is not on the ground
-            if (!IsOnGround())
-            {
-                // destroy the enemy game object
-                DestroyEnemy();
-            }
-        }
     }
 
     bool IsOnGround()

@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Zoltan : MonoBehaviour
 {
+    [Header("Speed & Range")]
     public float range = 10f;
     public float speed = 5f;
 
+    [Header("Colliders")]
+    public Collider2D groundCheckCollider;
+    public Collider2D collisionWithPlayerCollider; // USE TOP COLLIDER!!! (For some reason it works better this way)
+
+    [Header("Death Effect Prefab")]
+    public GameObject deathEffect;
+    
+    private Animator playerAnimator;
     private Transform player;
     private Rigidbody2D rb;
-    public Collider2D groundCheckCollider;
-
-    public GameObject deathEffect; // the death effect prefab
-    private Animator playerAnimator;
 
     void Start()
     {
@@ -44,6 +49,12 @@ public class Zoltan : MonoBehaviour
             {
                 DestroyEnemy();
             }
+
+            if (CollidesWithPlayer())
+            {
+                Enemy.TookDamage = true;
+                DestroyEnemy();
+            }
         }
     }
 
@@ -51,21 +62,10 @@ public class Zoltan : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            // The enemy has collided with the player
-            if (collision.relativeVelocity.y < 0 && transform.position.y < collision.transform.position.y)
-            {
-                // The player is colliding with the top of the enemy from above
-                // Destroy the enemy game object
-                PlayerMovement.jump = true;
-                playerAnimator.SetBool("IsJumping", true);
-                DestroyEnemy();
-            }
-            else
-            {
-                // The player is colliding with the side or bottom of the enemy, or the player is not colliding with the top of the enemy from above
-                // damage the player
-                Enemy.TookDamage = true;
-            }
+            //If player jumps on top
+            PlayerMovement.jump = true;
+            playerAnimator.SetBool("IsJumping", true);
+            DestroyEnemy();
         }
     }
 
@@ -78,6 +78,23 @@ public class Zoltan : MonoBehaviour
         foreach (Collider2D collider in colliders)
         {
             if (collider.gameObject.CompareTag("Ground"))
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    bool CollidesWithPlayer()
+    {
+        // perform an overlap check with the isJumpedOn collider
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(collisionWithPlayerCollider.bounds.center, collisionWithPlayerCollider.bounds.size, 0f);
+        
+        // iterate through the colliders and check if any of them are considered ground
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.gameObject.CompareTag("Player"))
             {
                 return true;
             }
