@@ -42,7 +42,7 @@ public class Aleksei : MonoBehaviour
     public Animator animator;
     bool StopAttack = false;
     bool NormalSpeeding = false;
-    public static float BulletAngDirection;
+    public static int BulletCalcDirection;
     bool FirstStop = true;
     bool Attacking = false;
     public float encourageSec = 2.0f;
@@ -108,12 +108,12 @@ public class Aleksei : MonoBehaviour
             if (rb.velocity.x >= 0.01f)
             {
                 enemyGFX.transform.localScale = new Vector3(-1f, 1f, 1f);
-                BulletAngDirection = 1f;
+                BulletAngDirection = -1f;
             }
             else if (rb.velocity.x <= -0.01f)
             {
                 enemyGFX.transform.localScale = new Vector3(1f, 1f, 1f);
-                BulletAngDirection = 0f;
+                BulletAngDirection = 1f;
             }
 
             if (distance < attackRange)

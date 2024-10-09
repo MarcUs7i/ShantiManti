@@ -116,7 +116,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 100%Live
+  m_Name: 100%Life
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -142,7 +142,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 75%Live
+  m_Name: 75%Life
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -233,7 +233,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 25%Live
+  m_Name: 25%Life
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -259,7 +259,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 50%Live
+  m_Name: 50%Life
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

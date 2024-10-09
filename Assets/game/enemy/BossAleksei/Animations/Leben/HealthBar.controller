@@ -8,6 +8,12 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: 100
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: 75
+    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: 50
     m_EventTreshold: 0
@@ -57,7 +63,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 100%Leben
+  m_Name: 100%Life
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -83,7 +89,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 75%Leben
+  m_Name: 75%Life
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -144,7 +150,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 25%Leben
+  m_Name: 25%Life
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -177,25 +183,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: 75
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: 50
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: 25
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -216,7 +222,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 50%Leben
+  m_Name: 50%Life
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -243,6 +249,15 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: 100
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: 75
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: 50
+    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: 25
     m_EventTreshold: 0
@@ -268,6 +283,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: 100
+    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: 75
     m_EventTreshold: 0
