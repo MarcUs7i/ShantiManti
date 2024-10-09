@@ -14,7 +14,7 @@ public class BulletCalc : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         
-        Vector3 rotation = desiredRotation0;
+        Vector3 rotation = desiredRotation;
         rotation.z = rotation.z * -Aleksei.BulletCalcDirection;
 
         rb.velocity = transform.right * Aleksei.BulletCalcDirection * speed;

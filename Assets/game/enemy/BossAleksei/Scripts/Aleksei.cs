@@ -5,51 +5,49 @@ using Pathfinding;
 
 public class Aleksei : MonoBehaviour
 {
-
-    public Transform target;
     public Transform firePoint;
-    public float SlowSpeed = 300f;
+
+    [Header("Speed")]
     public float NormalSpeed = 500f;
     public float FastSpeed = 700f;
-    public float speed = 500f;
-    public float encourageSpeed = 900f;
+    float speed = 500f;
+
+    [Header("Range")]
+    public float range = 10f;
+    public float attackRange = 8f;
+
+    [Header("Stage2")]
+    public float stage2Speed = 900f;
+    public float stage2AnimSec = 2.0f;
+
+    [Header("Pathfinding")]
     public float nextWaypointDistance = 3f;
+    int currentWaypoint = 0;
+
+    [Header("Audio")]
     public AudioSource BackgroundMusic;
-    public AudioSource audioSource;
-    bool IsPlay = false;
+    private AudioSource audioSFX;
 
-
-    // Health
+    [Header("Health")]
     public int health = 200;
-    bool StopHearting = false;
-    bool TimeStopHearting = false;
-    public static bool AlekseiDead = false;
+    bool StopHurting = false;
 
+    [Header("GameObjects")]
     public GameObject deathEffect;
-
-    public float range = 10f; // the range at which the enemy will start moving towards the player
-    public float attackRange = 8f; // the range at which the enemy will attack the player
-    float distance;
-    public Transform enemyGFX;
-    private Transform player; // reference to the player's transform
     public GameObject EnemyWeapon;
 
     Path path;
-    int currentWaypoint = 0;
-
     Seeker seeker;
+    Transform player;
     Rigidbody2D rb;
-    public Animator animator;
-    bool StopAttack = false;
-    bool NormalSpeeding = false;
-    public static int BulletCalcDirection;
-    bool FirstStop = true;
-    bool Attacking = false;
-    public float encourageSec = 2.0f;
-    float encourageStart = 1f;
-    bool Stop = false;
+    Animator animator;
+    Transform enemyGFX;
 
-    bool DamageAnim = false;
+    public static float BulletCalcDirection;
+    bool StopAttack = false;
+    bool Attacking = false;
+    bool isInStage2 = false;
+    bool transitioningToStage2 = false;
 
     void Start()
     {
@@ -58,6 +56,10 @@ public class Aleksei : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
+        audioSFX = GetComponent<AudioSource>();
+        enemyGFX = GetComponentInChildren<SpriteRenderer>().transform;
+
+        speed = NormalSpeed;
 
         InvokeRepeating("UpdatePath", 0f, .5f);
     }
@@ -66,7 +68,7 @@ public class Aleksei : MonoBehaviour
     {
         if (seeker.IsDone())
         {
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+            seeker.StartPath(rb.position, player.position, OnPathComplete);
         }
     }
 
@@ -81,7 +83,13 @@ public class Aleksei : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Pause.IsPause == false && FirstStop == false && Attacking == false && Stop == false)
+        if (Pause.IsPause)
+        {
+            return;
+        }
+
+        float distance = Vector2.Distance(transform.position, player.position);
+        if (distance < range && Attacking == false && !transitioningToStage2)
         {
             if (path == null)
             {
@@ -97,7 +105,7 @@ public class Aleksei : MonoBehaviour
 
             rb.AddForce(force);
 
-            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+            distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
             if (distance < nextWaypointDistance)
             {
@@ -108,22 +116,21 @@ public class Aleksei : MonoBehaviour
             if (rb.velocity.x >= 0.01f)
             {
                 enemyGFX.transform.localScale = new Vector3(-1f, 1f, 1f);
-                BulletAngDirection = -1f;
+                BulletCalcDirection = 1f;
             }
             else if (rb.velocity.x <= -0.01f)
             {
                 enemyGFX.transform.localScale = new Vector3(1f, 1f, 1f);
-                BulletAngDirection = 1f;
+                BulletCalcDirection = -1f;
             }
 
             if (distance < attackRange)
             {
-                if (StopAttack == false)
+                if (!StopAttack)
                 {
                     StartCoroutine(Attack());
                 }
             }
-
         }
 
         distance = Vector2.Distance(transform.position, player.position);
@@ -131,9 +138,14 @@ public class Aleksei : MonoBehaviour
         {
             speed = FastSpeed;
         }
-        if (distance < range)
+
+        /*if (Input.GetKeyDown(KeyCode.Q))
         {
-            FirstStop = false;
+            TakeDamage(20);
+        }*/
+        if (health <= 60 && !isInStage2)
+        {
+            StartCoroutine(GetToStage2());
         }
         
     }
@@ -148,7 +160,8 @@ public class Aleksei : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Bullet" && distance < range && StopHearting == false && TimeStopHearting == false)
+        float distance = Vector2.Distance(transform.position, player.position);
+        if (collider.gameObject.tag == "Bullet" && distance < range && !StopHurting)
         {
             TakeDamage(10);
         }
@@ -157,60 +170,29 @@ public class Aleksei : MonoBehaviour
     // Health
     void TakeDamage(int damage)
 	{
-		if (MainMenu.ExitLevel == false)
+		if (!MainMenu.ExitLevel)
 		{
 			health -= damage;
 
-			StartCoroutine(DamageAnimation());
+            //only animate damage if health is above 60 (not stage2)
+            if (health > 60)
+			{
+                StartCoroutine(DamageAnimation());
+            }
+
             StartCoroutine(BulletAttacked());
 
 			if (health <= 0)
 			{
-				Die();
+				//Die
+                Instantiate(deathEffect, transform.position, Quaternion.identity);
+                Destroy(gameObject);
 			}
 		}
 	}
 
-    void Die ()
-    {
-        AlekseiDead = true;
-        Instantiate(deathEffect, transform.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
-    // Health End
-    void Update()
-    {
-        if (Pause.IsPause == false)
-        {
-            /*if (animator.GetBool("Damage"))
-            {
-                StartCoroutine(DamageAnimation());
-            }*/
-            if (distance < range && NormalSpeeding == true)
-            {
-                NormalSpeeding = false;
-                speed = NormalSpeed;
-            }
-            /*if (Input.GetKeyDown(KeyCode.Q))
-            {
-                TakeDamage(20);
-            }*/
-            if (health <= 60 && encourageStart == 1f)
-            {
-                StartCoroutine(Encourage());
-            }
-
-            if (IsPlay == true)
-		    {
-			    StartCoroutine(Music());
-			    IsPlay = false;
-		    }
-        }
-    }
-
     IEnumerator Attack()
     {
-        //Debug.Log("Attacked");
         StopAttack = true;
         yield return new WaitForSeconds(2.0f);
         Attacking = true;
@@ -219,7 +201,9 @@ public class Aleksei : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         animator.SetBool("Attack", false);
         Attacking = false;
-        StartCoroutine(Wait());
+        
+        yield return new WaitForSeconds(2.0f);
+        StopAttack = false;
     }
 
     IEnumerator ColAttack()
@@ -232,60 +216,44 @@ public class Aleksei : MonoBehaviour
 
     IEnumerator DamageAnimation()
     {
-        if (health <= 60 && encourageStart == 1f)
-        {
-            DamageAnim = true;
-        }
-        if (DamageAnim == false)
-        {
-            animator.SetBool("Damage", true);
-            yield return new WaitForSeconds(2.0f);
-            animator.SetBool("Damage", false);
-        }
-    }
-
-    IEnumerator Wait()
-    {
+        animator.SetBool("Damage", true);
         yield return new WaitForSeconds(2.0f);
-        StopAttack = false;
+        animator.SetBool("Damage", false);
     }
 
-    IEnumerator SlowDown()
+    IEnumerator GetToStage2()
     {
-        speed = SlowSpeed;
-        yield return new WaitForSeconds(2.0f);
-        NormalSpeeding = true;
-    }
+        isInStage2 = true;
 
-    IEnumerator Encourage()
-    {
-        Debug.Log("Enc");
-        StopHearting = true;
-        encourageStart++;
-        animator.SetBool("Encourage", true);
-        Stop = true;
-        IsPlay = true;
+        StopHurting = true;
+        transitioningToStage2 = true;
+        animator.SetBool("EnterStage2", true);
+
+        StartCoroutine(Music());
         NormalSpeed = FastSpeed;
-        FastSpeed = encourageSpeed;
-        yield return new WaitForSeconds(encourageSec);
-        animator.SetBool("Encourage", false);
-        Stop = false;
-        StopHearting = false;
-        DamageAnim = false;
+        FastSpeed = stage2Speed;
+        
+        yield return new WaitForSeconds(stage2AnimSec);
+        animator.SetBool("EnterStage2", false);
+
+        transitioningToStage2 = false;
+        StopHurting = false;
     }
 
     IEnumerator BulletAttacked()
     {
-        TimeStopHearting = true;
+        StopHurting = true;
         yield return new WaitForSeconds(1.5f);
-        TimeStopHearting = false;
+        StopHurting = false;
     }
 
     IEnumerator Music()
     {
+        float oldVolume = BackgroundMusic.volume;
         BackgroundMusic.volume = 0.25f;
-        audioSource.Play();
+
+        audioSFX.Play();
         yield return new WaitForSeconds(3.0f);
-        BackgroundMusic.volume = 1f;
+        BackgroundMusic.volume = oldVolume;
     }
 }

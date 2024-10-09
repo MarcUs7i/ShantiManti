@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class AlekseiHealthBar : MonoBehaviour
 {
-    public Aleksei aleksei;
-	public Animator animator;
+    Aleksei aleksei;
+	Animator animator;
 	int NewHealth = 100;
 
 	void Start()
 	{
+		aleksei = GetComponentInParent<Aleksei>();
+		animator = GetComponent<Animator>();
 		animator.SetBool("100", true);
 	}
 

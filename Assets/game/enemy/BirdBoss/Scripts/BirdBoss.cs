@@ -12,9 +12,9 @@ public class BirdBoss : MonoBehaviour
     public float StartRange = 20f;
     public float attackableRange = 10f;
 
-    [Header("Encourage")]
-    public float encourageSpeed = 700f;
-    public float encourageSec = 2.0f;
+    [Header("stage2")]
+    public float stage2Speed = 700f;
+    public float stage2AnimSec = 2.0f;
 
     [Header("Pathfinding")]
     public float nextWaypointDistance = 3f;
@@ -77,7 +77,7 @@ public class BirdBoss : MonoBehaviour
 
         if (health <= 25 && !isInStage2)
         {
-            StartCoroutine(Encourage());
+            StartCoroutine(GetToStage2());
         }  
 
         if (!transitioningToStage2 && distance < StartRange)
@@ -167,17 +167,17 @@ public class BirdBoss : MonoBehaviour
         animator.SetBool("Damage", false);
     }
 
-    IEnumerator Encourage()
+    IEnumerator GetToStage2()
     {
         StopHurting = true;
         isInStage2 = true;
 
-        animator.SetBool("Encourage", true);
+        animator.SetBool("EnterStage2", true);
         transitioningToStage2 = true;
         StartCoroutine(Music());
 
-        defaultSpeed = encourageSpeed;
-        yield return new WaitForSeconds(encourageSec);
+        defaultSpeed = stage2Speed;
+        yield return new WaitForSeconds(stage2AnimSec);
 
         transitioningToStage2 = false;
         StopHurting = false;
