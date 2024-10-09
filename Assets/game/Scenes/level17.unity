@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 26977733}
   - component: {fileID: 26977734}
   m_Layer: 0
-  m_Name: BuschGross
+  m_Name: bushBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -471,7 +471,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40152486}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0599995, y: 1.8700001, z: -10}
+  m_LocalPosition: {x: 1.0599992, y: 1.8700001, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 42793755}
   - component: {fileID: 42793756}
   m_Layer: 0
-  m_Name: BuschGross (8)
+  m_Name: bushBig (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 57278370}
   - component: {fileID: 57278371}
   m_Layer: 0
-  m_Name: baum (4)
+  m_Name: tree (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -658,7 +658,7 @@ GameObject:
   - component: {fileID: 60116625}
   - component: {fileID: 60116626}
   m_Layer: 0
-  m_Name: BuschKlein (3)
+  m_Name: BushSmall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2093,7 +2093,7 @@ GameObject:
   - component: {fileID: 261962110}
   - component: {fileID: 261962111}
   m_Layer: 0
-  m_Name: baum (7)
+  m_Name: tree (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2195,33 +2195,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d790f502f90764bb3d4c02870b98a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: Start
-  start: Start
-  levelselect: LevelSelect
-  levelTutorial: levelTutorial
-  level1: level1
-  level2: level2
-  level3: level3
-  level4: level4
-  level5: level5
-  level6: level6
-  level7: level7
-  level8: level8
-  level9: level9
-  level10: level10
-  level11: level11
-  level12: level12
-  level13: level13
-  level14: level14
-  level15: level15
-  level16: level16
-  level17: level17
-  level18: level18
-  level19: level19
-  level20: level20
-  bonus: bonus
-  about: About
-  sceneFader: {fileID: 301995584}
+  standardUI: []
+  secondUI: []
+  changeOnlyWhenEnabledUI: []
+  changeOnlyWhenDisabledUI: []
 --- !u!4 &263201670
 Transform:
   m_ObjectHideFlags: 0
@@ -2248,7 +2225,7 @@ GameObject:
   - component: {fileID: 275565236}
   - component: {fileID: 275565237}
   m_Layer: 0
-  m_Name: baum
+  m_Name: tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2478,7 +2455,7 @@ GameObject:
   - component: {fileID: 382597578}
   - component: {fileID: 382597579}
   m_Layer: 0
-  m_Name: BuschKlein (3)
+  m_Name: bushesSmall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2561,7 +2538,7 @@ GameObject:
   m_Component:
   - component: {fileID: 385616585}
   m_Layer: 0
-  m_Name: "B\xFCscheHinten"
+  m_Name: bushesBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2666,7 +2643,7 @@ GameObject:
   - component: {fileID: 422917042}
   - component: {fileID: 422917043}
   m_Layer: 0
-  m_Name: baum (5)
+  m_Name: tree (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2812,7 +2789,7 @@ GameObject:
   - component: {fileID: 480811479}
   - component: {fileID: 480811480}
   m_Layer: 0
-  m_Name: BuschGross (5)
+  m_Name: bushBig (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2896,7 +2873,7 @@ GameObject:
   - component: {fileID: 503064545}
   - component: {fileID: 503064546}
   m_Layer: 0
-  m_Name: BuschKlein (5)
+  m_Name: BushSmall (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3217,7 +3194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 594312030}
   m_Layer: 0
-  m_Name: "B\xFCscheHinten"
+  m_Name: bushesBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3336,7 +3313,7 @@ GameObject:
   - component: {fileID: 613723792}
   - component: {fileID: 613723793}
   m_Layer: 0
-  m_Name: BuschKlein
+  m_Name: bushesSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3420,7 +3397,7 @@ GameObject:
   - component: {fileID: 614326682}
   - component: {fileID: 614326683}
   m_Layer: 0
-  m_Name: BuschGross (3)
+  m_Name: bushBig (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3736,7 +3713,7 @@ Transform:
   m_Children:
   - {fileID: 2088128137}
   - {fileID: 246643321}
-  - {fileID: 1555745074}
+  - {fileID: 778852681}
   - {fileID: 1422085469}
   - {fileID: 1862454703}
   m_Father: {fileID: 0}
@@ -4031,7 +4008,7 @@ GameObject:
   - component: {fileID: 734466593}
   - component: {fileID: 734466594}
   m_Layer: 0
-  m_Name: BuschKlein (1)
+  m_Name: BushSmall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4115,7 +4092,7 @@ GameObject:
   - component: {fileID: 735992623}
   - component: {fileID: 735992624}
   m_Layer: 0
-  m_Name: BuschGross (1)
+  m_Name: bushBig (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4642,7 +4619,7 @@ GameObject:
   - component: {fileID: 778692410}
   - component: {fileID: 778692411}
   m_Layer: 0
-  m_Name: baum (5)
+  m_Name: tree (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4715,6 +4692,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &778852680
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 653634549}
+    m_Modifications:
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 77.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.934
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8496836896711832325, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_Name
+      value: Justin
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+--- !u!4 &778852681 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+  m_PrefabInstance: {fileID: 778852680}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &789103745
 GameObject:
   m_ObjectHideFlags: 0
@@ -4726,7 +4765,7 @@ GameObject:
   - component: {fileID: 789103746}
   - component: {fileID: 789103747}
   m_Layer: 0
-  m_Name: baum (6)
+  m_Name: tree (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5029,7 +5068,7 @@ GameObject:
   - component: {fileID: 803706505}
   - component: {fileID: 803706506}
   m_Layer: 0
-  m_Name: BuschGross (10)
+  m_Name: bushBig (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5113,7 +5152,7 @@ GameObject:
   - component: {fileID: 819387407}
   - component: {fileID: 819387408}
   m_Layer: 0
-  m_Name: baumSchief
+  m_Name: treeCrooked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5424,7 +5463,7 @@ MonoBehaviour:
   runSpeed: 40
 --- !u!95 &820667358
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5441,7 +5480,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &820667359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5697,7 +5737,7 @@ GameObject:
   - component: {fileID: 827761061}
   - component: {fileID: 827761062}
   m_Layer: 0
-  m_Name: BuschKlein (2)
+  m_Name: bushesSmall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5905,7 +5945,7 @@ GameObject:
   - component: {fileID: 903415950}
   - component: {fileID: 903415951}
   m_Layer: 0
-  m_Name: BuschGross (9)
+  m_Name: bushBig (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6132,7 +6172,7 @@ GameObject:
   - component: {fileID: 933192737}
   - component: {fileID: 933192738}
   m_Layer: 0
-  m_Name: BuschGross (1)
+  m_Name: bushBig (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6483,7 +6523,7 @@ GameObject:
   - component: {fileID: 995313681}
   - component: {fileID: 995313682}
   m_Layer: 0
-  m_Name: baum (4)
+  m_Name: tree (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6696,7 +6736,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000398609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0599995, y: 2.6100001, z: -10}
+  m_LocalPosition: {x: 1.0599992, y: 1.8700001, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7108,7 +7148,7 @@ GameObject:
   - component: {fileID: 1014510216}
   - component: {fileID: 1014510217}
   m_Layer: 0
-  m_Name: BuschKlein (5)
+  m_Name: bushesSmall (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7192,7 +7232,7 @@ GameObject:
   - component: {fileID: 1032182486}
   - component: {fileID: 1032182487}
   m_Layer: 0
-  m_Name: baum (2)
+  m_Name: tree (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7942,7 +7982,7 @@ GameObject:
   - component: {fileID: 1130591027}
   - component: {fileID: 1130591028}
   m_Layer: 0
-  m_Name: BuschKlein (4)
+  m_Name: BushSmall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8102,7 +8142,7 @@ GameObject:
   - component: {fileID: 1151472498}
   - component: {fileID: 1151472499}
   m_Layer: 0
-  m_Name: BuschKlein (6)
+  m_Name: BushSmall (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8217,7 +8257,7 @@ GameObject:
   - component: {fileID: 1164692508}
   - component: {fileID: 1164692509}
   m_Layer: 0
-  m_Name: baum (6)
+  m_Name: tree (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8343,10 +8383,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e0d4b501440e334183393b36d054f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1170870016}
 --- !u!95 &1170870016
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -8363,7 +8402,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1170870017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8412,7 +8452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1173956623}
   m_Layer: 0
-  m_Name: Baume
+  m_Name: Trees
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8452,7 +8492,7 @@ GameObject:
   - component: {fileID: 1174418194}
   - component: {fileID: 1174418195}
   m_Layer: 0
-  m_Name: BuschGross (5)
+  m_Name: bushBig (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8536,7 +8576,7 @@ GameObject:
   - component: {fileID: 1190386806}
   - component: {fileID: 1190386807}
   m_Layer: 0
-  m_Name: baum (2)
+  m_Name: tree (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8760,7 +8800,7 @@ GameObject:
   - component: {fileID: 1212126003}
   - component: {fileID: 1212126004}
   m_Layer: 0
-  m_Name: BuschGross (7)
+  m_Name: bushBig (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8905,7 +8945,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1243938907}
   m_Layer: 0
-  m_Name: Baume
+  m_Name: Trees
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9007,7 +9047,7 @@ GameObject:
   - component: {fileID: 1261603043}
   - component: {fileID: 1261603044}
   m_Layer: 0
-  m_Name: BuschGross (7)
+  m_Name: bushBig (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9307,7 +9347,7 @@ GameObject:
   - component: {fileID: 1288130820}
   - component: {fileID: 1288130821}
   m_Layer: 0
-  m_Name: BuschKlein (1)
+  m_Name: bushesSmall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9453,7 +9493,7 @@ GameObject:
   - component: {fileID: 1292590945}
   - component: {fileID: 1292590946}
   m_Layer: 0
-  m_Name: BuschGross (3)
+  m_Name: bushBig (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10090,7 +10130,7 @@ GameObject:
   - component: {fileID: 1413488657}
   - component: {fileID: 1413488658}
   m_Layer: 0
-  m_Name: baum (3)
+  m_Name: tree (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10176,7 +10216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3842616199149028060, guid: 45086a1c1d8f2464ca7d263202e2e2e0, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3842616199149028060, guid: 45086a1c1d8f2464ca7d263202e2e2e0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10240,7 +10280,7 @@ GameObject:
   - component: {fileID: 1427968759}
   - component: {fileID: 1427968760}
   m_Layer: 0
-  m_Name: BuschGross (8)
+  m_Name: bushBig (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10359,7 +10399,7 @@ GameObject:
   - component: {fileID: 1467546633}
   - component: {fileID: 1467546634}
   m_Layer: 0
-  m_Name: BuschKlein (2)
+  m_Name: BushSmall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10736,7 +10776,7 @@ GameObject:
   - component: {fileID: 1483867355}
   - component: {fileID: 1483867356}
   m_Layer: 0
-  m_Name: BuschGross (6)
+  m_Name: bushBig (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10859,7 +10899,7 @@ GameObject:
   - component: {fileID: 1504245910}
   - component: {fileID: 1504245911}
   m_Layer: 0
-  m_Name: BuschGross (9)
+  m_Name: bushBig (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10943,7 +10983,7 @@ GameObject:
   - component: {fileID: 1504823806}
   - component: {fileID: 1504823807}
   m_Layer: 0
-  m_Name: baum (7)
+  m_Name: tree (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11104,7 +11144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1512914860}
   m_Layer: 0
-  m_Name: "B\xFCscheVorn"
+  m_Name: bushesForeground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11339,7 +11379,7 @@ GameObject:
   - component: {fileID: 1553278913}
   - component: {fileID: 1553278914}
   m_Layer: 0
-  m_Name: baum
+  m_Name: tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11423,7 +11463,7 @@ GameObject:
   - component: {fileID: 1555341940}
   - component: {fileID: 1555341941}
   m_Layer: 0
-  m_Name: baum (1)
+  m_Name: tree (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11496,72 +11536,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &1555745073
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 653634549}
-    m_Modifications:
-    - target: {fileID: 331284003590270464, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_Name
-      value: Justin
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 77.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 9.934
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5878957691923658092, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: playerAnimator
-      value: 
-      objectReference: {fileID: 820667358}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
---- !u!4 &1555745074 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-  m_PrefabInstance: {fileID: 1555745073}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1566820566
 GameObject:
   m_ObjectHideFlags: 0
@@ -11573,7 +11547,7 @@ GameObject:
   - component: {fileID: 1566820567}
   - component: {fileID: 1566820568}
   m_Layer: 0
-  m_Name: baum (3)
+  m_Name: tree (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11687,7 +11661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1575884902}
   m_Layer: 0
-  m_Name: "B\xFCscheVorn"
+  m_Name: bushesForeGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11747,7 +11721,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelToLoad: level18
   sceneFader: {fileID: 301995584}
-  SetLevel: 17
 --- !u!61 &1587070610
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11884,7 +11857,7 @@ GameObject:
   - component: {fileID: 1593762844}
   - component: {fileID: 1593762845}
   m_Layer: 0
-  m_Name: BuschGross (10)
+  m_Name: bushBig (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11968,7 +11941,7 @@ GameObject:
   - component: {fileID: 1611732298}
   - component: {fileID: 1611732299}
   m_Layer: 0
-  m_Name: BuschKlein (4)
+  m_Name: bushesSmall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12139,7 +12112,7 @@ GameObject:
   - component: {fileID: 1632139283}
   - component: {fileID: 1632139284}
   m_Layer: 0
-  m_Name: BuschGross (6)
+  m_Name: bushBig (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12730,7 +12703,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 --- !u!95 &1726973747
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -12747,7 +12720,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1730844256
 GameObject:
   m_ObjectHideFlags: 0
@@ -12790,7 +12764,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1730844258
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -12807,7 +12781,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1730844259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12874,7 +12849,7 @@ GameObject:
   - component: {fileID: 1748426476}
   - component: {fileID: 1748426477}
   m_Layer: 0
-  m_Name: BuschGross
+  m_Name: bushBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13008,7 +12983,7 @@ GameObject:
   - component: {fileID: 1764246243}
   - component: {fileID: 1764246242}
   m_Layer: 0
-  m_Name: 'Clouds Note: 15.841 space between'
+  m_Name: Clouds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13135,7 +13110,7 @@ GameObject:
   - component: {fileID: 1812030725}
   - component: {fileID: 1812030726}
   m_Layer: 0
-  m_Name: BuschGross (2)
+  m_Name: bushBig (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23640,7 +23615,7 @@ PrefabInstance:
       objectReference: {fileID: 820667352}
     - target: {fileID: 733867154069418468, guid: accae43ccb0ad7f47906380787932678, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 733867154069418468, guid: accae43ccb0ad7f47906380787932678, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23704,7 +23679,7 @@ GameObject:
   - component: {fileID: 1864443452}
   - component: {fileID: 1864443453}
   m_Layer: 0
-  m_Name: BuschGross (2)
+  m_Name: bushBig (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23788,7 +23763,7 @@ GameObject:
   - component: {fileID: 1888155347}
   - component: {fileID: 1888155348}
   m_Layer: 0
-  m_Name: BuschKlein (6)
+  m_Name: bushesSmall (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23946,7 +23921,7 @@ GameObject:
   - component: {fileID: 1944391306}
   - component: {fileID: 1944391307}
   m_Layer: 0
-  m_Name: BuschKlein
+  m_Name: BushSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24030,7 +24005,7 @@ GameObject:
   - component: {fileID: 1986779042}
   - component: {fileID: 1986779043}
   m_Layer: 0
-  m_Name: baum (1)
+  m_Name: tree (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24224,7 +24199,7 @@ GameObject:
   - component: {fileID: 2031744371}
   - component: {fileID: 2031744372}
   m_Layer: 0
-  m_Name: BuschGross (4)
+  m_Name: bushBig (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24745,7 +24720,7 @@ GameObject:
   - component: {fileID: 2067207046}
   - component: {fileID: 2067207047}
   m_Layer: 0
-  m_Name: BuschGross (4)
+  m_Name: bushBig (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25010,7 +24985,7 @@ GameObject:
   - component: {fileID: 2123424935}
   - component: {fileID: 2123424936}
   m_Layer: 0
-  m_Name: HausAlt
+  m_Name: houseOld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

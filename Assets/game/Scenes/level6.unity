@@ -648,7 +648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e0d4b501440e334183393b36d054f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 139930437}
 --- !u!95 &139930437
 Animator:
   serializedVersion: 5
@@ -2237,9 +2236,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standardUI: []
   secondUI: []
-  changeWhenEnabledUI: []
-  changeWhenDisabledUI: []
-  sceneFader: {fileID: 301995584}
+  changeOnlyWhenEnabledUI: []
+  changeOnlyWhenDisabledUI: []
 --- !u!4 &263201670
 Transform:
   m_ObjectHideFlags: 0
@@ -27563,7 +27561,7 @@ GameObject:
   - component: {fileID: 2093110157}
   - component: {fileID: 2093110158}
   m_Layer: 0
-  m_Name: 'Clouds Note: 15.841 space between'
+  m_Name: Clouds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

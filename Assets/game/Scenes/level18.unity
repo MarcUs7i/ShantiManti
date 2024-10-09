@@ -257,7 +257,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40152486}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0599995, y: 1.8700001, z: -10}
+  m_LocalPosition: {x: 1.0599992, y: 1.8700001, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 60116625}
   - component: {fileID: 60116626}
   m_Layer: 0
-  m_Name: BuschKlein (3)
+  m_Name: bushSmall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1523,33 +1523,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d790f502f90764bb3d4c02870b98a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: Start
-  start: Start
-  levelselect: LevelSelect
-  levelTutorial: levelTutorial
-  level1: level1
-  level2: level2
-  level3: level3
-  level4: level4
-  level5: level5
-  level6: level6
-  level7: level7
-  level8: level8
-  level9: level9
-  level10: level10
-  level11: level11
-  level12: level12
-  level13: level13
-  level14: level14
-  level15: level15
-  level16: level16
-  level17: level17
-  level18: level18
-  level19: level19
-  level20: level20
-  bonus: bonus
-  about: About
-  sceneFader: {fileID: 301995584}
+  standardUI: []
+  secondUI: []
+  changeOnlyWhenEnabledUI: []
+  changeOnlyWhenDisabledUI: []
 --- !u!4 &263201670
 Transform:
   m_ObjectHideFlags: 0
@@ -1728,7 +1705,7 @@ GameObject:
   - component: {fileID: 286330861}
   - component: {fileID: 286330860}
   m_Layer: 0
-  m_Name: 'Clouds Note: 15.841 space between'
+  m_Name: Clouds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1939,7 +1916,7 @@ GameObject:
   - component: {fileID: 311798015}
   - component: {fileID: 311798016}
   m_Layer: 0
-  m_Name: HausAlt
+  m_Name: houseOld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2023,7 +2000,7 @@ GameObject:
   - component: {fileID: 422917042}
   - component: {fileID: 422917043}
   m_Layer: 0
-  m_Name: baum (5)
+  m_Name: tree (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2185,7 +2162,7 @@ GameObject:
   - component: {fileID: 503064545}
   - component: {fileID: 503064546}
   m_Layer: 0
-  m_Name: BuschKlein (5)
+  m_Name: bushSmall (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3802,7 +3779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 594312030}
   m_Layer: 0
-  m_Name: "B\xFCscheHinten"
+  m_Name: bushesBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3918,7 +3895,7 @@ GameObject:
   - component: {fileID: 614326682}
   - component: {fileID: 614326683}
   m_Layer: 0
-  m_Name: BuschGross (3)
+  m_Name: bushBig (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4076,7 +4053,7 @@ Transform:
   m_Children:
   - {fileID: 1356178063}
   - {fileID: 1186793178}
-  - {fileID: 1349155068}
+  - {fileID: 1972736518}
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4123,7 +4100,7 @@ GameObject:
   - component: {fileID: 661138666}
   - component: {fileID: 661138667}
   m_Layer: 0
-  m_Name: HausNormal
+  m_Name: houseNormal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5122,7 +5099,7 @@ GameObject:
   - component: {fileID: 803706505}
   - component: {fileID: 803706506}
   m_Layer: 0
-  m_Name: BuschGross (10)
+  m_Name: bushBig (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5433,7 +5410,7 @@ MonoBehaviour:
   runSpeed: 40
 --- !u!95 &820667358
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5450,7 +5427,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &820667359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5925,7 +5903,7 @@ GameObject:
   - component: {fileID: 938481649}
   - component: {fileID: 938481650}
   m_Layer: 0
-  m_Name: hausModern
+  m_Name: houseModern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6278,7 +6256,7 @@ GameObject:
   - component: {fileID: 995313681}
   - component: {fileID: 995313682}
   m_Layer: 0
-  m_Name: baum (4)
+  m_Name: tree (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6429,7 +6407,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000398609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0599995, y: 2.6100001, z: -10}
+  m_LocalPosition: {x: 1.0599992, y: 1.8700001, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7351,7 +7329,7 @@ GameObject:
   - component: {fileID: 1130591027}
   - component: {fileID: 1130591028}
   m_Layer: 0
-  m_Name: BuschKlein (4)
+  m_Name: bushSmall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7435,7 +7413,7 @@ GameObject:
   - component: {fileID: 1151472498}
   - component: {fileID: 1151472499}
   m_Layer: 0
-  m_Name: BuschKlein (6)
+  m_Name: bushSmall (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7592,10 +7570,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e0d4b501440e334183393b36d054f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1170870016}
 --- !u!95 &1170870016
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7612,7 +7589,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1170870017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7662,7 +7640,7 @@ GameObject:
   - component: {fileID: 1174418194}
   - component: {fileID: 1174418195}
   m_Layer: 0
-  m_Name: BuschGross (5)
+  m_Name: bushBig (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7812,7 +7790,7 @@ GameObject:
   - component: {fileID: 1190386806}
   - component: {fileID: 1190386807}
   m_Layer: 0
-  m_Name: baum (2)
+  m_Name: tree (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8131,7 +8109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1243938907}
   m_Layer: 0
-  m_Name: Baume
+  m_Name: Trees
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8169,7 +8147,7 @@ GameObject:
   - component: {fileID: 1261603043}
   - component: {fileID: 1261603044}
   m_Layer: 0
-  m_Name: BuschGross (7)
+  m_Name: bushBig (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9080,76 +9058,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1001 &1349155067
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 653634549}
-    m_Modifications:
-    - target: {fileID: 331284003590270464, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_Name
-      value: Justin
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 53.669647
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.951
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3740120983872638389, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5878957691923658092, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-      propertyPath: playerAnimator
-      value: 
-      objectReference: {fileID: 820667358}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
---- !u!4 &1349155068 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2472003459060674357, guid: 4fcb4dc8b2558e445b9f56c4f205e150, type: 3}
-  m_PrefabInstance: {fileID: 1349155067}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1356178062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9305,7 +9213,7 @@ GameObject:
   - component: {fileID: 1427968759}
   - component: {fileID: 1427968760}
   m_Layer: 0
-  m_Name: BuschGross (8)
+  m_Name: bushBig (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9389,7 +9297,7 @@ GameObject:
   - component: {fileID: 1467546633}
   - component: {fileID: 1467546634}
   m_Layer: 0
-  m_Name: BuschKlein (2)
+  m_Name: bushSmall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9580,7 +9488,7 @@ GameObject:
   - component: {fileID: 1483867355}
   - component: {fileID: 1483867356}
   m_Layer: 0
-  m_Name: BuschGross (6)
+  m_Name: bushBig (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9703,7 +9611,7 @@ GameObject:
   - component: {fileID: 1504245910}
   - component: {fileID: 1504245911}
   m_Layer: 0
-  m_Name: BuschGross (9)
+  m_Name: bushBig (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9786,7 +9694,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1512914860}
   m_Layer: 0
-  m_Name: "B\xFCscheVorn"
+  m_Name: bushesForeground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9957,7 +9865,7 @@ GameObject:
   - component: {fileID: 1553278913}
   - component: {fileID: 1553278914}
   m_Layer: 0
-  m_Name: baum
+  m_Name: tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10041,7 +9949,7 @@ GameObject:
   - component: {fileID: 1566820567}
   - component: {fileID: 1566820568}
   m_Layer: 0
-  m_Name: baum (3)
+  m_Name: tree (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10255,7 +10163,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelToLoad: level19
   sceneFader: {fileID: 301995584}
-  SetLevel: 18
 --- !u!61 &1587070610
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10925,7 +10832,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 --- !u!95 &1726973747
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10942,7 +10849,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1730844256
 GameObject:
   m_ObjectHideFlags: 0
@@ -10985,7 +10893,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1730844258
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -11002,7 +10910,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1730844259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24988,7 +24897,7 @@ GameObject:
   - component: {fileID: 1893941502}
   - component: {fileID: 1893941503}
   m_Layer: 0
-  m_Name: Haus
+  m_Name: house
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25092,6 +25001,68 @@ Transform:
   m_Father: {fileID: 286330861}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1972736517
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 653634549}
+    m_Modifications:
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 53.669647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.951
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8496836896711832325, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_Name
+      value: Justin
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+--- !u!4 &1972736518 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+  m_PrefabInstance: {fileID: 1972736517}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1986779041
 GameObject:
   m_ObjectHideFlags: 0
@@ -25103,7 +25074,7 @@ GameObject:
   - component: {fileID: 1986779042}
   - component: {fileID: 1986779043}
   m_Layer: 0
-  m_Name: baum (1)
+  m_Name: tree (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25578,7 +25549,7 @@ GameObject:
   - component: {fileID: 2067207046}
   - component: {fileID: 2067207047}
   m_Layer: 0
-  m_Name: BuschGross (4)
+  m_Name: bushBig (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

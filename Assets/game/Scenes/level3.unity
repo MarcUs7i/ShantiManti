@@ -1603,9 +1603,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standardUI: []
   secondUI: []
-  changeWhenEnabledUI: []
-  changeWhenDisabledUI: []
-  sceneFader: {fileID: 301995584}
+  changeOnlyWhenEnabledUI: []
+  changeOnlyWhenDisabledUI: []
 --- !u!4 &263201670
 Transform:
   m_ObjectHideFlags: 0
@@ -41535,7 +41534,7 @@ GameObject:
   - component: {fileID: 1219835583}
   - component: {fileID: 1219835584}
   m_Layer: 0
-  m_Name: 'Clouds Note: 15.841 space between'
+  m_Name: Clouds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41620,7 +41619,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Crouch!!
+  m_text: Crouch!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -45360,7 +45359,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e0d4b501440e334183393b36d054f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1732107369}
 --- !u!95 &1732107369
 Animator:
   serializedVersion: 5
