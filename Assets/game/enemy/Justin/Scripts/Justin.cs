@@ -4,25 +4,23 @@ using UnityEngine;
 
 public class Justin : MonoBehaviour
 {
-    public float range = 10f; // the range at which the enemy will start moving towards the player
-    public float speed = 5f; // the speed at which the enemy will move
+    public float range = 10f;
+    public float speed = 5f;
 
-    private Transform player; // reference to the player's transform
-    private Rigidbody2D rb; // reference to the enemy's Rigidbody2D component
+    private Transform player;
+    private Rigidbody2D rb;
     public Collider2D groundCheckCollider;
 
     public GameObject deathEffect; // the death effect prefab
-    public Animator playerAnimator;
+    private Animator playerAnimator;
 
     void Start()
     {
         // find the player's transform by finding the object with the "Player" tag
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerAnimator = player.GetComponent<Animator>();
 
-        // get the enemy's Rigidbody2D component
         rb = GetComponent<Rigidbody2D>();
-
-        // get the enemy's collider component
     }
 
     void Update()
@@ -31,7 +29,7 @@ public class Justin : MonoBehaviour
         float distance = Vector2.Distance(transform.position, player.position);
 
         // if the distance between the enemy and the player is less than the range
-        if (distance < range && Pause.IsPause == false)
+        if (distance < range && !Pause.IsPause)
         {
             // move the enemy towards the player at the specified speed
             transform.position += Vector3.left * speed * Time.deltaTime;
@@ -44,7 +42,6 @@ public class Justin : MonoBehaviour
             // check if the enemy is not on the ground
             if (!IsOnGround())
             {
-                // destroy the enemy game object
                 DestroyEnemy();
             }
         }
@@ -61,7 +58,6 @@ public class Justin : MonoBehaviour
                 // Destroy the enemy game object
                 PlayerMovement.jump = true;
                 playerAnimator.SetBool("IsJumping", true);
-                //PlayerMovement.AllowJump = false;
                 DestroyEnemy();
             }
             else
