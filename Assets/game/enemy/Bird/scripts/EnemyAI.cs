@@ -10,7 +10,7 @@ public class EnemyAI : MonoBehaviour
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
 
-    public Transform enemyGFX;
+    private Transform enemyGFX;
 
     Path path;
     int currentWaypoint = 0;
@@ -20,11 +20,11 @@ public class EnemyAI : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rb;
 
-    // Start is called before the first frame update
     void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
+        enemyGFX = GetComponentInChildren<SpriteRenderer>().transform;
 
         InvokeRepeating("UpdatePath", 0f, .5f);
     }
@@ -46,7 +46,6 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (Pause.IsPause == false)

@@ -5,49 +5,47 @@ using Pathfinding;
 
 public class BirdBoss : MonoBehaviour
 {
-    public Animator animator;
-
     public Transform target;
-    public float SlowSpeed = 100f;
-    public float NormalSpeed = 300f;
-    public float FastSpeed = 500f;
-    public float speed = 300f;
+
+    [Header("Speed & Range")]
+    public float defaultSpeed = 300f;
+    public float StartRange = 20f;
+    public float attackableRange = 10f;
+
+    [Header("Encourage")]
     public float encourageSpeed = 700f;
     public float encourageSec = 2.0f;
+
+    [Header("Pathfinding")]
     public float nextWaypointDistance = 3f;
+    int currentWaypoint = 0;
+
+    [Header("Audio")]
     public AudioSource BackgroundMusic;
-    public AudioSource audioSource;
-    bool IsPlay = false;
+    AudioSource audioSFX;
 
-
-    public Transform enemyGFX;
+    [Header("Health")]
+    public int health = 100;
+    public GameObject deathEffect;
 
     Path path;
-    int currentWaypoint = 0;
-    bool start = false;
-    public float StartRange = 20f;
-
+    Animator animator;
+    Transform enemyGFX;
     Seeker seeker;
     Rigidbody2D rb;
 
-    //health
-    public int health = 100;
-    public GameObject deathEffect;
-    public static bool BirdDead = false;
-    bool StopHearting = false;
-    bool TimeStopHearting = false;
-
-    float encourageStart = 1f;
-    bool DamageAnim = false;
-    float distance;
-    public float range = 10f;
-
-    bool Stop = false;
+    bool StopHurting = false;
+    bool isInStage2 = false;
+    bool transitioningToStage2 = false;
 
     void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
+        enemyGFX = GetComponentInChildren<SpriteRenderer>().transform;
+
+        audioSFX = GetComponent<AudioSource>();
 
         InvokeRepeating("UpdatePath", 0f, .5f);
     }
@@ -71,7 +69,18 @@ public class BirdBoss : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Pause.IsPause == false && Stop == false && start == true)
+        if(Pause.IsPause)
+        {
+            return;
+        }
+        float distance = Vector2.Distance(transform.position, target.position);
+
+        if (health <= 25 && !isInStage2)
+        {
+            StartCoroutine(Encourage());
+        }  
+
+        if (!transitioningToStage2 && distance < StartRange)
         {
             if (path == null)
             {
@@ -83,11 +92,11 @@ public class BirdBoss : MonoBehaviour
             }
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] -rb.position).normalized;
-            Vector2 force = direction * speed * Time.deltaTime;
+            Vector2 force = direction * defaultSpeed * Time.deltaTime;
 
             rb.AddForce(force);
 
-            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+            distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
             if (distance < nextWaypointDistance)
             {
@@ -109,7 +118,8 @@ public class BirdBoss : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Bullet" && distance < range && StopHearting == false && TimeStopHearting == false)
+        float distance = Vector2.Distance(transform.position, target.position);
+        if (collider.gameObject.tag == "Bullet" && distance < attackableRange && !StopHurting)
         {
             TakeDamage(10);
         }
@@ -126,7 +136,7 @@ public class BirdBoss : MonoBehaviour
     // Health
     void TakeDamage(int damage)
 	{
-		if (MainMenu.ExitLevel == false)
+		if (!MainMenu.ExitLevel)
 		{
 			health -= damage;
 
@@ -135,47 +145,12 @@ public class BirdBoss : MonoBehaviour
 
 			if (health <= 0)
 			{
-				Die();
+                // Die
+				Instantiate(deathEffect, transform.position, Quaternion.identity);
+                Destroy(gameObject);
 			}
 		}
 	}
-
-    void Die ()
-    {
-        BirdDead = true;
-        Instantiate(deathEffect, transform.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
-    // Health End
-
-    void Update()
-    {
-        if (Pause.IsPause == false)
-        {
-            if (health <= 25 && encourageStart == 1f)
-            {
-                StartCoroutine(Encourage());
-            }
-
-            if (start == false)
-            {
-                float distancce = Vector2.Distance(transform.position, target.position);
-
-                if (distancce < StartRange)
-                {
-                    //Debug.Log("started");
-                    start = true;
-                }
-            }
-            if (IsPlay == true)
-		    {
-			    StartCoroutine(Music());
-			    IsPlay = false;
-		    }
-
-            
-        }
-    }
 
     IEnumerator Attack()
     {
@@ -187,46 +162,42 @@ public class BirdBoss : MonoBehaviour
 
     IEnumerator DamageAnimation()
     {
-        if (health <= 60 && encourageStart == 1f)
-        {
-            DamageAnim = true;
-        }
-        if (DamageAnim == false)
-        {
-            animator.SetBool("Damage", true);
-            yield return new WaitForSeconds(2.0f);
-            animator.SetBool("Damage", false);
-        }
+        animator.SetBool("Damage", true);
+        yield return new WaitForSeconds(2.0f);
+        animator.SetBool("Damage", false);
     }
 
     IEnumerator Encourage()
     {
-        StopHearting = true;
-        encourageStart++;
+        StopHurting = true;
+        isInStage2 = true;
+
         animator.SetBool("Encourage", true);
-        Stop = true;
-        IsPlay = true;
-        NormalSpeed = FastSpeed;
-        speed = encourageSpeed;
+        transitioningToStage2 = true;
+        StartCoroutine(Music());
+
+        defaultSpeed = encourageSpeed;
         yield return new WaitForSeconds(encourageSec);
-        //animator.SetBool("Encourage", false);
-        Stop = false;
-        StopHearting = false;
-        DamageAnim = false;
+
+        transitioningToStage2 = false;
+        StopHurting = false;
     }
 
     IEnumerator BulletAttacked()
     {
-        TimeStopHearting = true;
+        StopHurting = true;
         yield return new WaitForSeconds(2.0f);
-        TimeStopHearting = false;
+        StopHurting = false;
     }
 
     IEnumerator Music()
     {
+        float oldVolume = BackgroundMusic.volume;
+
         BackgroundMusic.volume = 0.25f;
-        audioSource.Play();
+        audioSFX.Play();
+
         yield return new WaitForSeconds(3.0f);
-        BackgroundMusic.volume = 0.75f;
+        BackgroundMusic.volume = oldVolume;
     }
 }

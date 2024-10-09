@@ -2,26 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class BirdBossHealthBar : MonoBehaviour
 {
-    public BirdBoss birdBoss;
-	public Animator animator;
-	int NewHealth = 100;
+    BirdBoss birdBoss;
+	Animator animator;
 
 	void Start()
 	{
+		birdBoss = GetComponentInParent<BirdBoss>();
+		animator = GetComponent<Animator>();
 		animator.SetBool("100", true);
 	}
 
 	void Update()
     {
-		NewHealth = (birdBoss.health * 100) / 200;
-
 		int[] health = { 100, 75, 50, 25 };
 		for (int i = 0; i < 4; i++)
 		{
-			animator.SetBool(health[i].ToString(), health[i] == NewHealth);
+			animator.SetBool(health[i].ToString(), birdBoss.health >= health[i]);
 		}
     }
 }
