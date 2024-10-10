@@ -6,20 +6,13 @@ public class BulletNugget : MonoBehaviour
 {
     public float speed = 20f;
     public int damage = 40;
-    public Rigidbody2D rb;
     public GameObject impactEffect;
+    Rigidbody2D rb;
 
-    // Start is called before the first frame update
     void Start()
     {
-        if (Firnschliff.BulletNuggetDirection == 0f)
-        {
-            rb.velocity = -transform.right * speed;
-        }
-        if (Firnschliff.BulletNuggetDirection == 1f)
-        {
-            rb.velocity = transform.right * speed;
-        }
+        rb = GetComponent<Rigidbody2D>();
+        rb.velocity = transform.right * Firnschliff.BulletNuggetDirection * speed;
     }
 
     void OnTriggerEnter2D(Collider2D collision)

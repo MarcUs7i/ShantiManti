@@ -5,39 +5,41 @@ using Pathfinding;
 
 public class Firnschliff : MonoBehaviour
 {
-
-    public Transform target;
-    public Transform firePoint;
-    public float speed = 3f;
+    [Header("Speed & Range")]
+    public float range = 10f;
     public float SlowSpeed = 0.5f;
     public float NormalSpeed = 3f;
+    float speed = 3f;
 
-    public float range = 10f; // the range at which the enemy will start moving towards the player
-    float distance;
-    public Transform enemyGFX;
-    private Transform player; // reference to the player's transform
-    public GameObject EnemyWeapon;
-
-    Rigidbody2D rb;
-    public Animator animator;
-    bool Stop = false;
-    public static float BulletNuggetDirection;
-
-    // Health
+    [Header("Health")]
     public int health = 100;
     public GameObject deathEffect;
 
-    bool TimeStopHearting = false;
+    [Header("Weapon")]
+    public Transform firePoint;
+    public GameObject EnemyWeapon;
 
+    [Header("Ground Check")]
     public Collider2D groundCheckCollider;
 
-    // Start is called before the first frame update
+    Rigidbody2D rb;
+    Animator animator;
+    Transform player;
+    Transform enemyGFX;
+    
+    public static float BulletNuggetDirection;
+    bool Stop = false;
+    bool StopHurting = false;
+
+
     void Start()
     {
-        //rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        BulletNuggetDirection = 0f;
+        enemyGFX = GetComponentInChildren<Transform>();
+
+        BulletNuggetDirection = -1f;
     }
 
 
@@ -51,7 +53,8 @@ public class Firnschliff : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Bullet" && distance < range && TimeStopHearting == false)
+        float distance = Vector2.Distance(transform.position, player.position);
+        if (collider.gameObject.tag == "Bullet" && distance < range && !StopHurting)
         {
             StartCoroutine(BulletAttacked());
             TakeDamage(50);
@@ -61,21 +64,15 @@ public class Firnschliff : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (MainMenu.ExitLevel == false)
+        if (!MainMenu.ExitLevel)
 		{
 			health -= damage;
 
 			if (health <= 0)
 			{
-				Die();
+                DestroyEnemy();
 			}
 		}
-    }
-
-    void Die ()
-    {
-        Instantiate(deathEffect, transform.position, Quaternion.identity);
-        Destroy(gameObject);
     }
 
     void Update()
@@ -84,12 +81,17 @@ public class Firnschliff : MonoBehaviour
         {
             StartCoroutine(DamageAnimation());
         }
+
+        if (Pause.IsPause)
+        {
+            return;
+        }
         
         // calculate the distance between the enemy and the player
-        distance = Vector2.Distance(transform.position, player.position);
+        float distance = Vector2.Distance(transform.position, player.position);
 
         // if the distance between the enemy and the player is less than the range
-        if (distance < range && Pause.IsPause == false)
+        if (distance < range)
         {
             // move the enemy towards the player at the specified speed
             /*Vector2 direction = (player.position - transform.position).normalized;
@@ -97,7 +99,7 @@ public class Firnschliff : MonoBehaviour
             rb.velocity = direction * speed;*/
             transform.position += Vector3.left * speed * Time.deltaTime;
             distance = Vector2.Distance(transform.position, player.position);
-            if (Stop == false)
+            if (!Stop)
             {
                 StartCoroutine(Attack());
             }
@@ -109,7 +111,6 @@ public class Firnschliff : MonoBehaviour
             // check if the enemy is not on the ground
             if (!IsOnGround())
             {
-                // destroy the enemy game object
                 DestroyEnemy();
             }
         }
@@ -119,13 +120,16 @@ public class Firnschliff : MonoBehaviour
     {
         Stop = true;
         yield return new WaitForSeconds(2.0f);
+
         speed = SlowSpeed;
         animator.SetBool("Attack", true);
         Instantiate(EnemyWeapon, firePoint.position, firePoint.rotation);
         yield return new WaitForSeconds(2.0f);
         speed = NormalSpeed;
         animator.SetBool("Attack", false);
-        StartCoroutine(Wait());
+        
+        yield return new WaitForSeconds(2.0f);
+        Stop = false;
     }
 
     IEnumerator DamageAnimation()
@@ -134,18 +138,12 @@ public class Firnschliff : MonoBehaviour
         animator.SetBool("Damage", false);
     }
 
-    IEnumerator Wait()
-    {
-        yield return new WaitForSeconds(2.0f);
-        Stop = false;
-    }
-
     IEnumerator BulletAttacked()
     {
         animator.SetBool("Damage", true);
-        TimeStopHearting = true;
+        StopHurting = true;
         yield return new WaitForSeconds(0.5f);
-        TimeStopHearting = false;
+        StopHurting = false;
         animator.SetBool("Damage", false);
     }
 
