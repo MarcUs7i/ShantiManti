@@ -9695,10 +9695,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 653634549}
     m_Modifications:
-    - target: {fileID: 4684037969454935696, guid: a1347fb4c52e6a548bd9062e7d13680c, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 820667352}
     - target: {fileID: 6505881996475540674, guid: a1347fb4c52e6a548bd9062e7d13680c, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -25954,10 +25950,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3650605710375081848, guid: ad180bd9dbc48b24cb65ac52928f9626, type: 3}
-      propertyPath: playerAnimator
-      value: 
-      objectReference: {fileID: 820667358}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad180bd9dbc48b24cb65ac52928f9626, type: 3}
 --- !u!4 &1848770825 stripped

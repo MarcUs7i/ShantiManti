@@ -43,10 +43,9 @@ GameObject:
   - component: {fileID: 6505881996475540672}
   - component: {fileID: 162214712269757304}
   - component: {fileID: 6602366979412246790}
-  - component: {fileID: 7322200195759958493}
   - component: {fileID: 5414752344749137836}
-  - component: {fileID: 4684037969454935696}
   - component: {fileID: 6133319918204277873}
+  - component: {fileID: 4684037969454935696}
   m_Layer: 0
   m_Name: Kimberley
   m_TagString: Untagged
@@ -131,32 +130,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
---- !u!61 &7322200195759958493
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6505881996475540685}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.11888105}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.67902136, y: 1.7132858}
-  m_EdgeRadius: 0
 --- !u!70 &5414752344749137836
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -173,31 +146,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.044246197, y: -0.010143254}
   m_Size: {x: 0.6961546, y: 1.8760386}
   m_Direction: 0
---- !u!114 &4684037969454935696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6505881996475540685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c67d7adb15a7e48b919ef3160d5129, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  firePoint: {fileID: 4379911337085549254}
-  WalkStop: 0
-  speed: 500
-  nextWaypointDistance: 3
-  range: 10
-  attackRange: 8
-  enemyGFX: {fileID: 6505881997314923830}
-  EnemyWeapon: {fileID: 1539632861300792, guid: c2f28c6603e5bb349ae52028584ffbd3, type: 3}
-  animator: {fileID: 6505881997314923831}
-  health: 100
-  deathEffect: {fileID: 1755349173569476, guid: 3c45864be6a059a4a82a25e285298338, type: 3}
-  groundCheckCollider: {fileID: 6133319918204277873}
 --- !u!70 &6133319918204277873
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -214,6 +162,27 @@ CapsuleCollider2D:
   m_Offset: {x: -0.041537154, y: -0.97409743}
   m_Size: {x: 0.68854356, y: 0.041166417}
   m_Direction: 1
+--- !u!114 &4684037969454935696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6505881996475540685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c67d7adb15a7e48b919ef3160d5129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 500
+  range: 10
+  attackRange: 8
+  nextWaypointDistance: 3
+  health: 100
+  deathEffect: {fileID: 1755349173569476, guid: 3c45864be6a059a4a82a25e285298338, type: 3}
+  firePoint: {fileID: 4379911337085549254}
+  EnemyWeapon: {fileID: 1539632861300792, guid: c2f28c6603e5bb349ae52028584ffbd3, type: 3}
+  groundCheckCollider: {fileID: 6133319918204277873}
 --- !u!1 &6505881997314923825
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +271,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &6505881997314923831
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -319,4 +288,5 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

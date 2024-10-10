@@ -36,7 +36,7 @@ public class Kimberley : MonoBehaviour
     bool StopAttack = false;
     bool StopHurting = false;
     bool DestroyYourSelf = false;
-    public bool WalkStop = false;
+    bool WalkStop = false;
 
     void Start()
     {
