@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &3842616198376766249
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -104,7 +104,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3842616199149028051
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,13 +217,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095420678d20b514a88d71a86d84b7ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   speed: 750
-  nextWaypointDistance: 3
   range: 15
-  enemyGFX: {fileID: 3842616198376766248}
-  animator: {fileID: 3842616198376766249}
-  groundCheckCollider: {fileID: 4147001279113351536}
+  nextWaypointDistance: 3
   health: 100
   deathEffect: {fileID: 1755349173569476, guid: 3c45864be6a059a4a82a25e285298338, type: 3}
 --- !u!70 &8918774247366146758

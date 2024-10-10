@@ -6528,7 +6528,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000398609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0599992, y: 17.86, z: -10}
+  m_LocalPosition: {x: 1.0599992, y: 2.6100001, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7490,10 +7490,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8762593006546395627, guid: 45086a1c1d8f2464ca7d263202e2e2e0, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 820667352}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45086a1c1d8f2464ca7d263202e2e2e0, type: 3}
 --- !u!4 &1085736618 stripped
@@ -8175,10 +8171,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Firnschliff
       objectReference: {fileID: 0}
-    - target: {fileID: 6662362833382994038, guid: aef5038450b8fcc4088d5e291b6ebf4a, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 820667352}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef5038450b8fcc4088d5e291b6ebf4a, type: 3}
 --- !u!4 &1231122003 stripped
