@@ -22,14 +22,14 @@ public class Kimberley : MonoBehaviour
     public Transform firePoint;
     public GameObject EnemyWeapon;
 
-    [Header("Ground Check")]
+    [Header("")]
     public Collider2D groundCheckCollider;
+    public Transform enemyGFX;
 
     Path path;
     Seeker seeker;
     Rigidbody2D rb;
     Transform player;
-    Transform enemyGFX;
     Animator animator;
 
     public static float BulletKimDirection;
@@ -44,9 +44,6 @@ public class Kimberley : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        enemyGFX = GetComponentInChildren<Transform>();
-        animator = enemyGFX.GetComponent<Animator>();
 
         InvokeRepeating("UpdatePath", 0f, .5f);
     }

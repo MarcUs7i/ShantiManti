@@ -183,6 +183,7 @@ MonoBehaviour:
   firePoint: {fileID: 4379911337085549254}
   EnemyWeapon: {fileID: 1539632861300792, guid: c2f28c6603e5bb349ae52028584ffbd3, type: 3}
   groundCheckCollider: {fileID: 6133319918204277873}
+  enemyGFX: {fileID: 6505881997314923830}
 --- !u!1 &6505881997314923825
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 733867154069418470}
   - component: {fileID: 5919695935100980830}
   - component: {fileID: 848612645191291936}
-  - component: {fileID: 15649733}
   - component: {fileID: 6173885608408811435}
   - component: {fileID: 5373948927468551533}
+  - component: {fileID: 15649733}
   m_Layer: 0
   m_Name: Marc
   m_TagString: Untagged
@@ -130,31 +130,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
---- !u!114 &15649733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 733867154069418475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1892cb9cfec686345968c6605773fe4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  firePoint: {fileID: 7831235675031236576}
-  WalkStop: 0
-  speed: 500
-  nextWaypointDistance: 3
-  range: 15
-  attackRange: 8
-  enemyGFX: {fileID: 733867154372970512}
-  EnemyWeapon: {fileID: 1539632861300792, guid: 0b5e4760fedc4254b8387b76cc838b80, type: 3}
-  animator: {fileID: 733867154372970513}
-  health: 100
-  deathEffect: {fileID: 1755349173569476, guid: 3c45864be6a059a4a82a25e285298338, type: 3}
-  groundCheckCollider: {fileID: 5373948927468551533}
 --- !u!70 &6173885608408811435
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -187,6 +162,28 @@ CapsuleCollider2D:
   m_Offset: {x: -0.020001674, y: -1.0410254}
   m_Size: {x: 0.6771256, y: 0.059571013}
   m_Direction: 1
+--- !u!114 &15649733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733867154069418475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1892cb9cfec686345968c6605773fe4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 500
+  range: 15
+  attackRange: 8
+  nextWaypointDistance: 3
+  health: 100
+  deathEffect: {fileID: 1755349173569476, guid: 3c45864be6a059a4a82a25e285298338, type: 3}
+  firePoint: {fileID: 7831235675031236576}
+  EnemyWeapon: {fileID: 1539632861300792, guid: 0b5e4760fedc4254b8387b76cc838b80, type: 3}
+  groundCheckCollider: {fileID: 5373948927468551533}
+  enemyGFX: {fileID: 733867154372970512}
 --- !u!1 &733867154372970519
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +272,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &733867154372970513
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -292,4 +289,5 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

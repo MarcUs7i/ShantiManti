@@ -5,37 +5,38 @@ using Pathfinding;
 
 public class Marc : MonoBehaviour
 {
+    [Header("Speed & Range")]
+    public float speed = 500f;
+    public float range = 15f;
+    public float attackRange = 8f;
 
-    public Transform target;
-    public Transform firePoint;
-    public bool WalkStop = false;
-    public float speed = 200f;
+    [Header("Pathfinding")]
     public float nextWaypointDistance = 3f;
-    bool DestroyYourSelf = false;
-
-    public float range = 10f; // the range at which the enemy will start moving towards the player
-    public float attackRange = 8f; // the range at which the enemy will attack the player
-    float distance;
-    public Transform enemyGFX;
-    private Transform player; // reference to the player's transform
-    public GameObject EnemyWeapon;
-
-    Path path;
     int currentWaypoint = 0;
 
-    Seeker seeker;
-    Rigidbody2D rb;
-    public Animator animator;
-    bool Stop = false;
-    public static float BulletConDirection;
-
-    // Health
+    [Header("Health")]
     public int health = 100;
     public GameObject deathEffect;
 
-    bool TimeStopHearting = false;
+    [Header("Weapon")]
+    public Transform firePoint;
+    public GameObject EnemyWeapon;
 
+    [Header("")]
     public Collider2D groundCheckCollider;
+    public Transform enemyGFX;
+
+    Path path;
+    Seeker seeker;
+    Rigidbody2D rb;
+    Transform player;
+    Animator animator;
+
+    public static float BulletConDirection;
+    bool StopAttack = false;
+    bool StopHurting = false;
+    bool DestroyYourSelf = false;
+    bool WalkStop = false;
 
     void Start()
     {
@@ -44,7 +45,6 @@ public class Marc : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
-
         InvokeRepeating("UpdatePath", 0f, .5f);
     }
 
@@ -52,7 +52,7 @@ public class Marc : MonoBehaviour
     {
         if (seeker.IsDone())
         {
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+            seeker.StartPath(rb.position, player.position, OnPathComplete);
         }
     }
 
@@ -67,27 +67,26 @@ public class Marc : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (MainMenu.ExitLevel == false)
+        if (!MainMenu.ExitLevel)
 		{
 			health -= damage;
 
 			if (health <= 0)
 			{
-				Die();
+				DestroyEnemy();
 			}
 		}
     }
 
-    void Die ()
-    {
-        Instantiate(deathEffect, transform.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
-
     void FixedUpdate()
     {
-        distance = Vector2.Distance(transform.position, player.position);
-        if (Pause.IsPause == false && distance < range && WalkStop == false)
+        if (Pause.IsPause)
+        {
+            return;
+        }
+
+        float distance = Vector2.Distance(transform.position, player.position);
+        if (distance < range && !WalkStop)
         {
             if (path == null)
             {
@@ -103,7 +102,7 @@ public class Marc : MonoBehaviour
 
             rb.AddForce(force);
 
-            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+            distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
             if (distance < nextWaypointDistance)
             {
@@ -118,12 +117,12 @@ public class Marc : MonoBehaviour
             else if (rb.velocity.x <= -0.01f)
             {
                 enemyGFX.transform.localScale = new Vector3(1f, 1f, 1f);
-                BulletConDirection = 0f;
+                BulletConDirection = -1f;
             }
 
             if (distance < attackRange)
             {
-                if (Stop == false)
+                if (!StopAttack)
                 {
                     StartCoroutine(Attack());
                 }
@@ -132,10 +131,16 @@ public class Marc : MonoBehaviour
             DestroyYourSelf = true;
         }
 
-        distance = Vector2.Distance(transform.position, player.position);
-        if (distance > range && DestroyYourSelf == true)
+        if (!IsOnGround())
         {
-            DestroyYourSelf = false;
+            // destroy the enemy game object
+            DestroyEnemy();
+        }
+
+        // destroy the enemy game object if it is out of range
+        distance = Vector2.Distance(transform.position, player.position);
+        if (distance > range && DestroyYourSelf)
+        {
             Destroy(gameObject);
         }
         
@@ -151,38 +156,18 @@ public class Marc : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Bullet" && distance < range && TimeStopHearting == false)
+        float distance = Vector2.Distance(transform.position, player.position);
+        if (collider.gameObject.tag == "Bullet" && distance < range && !StopHurting)
         {
             StartCoroutine(BulletAttacked());
             TakeDamage(40);
         }
     }
 
-    void Update()
-    {
-        /*if (animator.GetBool("Damage"))
-        {
-            StartCoroutine(DamageAnimation());
-        }*/
-        /*if (Input.GetKeyDown(KeyCode.L))
-		{
-			StartCoroutine(Attack());
-		}*/
-        if (Pause.IsPause == false)
-        {
-            // check if the enemy is not on the ground
-            if (!IsOnGround())
-            {
-                // destroy the enemy game object
-                DestroyEnemy();
-            }
-        }
-    }
-
     IEnumerator Attack()
     {
         //Debug.Log("Attacked");
-        Stop = true;
+        StopAttack = true;
         yield return new WaitForSeconds(2.0f);
         WalkStop = true;
         animator.SetBool("Attack", true);
@@ -190,28 +175,18 @@ public class Marc : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         WalkStop = false;
         animator.SetBool("Attack", false);
-        StartCoroutine(Wait());
-    }
-
-    /*IEnumerator DamageAnimation()
-    {
+        
         yield return new WaitForSeconds(2.0f);
-        animator.SetBool("Damage", false);
-    }*/
-
-    IEnumerator Wait()
-    {
-        yield return new WaitForSeconds(2.0f);
-        Stop = false;
+        StopAttack = false;
     }
 
     IEnumerator BulletAttacked()
     {
         WalkStop = true;
         animator.SetBool("Damage", true);
-        TimeStopHearting = true;
+        StopHurting = true;
         yield return new WaitForSeconds(2.0f);
-        TimeStopHearting = false;
+        StopHurting = false;
         WalkStop = false;
         animator.SetBool("Damage", false);
     }
