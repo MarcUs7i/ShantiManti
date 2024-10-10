@@ -8580,10 +8580,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Niko
       objectReference: {fileID: 0}
-    - target: {fileID: 8839028357585900681, guid: 1ebf5405780ee1c4d86fd110b90f6ac5, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 820667352}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ebf5405780ee1c4d86fd110b90f6ac5, type: 3}
 --- !u!4 &1201979656 stripped
