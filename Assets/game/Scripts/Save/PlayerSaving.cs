@@ -8,7 +8,6 @@ public class PlayerSaving : MonoBehaviour
     public static int coins = 0;
     public static bool hasCompletedTutorial = false;
     public static bool movingClouds = true;
-    public static bool Deleting = false;
 
     void Awake()
     {
@@ -37,7 +36,6 @@ public class PlayerSaving : MonoBehaviour
 
     public static void DeletePlayer()
     {
-        Deleting = true;
         level = 0;
         coins = 0;
         hasCompletedTutorial = false;

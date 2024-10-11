@@ -43,7 +43,7 @@ public class SC_2DCoin : MonoBehaviour
 
     void Update()
     {
-        if (totalCoins != PlayerSaving.coins && !PlayerSaving.Deleting)
+        if (totalCoins != PlayerSaving.coins)
         {
             PlayerSaving.coins = totalCoins;
             PlayerSaving.SavePlayer();

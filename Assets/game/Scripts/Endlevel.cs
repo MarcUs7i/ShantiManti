@@ -27,7 +27,7 @@ public class Endlevel : MonoBehaviour
 
     void Update()
     {
-        if (level != PlayerSaving.level && !PlayerSaving.Deleting)
+        if (level != PlayerSaving.level)
         {
             if (PlayerSaving.level < level)
             {

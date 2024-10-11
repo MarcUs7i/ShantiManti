@@ -18,7 +18,7 @@ public class Aleksei : MonoBehaviour
 
     [Header("Stage2")]
     public float stage2Speed = 900f;
-    public float stage2AnimSec = 2.0f;
+    public float stage2AnimSec = 3.0f;
 
     [Header("Pathfinding")]
     public float nextWaypointDistance = 3f;

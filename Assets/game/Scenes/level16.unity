@@ -4619,10 +4619,6 @@ PrefabInstance:
       value: Aleksei
       objectReference: {fileID: 0}
     - target: {fileID: 6297549000983085029, guid: 7dcd7bf6b73974b41a58ae3191280b93, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 820667352}
-    - target: {fileID: 6297549000983085029, guid: 7dcd7bf6b73974b41a58ae3191280b93, type: 3}
       propertyPath: BackgroundMusic
       value: 
       objectReference: {fileID: 800220546}

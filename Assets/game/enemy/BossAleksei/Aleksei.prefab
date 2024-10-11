@@ -143,24 +143,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae1ab0fdd9e16a439d838ef09c03c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   firePoint: {fileID: 7831235675031236576}
-  SlowSpeed: 300
   NormalSpeed: 500
   FastSpeed: 700
-  speed: 500
-  encourageSpeed: 900
-  nextWaypointDistance: 3
-  BackgroundMusic: {fileID: 0}
-  audioSource: {fileID: 5670231526534885764}
-  health: 200
-  deathEffect: {fileID: 1755349173569476, guid: 3c45864be6a059a4a82a25e285298338, type: 3}
   range: 10
   attackRange: 8
-  enemyGFX: {fileID: 733867154372970512}
+  stage2Speed: 900
+  stage2AnimSec: 3
+  nextWaypointDistance: 3
+  BackgroundMusic: {fileID: 0}
+  health: 200
+  deathEffect: {fileID: 1755349173569476, guid: 3c45864be6a059a4a82a25e285298338, type: 3}
   EnemyWeapon: {fileID: 1539632861300792, guid: 6cc48262badcab34baa3ce3a2cc8203d, type: 3}
-  animator: {fileID: 733867154372970513}
-  encourageSec: 2
 --- !u!61 &1183544670447260753
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -371,7 +365,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &733867154372970513
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -388,7 +382,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4406158393300619773
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +472,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &1005185907
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -494,7 +489,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4016137151956235320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,5 +503,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a2fc0dc3cce174ea887f9123530715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aleksei: {fileID: 6297549000983085029}
-  animator: {fileID: 1005185907}
