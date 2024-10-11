@@ -222,6 +222,7 @@ MonoBehaviour:
   nextWaypointDistance: 3
   health: 100
   deathEffect: {fileID: 1755349173569476, guid: 3c45864be6a059a4a82a25e285298338, type: 3}
+  groundCheckCollider: {fileID: 4147001279113351536}
 --- !u!70 &8918774247366146758
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -251,6 +252,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.062099952, y: -0.9213682}
-  m_Size: {x: 0.7099047, y: 0.07086252}
+  m_Offset: {x: -0.062099952, y: -0.92672855}
+  m_Size: {x: 0.70990473, y: 0.0815834}
   m_Direction: 1

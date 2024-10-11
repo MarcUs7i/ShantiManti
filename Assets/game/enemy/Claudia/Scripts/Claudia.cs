@@ -18,11 +18,13 @@ public class Claudia : MonoBehaviour
     Rigidbody2D rb;
     Transform enemyGFX;
     Animator animator;
-    Collider2D groundCheckCollider;
 
     [Header("Health")]
     public int health = 100;
     public GameObject deathEffect;
+    
+    [Header("Ground Check")]
+    public Collider2D groundCheckCollider;
 
     bool StopHurting = false;
     bool StopAttack = false;
@@ -34,7 +36,6 @@ public class Claudia : MonoBehaviour
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        groundCheckCollider = GetComponent<Collider2D>();
         animator = GetComponentInChildren<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -69,7 +70,7 @@ public class Claudia : MonoBehaviour
         }
 
         float distance = Vector2.Distance(transform.position, player.position);
-        if (Stop == false && InNear == true && StopAttack == false)
+        if (!Stop && InNear && !StopAttack)
         {
             if (path == null)
             {
@@ -117,10 +118,8 @@ public class Claudia : MonoBehaviour
         // check if the enemy is not on the ground
         if (!IsOnGround())
         {
-            // destroy the enemy game object
             DestroyEnemy();
         }
-        
     }
 
     void OnCollisionEnter2D(Collision2D collision)
