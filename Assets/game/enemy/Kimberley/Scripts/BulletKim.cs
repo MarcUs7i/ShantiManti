@@ -12,7 +12,7 @@ public class BulletKim : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.right * Kimberley.BulletKimDirection * speed;
+        rb.linearVelocity = transform.right * Kimberley.BulletKimDirection * speed;
     }
 
     void OnTriggerEnter2D(Collider2D collision)

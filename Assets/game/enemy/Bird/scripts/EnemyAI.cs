@@ -76,11 +76,11 @@ public class EnemyAI : MonoBehaviour
                 currentWaypoint++;
             }
             //You can make look it differently, if you delete 'rb.velocity' and add 'force' instead.
-            if (rb.velocity.x >= 0.01f)
+            if (rb.linearVelocity.x >= 0.01f)
             {
                 enemyGFX.transform.localScale = new Vector3(-1f, 1f, 1f);
             }
-            else if (rb.velocity.x <= -0.01f)
+            else if (rb.linearVelocity.x <= -0.01f)
             {
                 enemyGFX.transform.localScale = new Vector3(1f, 1f, 1f);
             }

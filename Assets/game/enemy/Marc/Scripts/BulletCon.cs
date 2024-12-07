@@ -12,7 +12,7 @@ public class BulletCon : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.right * Marc.BulletConDirection * speed;
+        rb.linearVelocity = transform.right * Marc.BulletConDirection * speed;
     }
 
     void OnTriggerEnter2D(Collider2D collision)

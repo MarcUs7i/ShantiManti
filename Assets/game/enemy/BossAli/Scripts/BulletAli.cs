@@ -17,7 +17,7 @@ public class BulletAli : MonoBehaviour
         Vector3 newScale = transform.localScale;
 
         newScale.x *= Ali.BulletAliDirection;
-        rb.velocity = transform.right * Ali.BulletAliDirection * speed;
+        rb.linearVelocity = transform.right * Ali.BulletAliDirection * speed;
         transform.localScale = newScale;
     }
 

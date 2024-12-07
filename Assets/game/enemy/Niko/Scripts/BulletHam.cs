@@ -12,7 +12,7 @@ public class BulletHam : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.right * Niko.BulletHamDirection * speed;
+        rb.linearVelocity = transform.right * Niko.BulletHamDirection * speed;
     }
 
     void OnTriggerEnter2D(Collider2D collision)

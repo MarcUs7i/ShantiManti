@@ -12,7 +12,7 @@ public class BulletNugget : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.right * Firnschliff.BulletNuggetDirection * speed;
+        rb.linearVelocity = transform.right * Firnschliff.BulletNuggetDirection * speed;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
