@@ -6,7 +6,6 @@ public class SC_2DCoin : MonoBehaviour
 {
     //Keep track of total picked coins (Since the value is static, it can be accessed at "SC_2DCoin.totalCoins" from any script)
     public static int TotalCoins;
-    public static bool PlayCoinSound; 
 
     //Coin Cooldown
     private bool _canPickUp = true;
@@ -27,7 +26,7 @@ public class SC_2DCoin : MonoBehaviour
             
             TotalCoins++;
 
-            PlayCoinSound = true;
+            c2d.GetComponent<PlayerMovement>().PlayCoinSound();
             Destroy(gameObject);
     
             // Start the cooldown coroutine

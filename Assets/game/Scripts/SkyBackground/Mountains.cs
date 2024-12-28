@@ -20,9 +20,9 @@ public class Mountains : MonoBehaviour
 
     void Update()
     {
-        if (horizontalMountainMove / 2 != PlayerMovement.horizontalMove)
+        if (horizontalMountainMove / 2 != PlayerMovement.HorizontalMove)
         {
-            horizontalMountainMove = PlayerMovement.horizontalMove / 2;
+            horizontalMountainMove = PlayerMovement.HorizontalMove / 2;
         }
 
         float distance = Vector2.Distance(transform.position, destroyPoint.position);

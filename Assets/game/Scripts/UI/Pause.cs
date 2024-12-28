@@ -55,12 +55,12 @@ public class Pause : MonoBehaviour
             }
             if (IsPause)
             {
-                PlayerMovement.horizontalMove = 0f;
+                PlayerMovement.HorizontalMove = 0f;
                 animator.SetFloat("Speed", 0f);
             }
             else
             {
-                PlayerMovement.crouch = false;
+                PlayerMovement.Crouch = false;
                 animator.SetBool("IsCrouching", false);
             }
         }

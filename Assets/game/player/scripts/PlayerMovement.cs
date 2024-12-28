@@ -10,125 +10,125 @@ public class PlayerMovement : MonoBehaviour {
 
 	public float runSpeed = 40f;
 
-	public static float horizontalMove = 0f;
-	public static bool jump = false;
-	public static bool crouch = false;
-	bool moveLeft;
-	bool moveRight;
-
-	void Start()
-	{
-		crouch = false;
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-		if (SC_2DCoin.PlayCoinSound == true)
-		{
-			audioSource.Play();
-			SC_2DCoin.PlayCoinSound = false;
-		}
-
-		if (!Pause.IsPause)
-		{
-			//UI buttons
-			if (moveLeft && !Bonus.BonusForJump)
-			{
-				horizontalMove = -40f;
-			}
-			if (moveRight && !Bonus.BonusForJump)
-			{
-				horizontalMove = 40f;
-			}
-			else if (!moveLeft && !moveRight)
-			{
-				horizontalMove = 0f;
-			}
-			if (horizontalMove == 0f && !Bonus.BonusForJump)
-			{
-				horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-			}
+	public static float HorizontalMove;
+	private static bool _jump;
+	public static bool Crouch;
+	private bool _moveLeft;
+	private bool _moveRight;
 	
-			animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+	private static readonly int Speed = Animator.StringToHash("Speed");
+	private static readonly int IsJumping = Animator.StringToHash("IsJumping");
+	private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
 
-			if (Input.GetButtonDown("Jump") && !Bonus.BonusForJump)
-			{
-				jump = true;
-				animator.SetBool("IsJumping", true);
-			}
+	private void Start()
+	{
+		Crouch = false;
+	}
 
-			if (Enemy.TookDamage)
-			{
-				jump = true;
-				animator.SetBool("IsJumping", true);
-			}
+	public void PlayCoinSound()
+	{
+		audioSource.Play();
+	}
 
-			if (Input.GetButtonDown("Crouch") && !Bonus.BonusForJump)
-			{
-				crouch = true;
-			}
-			else if (Input.GetButtonUp("Crouch"))
-			{
-				crouch = false;
-			}
+	private void Update()
+	{
+		if (Pause.IsPause)
+		{
+			return;
+		}
+		
+		//UI buttons
+		if (_moveLeft && !Bonus.BonusForJump)
+		{
+			HorizontalMove = -40f;
+		}
+		if (_moveRight && !Bonus.BonusForJump)
+		{
+			HorizontalMove = 40f;
+		}
+		else if (!_moveLeft && !_moveRight)
+		{
+			HorizontalMove = 0f;
+		}
+		if (HorizontalMove == 0f && !Bonus.BonusForJump)
+		{
+			HorizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+		}
+	
+		animator.SetFloat(Speed, Mathf.Abs(HorizontalMove));
 
+		if (Input.GetButtonDown("Jump") && !Bonus.BonusForJump)
+		{
+			_jump = true;
+			animator.SetBool(IsJumping, true);
+		}
+
+		if (Enemy.TookDamage)
+		{
+			_jump = true;
+			animator.SetBool(IsJumping, true);
+		}
+
+		if (Input.GetButtonDown("Crouch") && !Bonus.BonusForJump)
+		{
+			Crouch = true;
+		}
+		else if (Input.GetButtonUp("Crouch"))
+		{
+			Crouch = false;
 		}
 	}
 
-	public void OnLanding ()
+	public void OnLanding()
 	{
-		animator.SetBool("IsJumping", false);
+		animator.SetBool(IsJumping, false);
 	}
 
-	public void OnCrouching (bool isCrouching)
+	public void OnCrouching(bool isCrouching)
 	{
-		animator.SetBool("IsCrouching", isCrouching);
+		animator.SetBool(IsCrouching, isCrouching);
 	}
 
-	void FixedUpdate ()
+	private void FixedUpdate()
 	{
 		// Move our character
-		controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
-		jump = false;
+		controller.Move(HorizontalMove * Time.fixedDeltaTime, Crouch, _jump);
+		_jump = false;
 	}
 
 	public void PointerDownLeft()
 	{
-		moveLeft = true;
+		_moveLeft = true;
 	}
 
 	public void PointerUpLeft()
 	{
-		moveLeft = false;
+		_moveLeft = false;
 	}
 
 	public void PointerDownRight()
 	{
-		moveRight = true;
+		_moveRight = true;
 	}
 
 	public void PointerUpRight()
 	{
-		moveRight = false;
+		_moveRight = false;
 	}
 
 	public void JumpButton()
 	{
-		/*if (AllowJump)
-		{*/
-			jump = true;
-			animator.SetBool("IsJumping", true);
-		//}
+		_jump = true;
+		animator.SetBool(IsJumping, true);
 	}
 
 	public void CrouchButtonDown()
 	{
-		crouch = true;
+		Crouch = true;
 	}
 
 	public void CrouchButtonUP()
 	{
-		crouch = false;
+		Crouch = false;
 	}
 }
