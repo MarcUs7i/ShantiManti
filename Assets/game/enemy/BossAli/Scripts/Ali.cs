@@ -11,7 +11,7 @@ public class Ali : MonoBehaviour
     [Header("Speed")]
     public float NormalSpeed = 500f;
     public float FastSpeed = 700f;
-    float speed = 500f;
+    private float _speed = 500f;
 
     [Header("Range")]
     public float range = 10f;
@@ -24,268 +24,275 @@ public class Ali : MonoBehaviour
 
     [Header("Pathfinding")]
     public float nextWaypointDistance = 3f;
-    int currentWaypoint = 0;
+    private int _currentWaypoint;
 
     [Header("Audio")]
     public AudioSource BackgroundMusic;
-    private AudioSource audioSFX;
+    private AudioSource _audioSfx;
 
     [Header("Health")]
     public int health = 200;
-    bool StopHurting = false;
+    private bool _stopHurting;
 
     [Header("GameObjects")]
     public GameObject deathEffect;
     public GameObject EnemyWeapon;
-
-    Path path;
-    Seeker seeker;
-    Transform player;
-    Rigidbody2D rb;
-    Animator animator;
-    Transform enemyGFX;
+    
+    [Header("Animation IDs")]
+    private static readonly int AttackAnimationID = Animator.StringToHash("Attack");
+    private static readonly int SwordAttackAnimationID = Animator.StringToHash("SwordAttack");
+    private static readonly int DamageAnimationID = Animator.StringToHash("Damage");
+    private static readonly int EnterStage2AnimationID = Animator.StringToHash("EnterStage2");
+    
+    private Path _path;
+    private Seeker _seeker;
+    private Transform _player;
+    private Rigidbody2D _rb;
+    private Animator _animator;
+    private Transform _enemyGfx;
 
     public static float BulletAliDirection;
-    bool StopAttack = false;
-    bool Attacking = false;
-    bool isInStage2 = false;
-    bool transitioningToStage2 = false;
+    private bool _startGoing;
+    private bool _stopAttack;
+    private bool _attacking;
+    private bool _isInStage2;
+    private bool _transitioningToStage2;
 
-    void Start()
+    private void Start()
     {
-        seeker = GetComponent<Seeker>();
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        _seeker = GetComponent<Seeker>();
+        _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        audioSFX = GetComponent<AudioSource>();
-        enemyGFX = GetComponentInChildren<SpriteRenderer>().transform;
-        animator = enemyGFX.GetComponent<Animator>();
+        _audioSfx = GetComponent<AudioSource>();
+        _enemyGfx = GetComponentInChildren<SpriteRenderer>().transform;
+        _animator = _enemyGfx.GetComponent<Animator>();
 
-        speed = NormalSpeed;
+        _speed = NormalSpeed;
+        _startGoing = false;
 
-        InvokeRepeating("UpdatePath", 0f, .5f);
+        InvokeRepeating(nameof(UpdatePath), 0f, .5f);
     }
 
-    void UpdatePath()
+    private void UpdatePath()
     {
-        if (seeker.IsDone())
+        if (_seeker.IsDone())
         {
-            seeker.StartPath(rb.position, player.position, OnPathComplete);
+            _seeker.StartPath(_rb.position, _player.position, OnPathComplete);
         }
     }
 
-    void OnPathComplete (Path p)
+    private void OnPathComplete (Path p)
     {
         if (!p.error)
         {
-            path = p;
-            currentWaypoint = 0;
+            _path = p;
+            _currentWaypoint = 0;
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (Pause.IsPause)
         {
             return;
         }
 
-        float distance = Vector2.Distance(transform.position, player.position);
-        if (distance < range && !Attacking && !transitioningToStage2)
+        float distance = Vector2.Distance(transform.position, _player.position);
+        if (distance < range)
         {
-            if (path == null)
+            _startGoing = true;
+        }
+        
+        if (_startGoing && !_attacking && !_transitioningToStage2)
+        {
+            if (_path == null || _currentWaypoint >= _path.vectorPath.Count)
             {
                 return;
             }
-            if (currentWaypoint >= path.vectorPath.Count)
-            {
-                return;
-            }
 
-            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] -rb.position).normalized;
-            Vector2 force = direction * speed * Time.deltaTime;
+            Vector2 direction = ((Vector2)_path.vectorPath[_currentWaypoint] -_rb.position).normalized;
+            Vector2 force = direction * (_speed * Time.deltaTime);
 
-            rb.AddForce(force);
+            _rb.AddForce(force);
 
-            distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+            distance = Vector2.Distance(_rb.position, _path.vectorPath[_currentWaypoint]);
 
             if (distance < nextWaypointDistance)
             {
-                currentWaypoint++;
+                _currentWaypoint++;
             }
 
-            //You can make look it differently, if you delete 'rb.velocity' and add 'force' instead.
-            if (rb.linearVelocity.x >= 0.01f)
+            // Flip the enemy sprite
+            if (_rb.linearVelocity.x >= 0.01f)
             {
-                enemyGFX.transform.localScale = new Vector3(-1f, 1f, 1f);
+                _enemyGfx.transform.localScale = new Vector3(-1f, 1f, 1f);
                 BulletAliDirection = 1f;
             }
-            else if (rb.linearVelocity.x <= -0.01f)
+            else if (_rb.linearVelocity.x <= -0.01f)
             {
-                enemyGFX.transform.localScale = new Vector3(1f, 1f, 1f);
+                _enemyGfx.transform.localScale = new Vector3(1f, 1f, 1f);
                 BulletAliDirection = -1f;
             }
 
-            float AttackDec = Mathf.Round(UnityEngine.Random.Range(0.0f, 1.0f));
+            var attackDec = Mathf.Round(UnityEngine.Random.Range(0.0f, 1.0f));
 
-            distance = Vector2.Distance(transform.position, player.position);
-            if (distance < attackRange && AttackDec == 0f)
+            distance = Vector2.Distance(transform.position, _player.position);
+            if (distance < attackRange && attackDec == 0f)
             {
-                if (!StopAttack)
+                if (!_stopAttack)
                 {
                     StartCoroutine(Attack());
                 }
             }
-            if (distance < SwordAttackRange && AttackDec == 1f)
+            if (distance < SwordAttackRange && Mathf.Approximately(attackDec, 1f))
             {
-                if (!StopAttack)
+                if (!_stopAttack)
                 {
                     StartCoroutine(SwordAttack());
                 }
             }
         }
 
-        distance = Vector2.Distance(transform.position, player.position);
+        distance = Vector2.Distance(transform.position, _player.position);
         if (distance > range)
         {
-            speed = FastSpeed;
+            _speed = FastSpeed;
         }
-
-        /*if (Input.GetKeyDown(KeyCode.O))
-        {
-            TakeDamage(20);
-        }*/
-        if (health <= 60 && !isInStage2)
+        
+        if (health <= 60 && !_isInStage2)
         {
             StartCoroutine(GetToStage2());
         }    
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(CollisionAttack());
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        float distance = Vector2.Distance(transform.position, player.position);
-        if (collider.gameObject.tag == "Bullet" && distance < range && !StopHurting)
+        float distance = Vector2.Distance(transform.position, _player.position);
+        if (collider.gameObject.CompareTag("Bullet") && distance < range && !_stopHurting)
         {
             TakeDamage(10);
         }
     }
 
     // Health
-    void TakeDamage(int damage)
-	{
-		if (!MainMenu.ExitLevel)
-		{
-			health -= damage;
-
-			//only animate damage if health is above 60 (not stage2)
-            if (health > 60)
-			{
-                StartCoroutine(DamageAnimation());
-            }
-
-            StartCoroutine(BulletAttacked());
-
-			if (health <= 0)
-			{
-				//Die
-                Instantiate(deathEffect, transform.position, Quaternion.identity);
-                Destroy(gameObject);
-			}
-		}
-	}
-
-    IEnumerator Attack()
+    private void TakeDamage(int damage)
     {
-        StopAttack = true;
+        if (MainMenu.ExitLevel)
+        {
+            return;
+        }
+        
+        health -= damage;
+
+        //only animate damage if health is above 60 (not stage2)
+        if (health > 60)
+        {
+            StartCoroutine(AnimateDamage());
+        }
+
+        StartCoroutine(BulletAttacked());
+
+        if (health <= 0)
+        {
+            //Die
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+    }
+
+    private IEnumerator Attack()
+    {
+        _stopAttack = true;
         yield return new WaitForSeconds(2.0f);
 
-        Attacking = true;
-        animator.SetBool("Attack", true);
+        _attacking = true;
+        _animator.SetBool(AttackAnimationID, true);
         Instantiate(EnemyWeapon, firePoint.position, firePoint.rotation);
         yield return new WaitForSeconds(2.0f);
 
-        animator.SetBool("Attack", false);
-        Attacking = false;
+        _animator.SetBool(AttackAnimationID, false);
+        _attacking = false;
         
         yield return new WaitForSeconds(2.0f);
-        StopAttack = false;
+        _stopAttack = false;
     }
 
-    IEnumerator SwordAttack()
+    private IEnumerator SwordAttack()
     {
-        StopAttack = true;
+        _stopAttack = true;
 
         yield return new WaitForSeconds(1.9f);
-        animator.SetBool("SwordAttack", true);
+        _animator.SetBool(SwordAttackAnimationID, true);
         yield return new WaitForSeconds(0.1f);
 
-        Attacking = true;
+        _attacking = true;
         Enemy.TookDamage = true;
 
         yield return new WaitForSeconds(2.0f);
-        animator.SetBool("SwordAttack", false);
+        _animator.SetBool(SwordAttackAnimationID, false);
         
-        Attacking = false;
+        _attacking = false;
         
         yield return new WaitForSeconds(2.0f);
-        StopAttack = false;
+        _stopAttack = false;
     }
 
-    IEnumerator CollisionAttack()
+    private IEnumerator CollisionAttack()
     {
-        animator.SetBool("SwordAttack", true);
+        _animator.SetBool(SwordAttackAnimationID, true);
         Enemy.TookDamage = true;
         yield return new WaitForSeconds(2.0f);
-        animator.SetBool("SwordAttack", false);
+        _animator.SetBool(SwordAttackAnimationID, false);
     }
 
-    IEnumerator DamageAnimation()
+    private IEnumerator AnimateDamage()
     {
-        animator.SetBool("Damage", true);
+        _animator.SetBool(DamageAnimationID, true);
         yield return new WaitForSeconds(2.0f);
-        animator.SetBool("Damage", false);
+        _animator.SetBool(DamageAnimationID, false);
     }
 
-    IEnumerator GetToStage2()
+    private IEnumerator GetToStage2()
     {
-        isInStage2 = true;
+        _isInStage2 = true;
 
-        transitioningToStage2 = true;
-        StopHurting = true;
-        animator.SetBool("EnterStage2", true);
+        _transitioningToStage2 = true;
+        _stopHurting = true;
+        _animator.SetBool(EnterStage2AnimationID, true);
 
-        StartCoroutine(Music());
+        StartCoroutine(PlaySfx());
         NormalSpeed = FastSpeed;
         FastSpeed = stage2Speed;
 
         yield return new WaitForSeconds(stage2AnimSec);
-        animator.SetBool("EnterStage2", false);
+        _animator.SetBool(EnterStage2AnimationID, false);
 
-        transitioningToStage2 = false;
-        StopHurting = false;
+        _transitioningToStage2 = false;
+        _stopHurting = false;
     }
 
-    IEnumerator BulletAttacked()
+    private IEnumerator BulletAttacked()
     {
-        StopHurting = true;
+        _stopHurting = true;
         yield return new WaitForSeconds(1.5f);
-        StopHurting = false;
+        _stopHurting = false;
     }
 
-    IEnumerator Music()
+    private IEnumerator PlaySfx()
     {
         float oldVolume = BackgroundMusic.volume;
         BackgroundMusic.volume = 0.25f;
-        audioSFX.Play();
+        _audioSfx.Play();
 
         yield return new WaitForSeconds(3.0f);
         BackgroundMusic.volume = oldVolume;

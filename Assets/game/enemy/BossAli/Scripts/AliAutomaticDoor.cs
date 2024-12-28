@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class AliAutomaticDoor : MonoBehaviour
 {
-    Transform door;
-    Ali ali;
+    private Transform _door;
+    private Ali _ali;
     public float speed = 5f;
-    bool isAllowedToOpen = true;
+    private bool _isAllowedToOpen = true;
 
     void Start()
     {
-        ali = FindObjectOfType<Ali>().GetComponent<Ali>();
-        door = GetComponent<Transform>();
+        _ali = FindFirstObjectByType<Ali>().GetComponent<Ali>();
+        _door = GetComponent<Transform>();
     }
 
     void Update()
     {
-        if (ali.health <= 0 && isAllowedToOpen)
+        if (_ali.health <= 0 && _isAllowedToOpen)
         {
-            transform.position += Vector3.up * speed * Time.deltaTime;
+            transform.position += Vector3.up * (speed * Time.deltaTime);
             StartCoroutine(StopDoor());
         }
     }
@@ -27,6 +27,6 @@ public class AliAutomaticDoor : MonoBehaviour
     IEnumerator StopDoor()
     {
         yield return new WaitForSeconds(2.0f);
-        isAllowedToOpen = false;
+        _isAllowedToOpen = false;
     }
 }

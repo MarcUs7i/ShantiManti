@@ -274,12 +274,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20170927
-  m_LegacyPriority: 10
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 820667352}
     LookAtTarget: {fileID: 0}
@@ -6850,10 +6850,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 733867154069418468, guid: f85fb7aca8cc8ff47b9a064fff89051f, type: 3}
-      propertyPath: m_RootOrder
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 733867154069418468, guid: f85fb7aca8cc8ff47b9a064fff89051f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.28
       objectReference: {fileID: 0}
@@ -6897,10 +6893,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ali
       objectReference: {fileID: 0}
-    - target: {fileID: 2341672324406176567, guid: f85fb7aca8cc8ff47b9a064fff89051f, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 820667352}
     - target: {fileID: 2341672324406176567, guid: f85fb7aca8cc8ff47b9a064fff89051f, type: 3}
       propertyPath: BackgroundMusic
       value: 
