@@ -28,11 +28,6 @@ public class PlayerHealth : MonoBehaviour
 
 
 	private void Update() {
-		/*if (Input.GetKeyDown(KeyCode.B))
-		{
-			TakeDamage(20);
-		}*/
-
 		if(Enemy.TookDamage && !Pause.IsPause)
 		{
 			TakeDamage(20);

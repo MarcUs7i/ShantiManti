@@ -23,15 +23,9 @@ public class Tutorial : MonoBehaviour
         button.interactable = false;
     }
     
-    private void OnEnable()
-    {
-        _inputActions.Enable();
-    }
+    private void OnEnable() => _inputActions.Enable();
     
-    private void OnDisable()
-    {
-        _inputActions.Disable();
-    }
+    private void OnDisable() => _inputActions.Disable();
 
     public void NextPage()
     {

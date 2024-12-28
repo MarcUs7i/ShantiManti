@@ -26,15 +26,9 @@ public class MusicToggle : MonoBehaviour
         UpdateMusicState();
     }
     
-    private void OnEnable()
-    {
-        _inputActions.Enable();
-    }
+    private void OnEnable() => _inputActions.Enable();
 
-    private void OnDisable()
-    {
-        _inputActions.Disable();
-    }
+    private void OnDisable() => _inputActions.Disable();
 
     private void MuteMusic()
     {

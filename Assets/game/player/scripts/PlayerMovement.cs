@@ -62,15 +62,9 @@ public class PlayerMovement : MonoBehaviour
         };
     }
 
-    private void OnEnable()
-    {
-        InputActions.Enable();
-    }
+    private void OnEnable() => InputActions.Enable();
 
-    private void OnDisable()
-    {
-        InputActions.Disable();
-    }
+    private void OnDisable() => InputActions.Disable();
 
     public void PlayCoinSound()
     {
