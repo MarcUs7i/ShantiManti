@@ -58,7 +58,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""6cdaea22-9b74-4e0c-a27a-504fa750aa4e"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
@@ -121,6 +121,24 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Start"",
                     ""type"": ""Button"",
                     ""id"": ""0a735d9d-7833-4b08-8abc-e670b7139b03"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MuteMusic"",
+                    ""type"": ""Button"",
+                    ""id"": ""8435b015-93a4-4659-8984-8587b44f701f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Clouds"",
+                    ""type"": ""Button"",
+                    ""id"": ""a2012fd3-73fe-4223-a478-ea5962c68061"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -609,6 +627,50 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c59b4a6a-ccfb-4a99-bcd4-004d836b7142"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""MuteMusic"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ca614ba-0160-4eb8-acb1-2a1800e33a04"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""MuteMusic"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fe091e6c-b051-4e34-b07d-c6e19e08f33a"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Clouds"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ab39558-5939-4251-9d88-891818c975e6"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Clouds"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1207,6 +1269,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Start = m_Player.FindAction("Start", throwIfNotFound: true);
+        m_Player_MuteMusic = m_Player.FindAction("MuteMusic", throwIfNotFound: true);
+        m_Player_Clouds = m_Player.FindAction("Clouds", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1297,6 +1361,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Start;
+    private readonly InputAction m_Player_MuteMusic;
+    private readonly InputAction m_Player_Clouds;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -1312,6 +1378,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Start => m_Wrapper.m_Player_Start;
+        public InputAction @MuteMusic => m_Wrapper.m_Player_MuteMusic;
+        public InputAction @Clouds => m_Wrapper.m_Player_Clouds;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1354,6 +1422,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Start.started += instance.OnStart;
             @Start.performed += instance.OnStart;
             @Start.canceled += instance.OnStart;
+            @MuteMusic.started += instance.OnMuteMusic;
+            @MuteMusic.performed += instance.OnMuteMusic;
+            @MuteMusic.canceled += instance.OnMuteMusic;
+            @Clouds.started += instance.OnClouds;
+            @Clouds.performed += instance.OnClouds;
+            @Clouds.canceled += instance.OnClouds;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1391,6 +1465,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Start.started -= instance.OnStart;
             @Start.performed -= instance.OnStart;
             @Start.canceled -= instance.OnStart;
+            @MuteMusic.started -= instance.OnMuteMusic;
+            @MuteMusic.performed -= instance.OnMuteMusic;
+            @MuteMusic.canceled -= instance.OnMuteMusic;
+            @Clouds.started -= instance.OnClouds;
+            @Clouds.performed -= instance.OnClouds;
+            @Clouds.canceled -= instance.OnClouds;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1584,6 +1664,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnStart(InputAction.CallbackContext context);
+        void OnMuteMusic(InputAction.CallbackContext context);
+        void OnClouds(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

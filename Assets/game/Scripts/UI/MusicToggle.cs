@@ -3,14 +3,18 @@ using UnityEngine.UI;
 
 public class MusicToggle : MonoBehaviour
 {
-    public static bool musicToggled = true;
+    private static bool _musicToggled = true;
     public Toggle musicToggle;
     public AudioSource BackgroundMusic;
 
-    private bool isUpdatingMusicState = false;
+    private bool _isUpdatingMusicState;
+    private static InputActions _inputActions;
+    
 
-    void Start()
+    private void Awake()
     {
+        _inputActions = new InputActions();
+        _inputActions.Player.MuteMusic.performed += ctx => MuteMusic();
         LoadMusicState();
 
         // Add a listener for the value changed event
@@ -21,57 +25,59 @@ public class MusicToggle : MonoBehaviour
 
         UpdateMusicState();
     }
-
-    void Update()
+    
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            MuteMusic();
-        }
+        _inputActions.Enable();
     }
 
-    public void MuteMusic()
+    private void OnDisable()
     {
-        musicToggled = !musicToggled;
+        _inputActions.Disable();
+    }
+
+    private void MuteMusic()
+    {
+        _musicToggled = !_musicToggled;
 
         SaveMusicState();
         UpdateMusicState();
     }
 
     // Listener for the value changed event
-    void OnMusicToggleValueChanged(bool isOn)
+    private void OnMusicToggleValueChanged(bool isOn)
     {
-        if (!isUpdatingMusicState)
+        if (!_isUpdatingMusicState)
         {
             MuteMusic(); // Toggle the music state when the toggle changes
         }
     }
 
-    void SaveMusicState()
+    private static void SaveMusicState()
     {
-        PlayerPrefs.SetInt("MusicToggled", musicToggled ? 1 : 0);
+        PlayerPrefs.SetInt("MusicToggled", _musicToggled ? 1 : 0);
         PlayerPrefs.Save();
     }
 
-    void LoadMusicState()
+    private void LoadMusicState()
     {
         if (PlayerPrefs.HasKey("MusicToggled"))
         {
             int musicState = PlayerPrefs.GetInt("MusicToggled");
-            musicToggled = (musicState == 1);
+            _musicToggled = (musicState == 1);
         }
 
         if (musicToggle != null)
         {
-            musicToggle.isOn = musicToggled;
+            musicToggle.isOn = _musicToggled;
         }
     }
 
-    void UpdateMusicState()
+    private void UpdateMusicState()
     {
-        isUpdatingMusicState = true;
+        _isUpdatingMusicState = true;
 
-        if (musicToggled)
+        if (_musicToggled)
         {
             BackgroundMusic.Play();
         }
@@ -80,11 +86,11 @@ public class MusicToggle : MonoBehaviour
             BackgroundMusic.Pause();
         }
 
-        if (musicToggle != null)
+        if (musicToggle)
         {
-            musicToggle.isOn = musicToggled;
+            musicToggle.isOn = _musicToggled;
         }
 
-        isUpdatingMusicState = false;
+        _isUpdatingMusicState = false;
     }
 }

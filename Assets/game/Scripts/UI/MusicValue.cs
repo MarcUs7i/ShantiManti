@@ -6,15 +6,15 @@ using TMPro;
 
 public class MusicValue : MonoBehaviour
 {
-    private Slider mainSlider;
+    private Slider _mainSlider;
 
-    void Awake()
+    private void Awake()
     {
-        mainSlider = GetComponent<Slider>();
+        _mainSlider = GetComponent<Slider>();
     }
 
-    void Update()
+    private void Update()
     {
-        mainSlider.value = SoundBar.SoundVolume;
+        _mainSlider.value = SoundBar.SoundVolume;
     }
 }
