@@ -7,38 +7,31 @@ public class PlayerHealth : MonoBehaviour
 {
 
 	public int health = 100;
-	public GameObject deathEffect;
-	bool CoinHealth = false;
-	public static bool minus;
+	private bool _coinHealth;
+	public static bool Minus;
 
 	public void TakeDamage(int damage)
 	{
-		if (MainMenu.ExitLevel == false)
+		if (MainMenu.ExitLevel)
 		{
-			health -= damage;
+			return;
+		}
+		health -= damage;
 
-			StartCoroutine(DamageAnimation());
+		StartCoroutine(DamageAnimation());
 
-			if (health <= 0)
-			{
-				Die();
-			}
+		if (health <= 0)
+		{
+			Die();
 		}
 	}
 
 
-	void Update() {
+	private void Update() {
 		/*if (Input.GetKeyDown(KeyCode.B))
 		{
 			TakeDamage(20);
 		}*/
-		
-		if (DiePlayer.KillPlayer)
-		{
-			DiePlayer.KillPlayer = false;
-			Die();
-		}
-
 
 		if(Enemy.TookDamage && !Pause.IsPause)
 		{
@@ -46,36 +39,36 @@ public class PlayerHealth : MonoBehaviour
 			Enemy.TookDamage = false;
 		}
 		
-		if (SC_2DCoin.totalCoins % 20 == 0 && SC_2DCoin.totalCoins > 0)
+		if (SC_2DCoin.TotalCoins % 20 == 0 && SC_2DCoin.TotalCoins > 0)
 		{
 			health = 100;
-			CoinHealth = !CoinHealth;
+			_coinHealth = !_coinHealth;
 		}
 	}
 
 
-	void Die()
+	public void Die()
 	{
 		int[] coinDeductions = { 5, 10, 15, 20 };
 		for (int i = 0; i < coinDeductions.Length; i++)
 		{
-			if (SC_2DCoin.totalCoins > coinDeductions[i] && health <= 0)
+			if (SC_2DCoin.TotalCoins > coinDeductions[i] && health <= 0)
 			{
 				// Subtract coins based on the level
 				if (PlayerSaving.level <= coinDeductions[i])
 				{
-					SC_2DCoin.totalCoins -= coinDeductions[i];
-					minus = true;
+					SC_2DCoin.TotalCoins -= coinDeductions[i];
+					Minus = true;
 				}
 
 				// Ensure the totalCoins does not go below 0
-				if (SC_2DCoin.totalCoins < 0)
+				if (SC_2DCoin.TotalCoins < 0)
 				{
-					SC_2DCoin.totalCoins = 0;
+					SC_2DCoin.TotalCoins = 0;
 				}
 
 				// Save the updated coin count
-				PlayerSaving.coins = SC_2DCoin.totalCoins;
+				PlayerSaving.coins = SC_2DCoin.TotalCoins;
 				PlayerSaving.SavePlayer();
 			}
 		}

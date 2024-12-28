@@ -24,10 +24,10 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update()
 	{
-		if (SC_2DCoin.playCoinSound == true)
+		if (SC_2DCoin.PlayCoinSound == true)
 		{
 			audioSource.Play();
-			SC_2DCoin.playCoinSound = false;
+			SC_2DCoin.PlayCoinSound = false;
 		}
 
 		if (!Pause.IsPause)

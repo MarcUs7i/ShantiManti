@@ -5,29 +5,29 @@ using UnityEngine;
 public class SC_2DCoin : MonoBehaviour
 {
     //Keep track of total picked coins (Since the value is static, it can be accessed at "SC_2DCoin.totalCoins" from any script)
-    public static int totalCoins = 0;
-    public static bool playCoinSound = false; 
+    public static int TotalCoins;
+    public static bool PlayCoinSound; 
 
     //Coin Cooldown
-    private bool canPickUp = true;
+    private bool _canPickUp = true;
     public float pickUpCooldown = 0.1f;
 
-    void Awake()
+    private void Awake()
     {
         //Make Collider2D as trigger 
         GetComponent<Collider2D>().isTrigger = true;
-        totalCoins = PlayerSaving.coins;
+        TotalCoins = PlayerSaving.coins;
     }
 
-    void OnTriggerEnter2D(Collider2D c2d)
+    private void OnTriggerEnter2D(Collider2D c2d)
     {
-        if (canPickUp && (c2d.CompareTag("Player") || c2d.CompareTag("Bullet")))
+        if (_canPickUp && (c2d.CompareTag("Player") || c2d.CompareTag("Bullet")))
         {
-            canPickUp = false; // Disable picking up coins temporarily
+            _canPickUp = false; // Disable picking up coins temporarily
             
-            totalCoins++;
+            TotalCoins++;
 
-            playCoinSound = true;
+            PlayCoinSound = true;
             Destroy(gameObject);
     
             // Start the cooldown coroutine
@@ -35,17 +35,17 @@ public class SC_2DCoin : MonoBehaviour
         }
     }
 
-    IEnumerator CoinPickUpCooldown()
+    private IEnumerator CoinPickUpCooldown()
     {
         yield return new WaitForSeconds(pickUpCooldown);
-        canPickUp = true; //Enable coin pickup again after the cooldown
+        _canPickUp = true; //Enable coin pickup again after the cooldown
     }
 
-    void Update()
+    private void Update()
     {
-        if (totalCoins != PlayerSaving.coins)
+        if (TotalCoins != PlayerSaving.coins)
         {
-            PlayerSaving.coins = totalCoins;
+            PlayerSaving.coins = TotalCoins;
             PlayerSaving.SavePlayer();
         }
     }

@@ -5,19 +5,19 @@ using UnityEngine.UI;
 
 public class SC_CoinCounter : MonoBehaviour
 {
-    Text counterText;
+    private Text _counterText;
 
-    void Start()
+    private void Start()
     {
-        counterText = GetComponent<Text>();
+        _counterText = GetComponent<Text>();
     }
 
-    void Update()
+    private void Update()
     {
         //Set the current number of coins to display
-        if (counterText.text != SC_2DCoin.totalCoins.ToString())
+        if (_counterText.text != SC_2DCoin.TotalCoins.ToString())
         {
-            counterText.text = SC_2DCoin.totalCoins.ToString();
+            _counterText.text = SC_2DCoin.TotalCoins.ToString();
         }
     }
 }

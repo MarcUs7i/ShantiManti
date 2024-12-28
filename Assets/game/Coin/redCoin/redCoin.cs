@@ -9,7 +9,8 @@ public class redCoin : MonoBehaviour
     {
         if (c2d.CompareTag("Player"))
         {
-            DiePlayer.KillPlayer = true;
+            var player = c2d.GetComponent<PlayerHealth>();
+            player.Die();
         }
 
         Destroy(gameObject);

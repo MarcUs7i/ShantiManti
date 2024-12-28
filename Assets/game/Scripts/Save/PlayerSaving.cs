@@ -30,7 +30,7 @@ public class PlayerSaving : MonoBehaviour
         movingClouds = data.cloudsMove;
 
         Debug.Log($"Loaded level: {level}, coins: {coins}, tutorial: {hasCompletedTutorial}, cloudsMove: {movingClouds}");
-        SC_2DCoin.totalCoins = coins;
+        SC_2DCoin.TotalCoins = coins;
         Endlevel.level = level;
     }
 

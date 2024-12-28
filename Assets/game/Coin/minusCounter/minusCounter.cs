@@ -5,25 +5,26 @@ using UnityEngine.UI;
 
 public class minusCounter : MonoBehaviour
 {
-    Text counterText;
+    private static readonly int DisableAnimationID = Animator.StringToHash("Disable");
+    private Text _counterText;
     public Animator animator;
 
-    void Awake()
+    private void Awake()
     {
-        counterText = GetComponent<Text>();
+        _counterText = GetComponent<Text>();
     }
 
-    void Start()
+    private void Start()
     {
-        if (!PlayerHealth.minus)
+        if (!PlayerHealth.Minus)
         {
             Destroy(gameObject);
             return;
         }
 
-        if (SC_2DCoin.totalCoins <= 0)
+        if (SC_2DCoin.TotalCoins <= 0)
         {
-            PlayerHealth.minus = false;
+            PlayerHealth.Minus = false;
             Destroy(gameObject);
             return;
         }
@@ -37,29 +38,29 @@ public class minusCounter : MonoBehaviour
             // Check if player's level is within the range for the current coin value
             if (PlayerSaving.level <= levelRanges[i] && (i == 0 || PlayerSaving.level > levelRanges[i - 1]))
             {
-                if (SC_2DCoin.totalCoins + levelRanges[i] < levelRanges[i])
+                if (SC_2DCoin.TotalCoins + levelRanges[i] < levelRanges[i])
                 {
                     Destroy(gameObject);
-                    PlayerHealth.minus = false;
+                    PlayerHealth.Minus = false;
                     return;
                 }
 
-                counterText.text = "-" + levelRanges[i].ToString();
+                _counterText.text = "-" + levelRanges[i].ToString();
                 break;
             }
         }
 
-        PlayerHealth.minus = false;
+        PlayerHealth.Minus = false;
         StartCoroutine(Animation());
     }
 
 
-    IEnumerator Animation()
+    private IEnumerator Animation()
     {
         yield return new WaitForSeconds(2.0f);
-        animator.SetBool("Disable", true);
+        animator.SetBool(DisableAnimationID, true);
         yield return new WaitForSeconds(0.1f);
-        animator.SetBool("Disable", false);
+        animator.SetBool(DisableAnimationID, false);
         yield return new WaitForSeconds(1.8f);
         Destroy(gameObject);
     }
