@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class LevelCounter : MonoBehaviour
 {
-    Animator animator;
+    private static readonly int FadeAnimationID = Animator.StringToHash("Fade");
+    private Animator _animator;
 
-    void Start()
+    private void Start()
     {
-        animator = GetComponent<Animator>();
-        StartCoroutine(Disabeling());
+        _animator = GetComponent<Animator>();
+        StartCoroutine(Disabling());
     }
 
-    IEnumerator Disabeling()
+    private IEnumerator Disabling()
     {
         yield return new WaitForSeconds(2.0f);
-        animator.SetBool("Fade", true);
+        _animator.SetBool(FadeAnimationID, true);
 
         yield return new WaitForSeconds(0.1f);
-        animator.SetBool("Fade", false);
+        _animator.SetBool(FadeAnimationID, false);
 
         yield return new WaitForSeconds(1.8f);
         Destroy(gameObject);

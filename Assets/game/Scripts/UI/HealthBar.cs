@@ -8,13 +8,12 @@ public class HealthBar : MonoBehaviour
 	public PlayerHealth playerHealth;
 	public Slider slider;
 
-	void Start()
+	private void Start()
 	{
 		slider.maxValue = playerHealth.health;
 	}
 
-	// Update is called once per frame
-	void Update()
+	private void Update()
     {
 		slider.value = playerHealth.health;
     }
