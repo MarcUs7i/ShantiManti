@@ -20,7 +20,7 @@ public class PlayerSaving : MonoBehaviour
         Debug.Log($"Saved level: {Level}, coins: {Coins}, tutorial: {HasCompletedTutorial}, cloudsMove: {MovingClouds}");
     }
 
-    public static void LoadPlayer()
+    private static void LoadPlayer()
     {
         var data = SaveSystem.LoadPlayer();
 

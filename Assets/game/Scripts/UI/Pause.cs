@@ -17,7 +17,7 @@ public class Pause : MonoBehaviour
     public GameObject Fire;
     public GameObject Image;
 
-    private static readonly int IsCrouching = Animator.StringToHash("IsCrouchingAnimationID");
+    private static readonly int IsCrouchingAnimationID = Animator.StringToHash("IsCrouching");
 
     public void IsPauseing()
     {
@@ -58,7 +58,7 @@ public class Pause : MonoBehaviour
         if(!IsPause) // if going back to the game
         {
             PlayerMovement.Crouch = false;
-            animator.SetBool(IsCrouching, false);
+            animator.SetBool(IsCrouchingAnimationID, false);
         }
     }
 }

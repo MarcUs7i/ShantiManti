@@ -6,10 +6,10 @@ public class SoundBar : MonoBehaviour
 {
     public static float SoundVolume = 0.75f;
     public AudioSource BackgroundMusic;
-    public static float MusicTime = 0f; // Static variable to store the music time
-    public static bool SceneReloaded = false; // Static variable to track if scene is reloaded
+    private static float _musicTime; // Static variable to store the music time
+    public static bool SceneReloaded; // Static variable to track if scene is reloaded
 
-    void Start()
+    private void Start()
     {
         LoadSoundVolume();
         ApplySoundVolume();
@@ -17,38 +17,38 @@ public class SoundBar : MonoBehaviour
         if (SceneReloaded)
         {
             // If the scene has been reloaded before, continue playing from where it stopped
-            BackgroundMusic.time = MusicTime;
+            BackgroundMusic.time = _musicTime;
         }
         SceneReloaded = false;
     }
 
-    void Update()
+    private void Update()
     {
-        if (SoundVolume != BackgroundMusic.volume)
+        if (!Mathf.Approximately(SoundVolume, BackgroundMusic.volume))
         {
             SoundVolume = BackgroundMusic.volume;
             SaveSoundVolume();
         }
 
-        MusicTime = BackgroundMusic.time;
+        _musicTime = BackgroundMusic.time;
     }
 
-    public static void SaveSoundVolume()
+    private static void SaveSoundVolume()
     {
         PlayerPrefs.SetFloat("SoundVolume", SoundVolume);
         PlayerPrefs.Save();
     }
 
-    void LoadSoundVolume()
+    private static void LoadSoundVolume()
     {
         if (PlayerPrefs.HasKey("SoundVolume"))
         {
-            float savedVolume = PlayerPrefs.GetFloat("SoundVolume");
+            var savedVolume = PlayerPrefs.GetFloat("SoundVolume");
             SoundVolume = savedVolume;
         }
     }
 
-    void ApplySoundVolume()
+    private void ApplySoundVolume()
     {
         BackgroundMusic.volume = SoundVolume;
     }
