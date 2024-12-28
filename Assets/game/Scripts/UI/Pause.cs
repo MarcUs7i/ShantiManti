@@ -55,8 +55,8 @@ public class Pause : MonoBehaviour
             }
             if (IsPause)
             {
-                PlayerMovement.HorizontalMove = 0f;
-                animator.SetFloat("Speed", 0f);
+                //PlayerMovement.HorizontalMove = 0f;
+                //animator.SetFloat("Speed", 0f);
             }
             else
             {
