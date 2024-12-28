@@ -48,11 +48,16 @@ public class Tutorial : MonoBehaviour
 
     public void PreviousPage()
     {
-        if (_currentPage > 0)
+        switch (_currentPage)
         {
-            menus[_currentPage].SetActive(false);
-            _currentPage--;
-            menus[_currentPage].SetActive(true);
+            case 0:
+                _mainMenu.LevelSelect();
+                break;
+            case > 0:
+                menus[_currentPage].SetActive(false);
+                _currentPage--;
+                menus[_currentPage].SetActive(true);
+                break;
         }
 
         if (_currentPage == menus.Length - 2)
