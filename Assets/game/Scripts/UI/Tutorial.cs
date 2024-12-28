@@ -7,55 +7,75 @@ public class Tutorial : MonoBehaviour
 {
     public Button button;
     public GameObject[] menus;
-    MainMenu mainMenu;
-    int currentPage = 0;
+    private MainMenu _mainMenu;
+    private int _currentPage;
 
-    void Awake()
+    private InputActions _inputActions;
+
+    private void Awake()
     {
-        mainMenu = FindObjectOfType<MainMenu>().GetComponent<MainMenu>();
+        _inputActions = new InputActions();
+        _inputActions.Player.Start.performed += _ => NextPage();
+        _inputActions.Player.Next.performed += _ => NextPage();
+        _inputActions.Player.Previous.performed += _ => PreviousPage();
+        
+        _mainMenu = FindFirstObjectByType<MainMenu>().GetComponent<MainMenu>();
         button.interactable = false;
-        button.onClick.AddListener(() => StartCoroutine(StartGame()));
+    }
+    
+    private void OnEnable()
+    {
+        _inputActions.Enable();
+    }
+    
+    private void OnDisable()
+    {
+        _inputActions.Disable();
     }
 
     public void NextPage()
     {
-        if (currentPage < menus.Length - 1)
+        if (_currentPage < menus.Length - 1)
         {
-            menus[currentPage].SetActive(false);
-            currentPage++;
-            menus[currentPage].SetActive(true);
+            menus[_currentPage].SetActive(false);
+            _currentPage++;
+            menus[_currentPage].SetActive(true);
         }
 
-        if (currentPage == menus.Length - 1)
+        if (_currentPage == menus.Length - 1 && !button.interactable)
         {
             StartCoroutine(ActivateStartLevelButton());
+        }
+        else if (_currentPage == menus.Length - 1)
+        {
+            StartCoroutine(StartGame());
         }
     }
 
     public void PreviousPage()
     {
-        if (currentPage > 0)
+        if (_currentPage > 0)
         {
-            menus[currentPage].SetActive(false);
-            currentPage--;
-            menus[currentPage].SetActive(true);
+            menus[_currentPage].SetActive(false);
+            _currentPage--;
+            menus[_currentPage].SetActive(true);
         }
 
-        if (currentPage == menus.Length - 2)
+        if (_currentPage == menus.Length - 2)
         {
             StopAllCoroutines();
         }
     }
 
-    IEnumerator StartGame()
+    private IEnumerator StartGame()
     {
         PlayerSaving.HasCompletedTutorial = true;
         PlayerSaving.SavePlayer();
         yield return new WaitForSeconds(0.5f);
-        mainMenu.StartLevel(1);
+        _mainMenu.StartLevel(1);
     }
 
-    IEnumerator ActivateStartLevelButton()
+    private IEnumerator ActivateStartLevelButton()
     {
         yield return new WaitForSeconds(4.0f);
         button.interactable = true;
