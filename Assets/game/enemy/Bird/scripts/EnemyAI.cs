@@ -10,81 +10,80 @@ public class EnemyAI : MonoBehaviour
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
 
-    private Transform enemyGFX;
-
-    Path path;
-    int currentWaypoint = 0;
-    // ↓ uncomment every comment with reachedEndOfPath if you need it. In this case it isnt usefull
+    private Transform _enemyGfx;
+    private Path _path;
+    private int _currentWaypoint;
+    private Seeker _seeker;
+    private Rigidbody2D _rb;
+    
+    // ↓ uncomment every comment with reachedEndOfPath if you need it. In this case it isn't useful
     //bool reachedEndOfPath = false;
 
-    Seeker seeker;
-    Rigidbody2D rb;
-
-    void Start()
+    private void Start()
     {
-        seeker = GetComponent<Seeker>();
-        rb = GetComponent<Rigidbody2D>();
-        enemyGFX = GetComponentInChildren<SpriteRenderer>().transform;
+        _seeker = GetComponent<Seeker>();
+        _rb = GetComponent<Rigidbody2D>();
+        _enemyGfx = GetComponentInChildren<SpriteRenderer>().transform;
 
-        InvokeRepeating("UpdatePath", 0f, .5f);
+        InvokeRepeating(nameof(UpdatePath), 0f, .5f);
     }
 
-    void UpdatePath()
+    private void UpdatePath()
     {
-        if (seeker.IsDone())
+        if (_seeker.IsDone())
         {
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+            _seeker.StartPath(_rb.position, target.position, OnPathComplete);
         }
     }
 
-    void OnPathComplete (Path p)
+    private void OnPathComplete (Path p)
     {
-        if (!p.error)
+        if (p.error)
         {
-            path = p;
-            currentWaypoint = 0;
+            return;
         }
+        _path = p;
+        _currentWaypoint = 0;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (Pause.IsPause == false)
+        if (Pause.IsPause)
         {
-            if (path == null)
-            {
-                return;
-            }
-            if (currentWaypoint >= path.vectorPath.Count)
-            {
-                //reachedEndOfPath = true;
-                return;
-            }
-            else
-            {
-                //reachedEndOfPath = false;
-            }
-
-            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] -rb.position).normalized;
-            Vector2 force = direction * speed * Time.deltaTime;
-
-            rb.AddForce(force);
-
-            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-
-            if (distance < nextWaypointDistance)
-            {
-                currentWaypoint++;
-            }
-            //You can make look it differently, if you delete 'rb.velocity' and add 'force' instead.
-            if (rb.linearVelocity.x >= 0.01f)
-            {
-                enemyGFX.transform.localScale = new Vector3(-1f, 1f, 1f);
-            }
-            else if (rb.linearVelocity.x <= -0.01f)
-            {
-                enemyGFX.transform.localScale = new Vector3(1f, 1f, 1f);
-            }
+            return;
         }
         
+        if (_path == null)
+        {
+            return;
+        }
+        if (_currentWaypoint >= _path.vectorPath.Count)
+        {
+            //reachedEndOfPath = true;
+            return;
+        }
+        //reachedEndOfPath = false;
+        
+        Vector2 direction = ((Vector2)_path.vectorPath[_currentWaypoint] -_rb.position).normalized;
+        Vector2 force = direction * (speed * Time.deltaTime);
+
+        _rb.AddForce(force);
+
+        var distance = Vector2.Distance(_rb.position, _path.vectorPath[_currentWaypoint]);
+
+        if (distance < nextWaypointDistance)
+        {
+            _currentWaypoint++;
+        }
+        //You can make look it differently, if you delete 'rb.velocity' and add 'force' instead.
+        if (_rb.linearVelocity.x >= 0.01f)
+        {
+            _enemyGfx.transform.localScale = new Vector3(-1f, 1f, 1f);
+        }
+        else if (_rb.linearVelocity.x <= -0.01f)
+        {
+            _enemyGfx.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+
     }
 }
