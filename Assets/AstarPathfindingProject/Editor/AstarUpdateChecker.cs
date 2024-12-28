@@ -107,9 +107,11 @@ namespace Pathfinding {
 		};
 
 		static AstarUpdateChecker() {
+			// Don't check for updates (already deprecated). Commented out to avoid warnings
+			
 			// Add a callback so that we can parse the message when it has been downloaded
-			EditorApplication.update += UpdateCheckLoop;
-			EditorBase.getDocumentationURL = () => GetURL("documentation");
+			//EditorApplication.update += UpdateCheckLoop;
+			//EditorBase.getDocumentationURL = () => GetURL("documentation");
 		}
 
 
@@ -189,7 +191,7 @@ namespace Pathfinding {
 		}
 
 		static void DownloadVersionInfo () {
-			var script = AstarPath.active != null ? AstarPath.active : GameObject.FindObjectOfType(typeof(AstarPath)) as AstarPath;
+			var script = AstarPath.active != null ? AstarPath.active : Object.FindFirstObjectByType<AstarPath>();
 
 			if (script != null) {
 				script.ConfigureReferencesInternal();
@@ -198,7 +200,7 @@ namespace Pathfinding {
 				}
 			}
 
-			bool mecanim = GameObject.FindObjectOfType(typeof(Animator)) != null;
+			bool mecanim = Object.FindFirstObjectByType<Animator>() != null;
 			string query = updateURL+
 						   "?v="+AstarPath.Version+
 						   "&pro=0"+
