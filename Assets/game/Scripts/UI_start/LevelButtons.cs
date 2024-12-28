@@ -6,82 +6,89 @@ using UnityEngine.UI;
 
 public class LevelButtons : MonoBehaviour
 {
-    public ButtonData[] buttonData;
+    private ButtonData[] _buttonData;
     public Button[] buttons;
-    private MainMenu mainMenu;
+    private MainMenu _mainMenu;
 
-    private int level = 0;
+    private int _level;
 
-    void Awake()
+    private void Awake()
     {
-        buttonData = new ButtonData[buttons.Length];
-        for (int i = 0; i < buttonData.Length; i++)
+        _buttonData = new ButtonData[buttons.Length];
+        for (var i = 0; i < _buttonData.Length; i++)
         {
-            buttonData[i] = new ButtonData(buttons[i], i + 1);
+            _buttonData[i] = new ButtonData(buttons[i], i + 1);
         }
-        mainMenu = FindObjectOfType<MainMenu>().GetComponent<MainMenu>();
+        _mainMenu = FindFirstObjectByType<MainMenu>().GetComponent<MainMenu>();
 
-        level = PlayerSaving.Level;
+        _level = PlayerSaving.Level;
 
         InitializeButtonListeners();
         UpdateButtons();
     }
 
-    void UpdateButtons()
+    private void UpdateButtons()
     {
-        for (int i = 0; i < level; i++)
+        for (var i = 0; i < _level; i++)
         {
-            if (buttonData.Length > i)
+            if (_buttonData.Length > i)
             {
-                buttonData[i].button.interactable = true;
+                _buttonData[i].Button.interactable = true;
             }
         }
-        for (int i = level; i < buttonData.Length; i++)
+        for (var i = _level; i < _buttonData.Length; i++)
         {
-            buttonData[i].button.interactable = false;
+            _buttonData[i].Button.interactable = false;
         }
 
-        buttonData[0].button.interactable = true;
-        buttonData[^1].button.interactable = true;
+        _buttonData[0].Button.interactable = true;
+        _buttonData[^1].Button.interactable = true;
     }
 
-    void InitializeButtonListeners()
+    private void InitializeButtonListeners()
     {
-        foreach (ButtonData data in buttonData)
+        foreach (var data in _buttonData)
         {
-            if (data.button.interactable)
+            if (data.Button.interactable)
             {
-                data.button.onClick.AddListener(() => mainMenu.StartLevel(data.level));
+                data.Button.onClick.AddListener(() => _mainMenu.StartLevel(data.Level));
             }
         }
     }
 
     // Test if its working
-    /*void Update()
+    /*private IEnumerator Start()
     {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            level--;
-            UpdateButtons();
-            Debug.Log("Test: " + level);
-        }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            level++;
-            UpdateButtons();
-            Debug.Log("Test: " + level);
-        }
+        _level++;
+        UpdateButtons();
+        Debug.Log("Level: " + _level);
+        yield return new WaitForSeconds(1f);
+        _level++;
+        UpdateButtons();
+        Debug.Log("Level: " + _level);
+        yield return new WaitForSeconds(1f);
+        _level++;
+        UpdateButtons();
+        Debug.Log("Level: " + _level);
+        yield return new WaitForSeconds(1f);
+        _level++;
+        UpdateButtons();
+        Debug.Log("Level: " + _level);
+        yield return new WaitForSeconds(1f);
+        _level--;
+        UpdateButtons();
+        Debug.Log("Level: " + _level);
     }*/
 
-    public class ButtonData
+    private class ButtonData
     {
-        public Button button;
-        public int level;
+        public readonly Button Button;
+        public readonly int Level;
 
         public ButtonData(Button button, int level)
         {
-            this.button = button;
-            this.level = level;
+            Button = button;
+            Level = level;
         }
     }
 }
