@@ -8,17 +8,14 @@ public class MarcPresents : MonoBehaviour
     public string levelToLoad = "Start";
     public float howMuchToWait = 3.0f;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         StartCoroutine(StartScene());
     }
 
-    IEnumerator StartScene()
+    private IEnumerator StartScene()
     {
         yield return new WaitForSeconds(howMuchToWait);
         sceneFader.FadeTo(levelToLoad);
     }
-
 }
