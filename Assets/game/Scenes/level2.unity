@@ -610,12 +610,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20170927
-  m_LegacyPriority: 10
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 820667352}
     LookAtTarget: {fileID: 820667352}
@@ -32417,6 +32417,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1088547606}
     m_Modifications:
+    - target: {fileID: 2445183410012274874, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2445183410012274885, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5997795402675237424, guid: 212221bc4a138cd419eb6cc39547b1cb, type: 3}
       propertyPath: m_RootOrder
       value: 1

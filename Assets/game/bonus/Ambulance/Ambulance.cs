@@ -5,49 +5,56 @@ using UnityEngine.UI;
 
 public class Ambulance : MonoBehaviour
 {
-    private Animator animator;
-    private Animator GFX;
-    public bool allowedToKillHauer = false;
+    private Animator _animator;
+    private Animator _gfx;
+    public bool allowedToKillHauer;
 
     [Header("Timings")]
     public float timeToDriveToPickUpLocation = 1.0f;
     public float timeToWaitAtPickUp = 2.0f;
     public float timeToDriveToStation = 1.0f;
     public float timeout = 1.1f;
+    
+    [Header("AnimationIDs")]
+    private static readonly int GoToPickUpLocationAnimationID = Animator.StringToHash("GoToPickUpLocation");
+    private static readonly int DriveAnimationID = Animator.StringToHash("Drive");
+    private static readonly int StayAtPickUpLocationAnimationID = Animator.StringToHash("StayAtPickUpLocation");
+    private static readonly int GoToStationAnimationID = Animator.StringToHash("GoToStation");
+    private static readonly int StayAtStationAnimationID = Animator.StringToHash("StayAtStation");
 
-    void Start()
+    private void Start()
     {
-        animator = GetComponent<Animator>();
-        GFX = transform.GetChild(0).GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
+        _gfx = transform.GetChild(0).GetComponent<Animator>();
     }
 
     public IEnumerator Script()
     {
         yield return new WaitForSeconds(timeout);
 
-        animator.SetBool("GoToPickUpLocation", true);
-        GFX.SetBool("Drive", true);
+        _animator.SetBool(GoToPickUpLocationAnimationID, true);
+        _gfx.SetBool(DriveAnimationID, true);
 
         yield return new WaitForSeconds(timeToDriveToPickUpLocation);
 
-        animator.SetBool("GoToPickUpLocation", false);
-        GFX.SetBool("Drive", false);
+        _animator.SetBool(GoToPickUpLocationAnimationID, false);
+        _gfx.SetBool(DriveAnimationID, false);
 
-        animator.SetBool("StayAtPickUpLocation", true);
+        _animator.SetBool(StayAtPickUpLocationAnimationID, true);
 
         allowedToKillHauer = true;
 
         yield return new WaitForSeconds(timeToWaitAtPickUp);
 
-        animator.SetBool("StayAtPickUpLocation", false);
-        GFX.SetBool("Drive", true);
-        animator.SetBool("GoToStation", true);
+        _animator.SetBool(StayAtPickUpLocationAnimationID, false);
+        _gfx.SetBool(DriveAnimationID, true);
+        _animator.SetBool(GoToStationAnimationID, true);
 
         yield return new WaitForSeconds(timeToDriveToStation);
 
-        animator.SetBool("GoToStation", false);
-        GFX.SetBool("Drive", false);
-        animator.SetBool("StayAtStation", true);
+        _animator.SetBool(GoToStationAnimationID, false);
+        _gfx.SetBool(DriveAnimationID, false);
+        _animator.SetBool(StayAtStationAnimationID, true);
         
     }
 }

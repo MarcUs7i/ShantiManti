@@ -4,39 +4,40 @@ using UnityEngine;
 
 public class Bus : MonoBehaviour
 {
-    private Animator animator;
+    private static readonly int RunAnimationID = Animator.StringToHash("Run");
+    private Animator _animator;
     public float speed = 20f;
-    bool moveBus = false;
+    private bool _moveBus;
 
-    void Start()
+    private void Start()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        if (moveBus)
+        if (_moveBus)
         {
-            transform.position += Vector3.right * speed * Time.deltaTime;
+            transform.position += Vector3.right * (speed * Time.deltaTime);
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (collider.gameObject.CompareTag("Player"))
         {
             StartCoroutine(Run());
             Destroy(collider.gameObject);
         }
     }
 
-    IEnumerator Run()
+    private IEnumerator Run()
     {
-        animator.SetBool("Run", true);
-        moveBus = true;
+        _animator.SetBool(RunAnimationID, true);
+        _moveBus = true;
         yield return new WaitForSeconds(5.0f);
         
-        Endlevel endLevelInstance = FindObjectOfType<Endlevel>().GetComponent<Endlevel>();
+        Endlevel endLevelInstance = FindFirstObjectByType<Endlevel>().GetComponent<Endlevel>();
         endLevelInstance.GoToNextLevel();
     }
 }
