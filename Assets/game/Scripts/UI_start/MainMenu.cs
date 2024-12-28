@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-	private string[] scenes = {"MarcPresents", "Start", "LevelSelect", "levelTutorial", "level1", "level2", "level3", "level4", "level5", "level6", "level7", "level8", "level9", "level10", "level11", "level12", "level13", "level14", "level15", "level16", "level17", "level18", "level19", "level20", "bonus", "About"};
+	private readonly string[] _scenes = {"MarcPresents", "Start", "LevelSelect", "levelTutorial", "level1", "level2", "level3", "level4", "level5", "level6", "level7", "level8", "level9", "level10", "level11", "level12", "level13", "level14", "level15", "level16", "level17", "level18", "level19", "level20", "bonus", "About"};
 
 	[Header("UIs")]
 	public GameObject[] standardUI;
@@ -12,35 +12,69 @@ public class MainMenu : MonoBehaviour
 	public GameObject[] changeOnlyWhenEnabledUI;
 	public GameObject[] changeOnlyWhenDisabledUI;
 
-	private SceneFader sceneFader;
-	public static bool ExitLevel = false;
+	public static bool ExitLevel;
+	private static InputActions _inputActions;
+	private SceneFader _sceneFader;
 
 	void Start()
 	{
-		sceneFader = FindObjectOfType<SceneFader>().GetComponent<SceneFader>();
+		_sceneFader = FindFirstObjectByType<SceneFader>().GetComponent<SceneFader>();
 	}
+	
+	private void Awake()
+	{
+		_inputActions = new InputActions();
+		_inputActions.Player.Start.performed += _ =>
+		{
+			if(SceneManager.GetActiveScene().name == "Start")
+			{
+				LevelSelect();
+			}
+		};
+		_inputActions.Player.Pause.performed += _ =>
+		{
+			var currentScene = SceneManager.GetActiveScene().name;
+			switch (currentScene)
+			{
+				case "LevelSelect":
+				case "levelTutorial":
+				case "bonus":
+				case "About":
+					StartScene();
+					break;
+				default:
+					ToggleUI();
+					break;
+			}
+
+			//Pause in game is handled in Pause.cs
+		};
+	}
+	
+	private void OnEnable() => _inputActions.Enable();
+	private void OnDisable() => _inputActions.Disable();
 
 	public void StartScene() => LoadScene(1);
 	public void LevelSelect() => LoadScene(2);
-	public void AboutScene() => LoadScene(scenes.Length - 1);
+	public void AboutScene() => LoadScene(_scenes.Length - 1);
 
 	public void StartLevel(int level)
 	{
-		bool tutorial = PlayerSaving.HasCompletedTutorial;
+		var tutorial = PlayerSaving.HasCompletedTutorial;
 		if (level == 1 && !tutorial)
 		{
-			sceneFader.FadeTo(scenes[3]);
+			_sceneFader.FadeTo(_scenes[3]);
 			ExitLevel = false;
 			return;
 		}
 		level += 3;
-		sceneFader.FadeTo(scenes[level]);
+		_sceneFader.FadeTo(_scenes[level]);
 		ExitLevel = false;
 	}
 
 	public void LoadScene(int scene)
 	{
-		sceneFader.FadeTo(scenes[scene]);
+		_sceneFader.FadeTo(_scenes[scene]);
 		ExitLevel = true;
 	}
 
@@ -53,56 +87,26 @@ public class MainMenu : MonoBehaviour
 		#endif
 	}
 
-	public void ToggleUI()
+	private void ToggleUI()
 	{
 		//The check
-		foreach (GameObject ui in changeOnlyWhenEnabledUI)
+		foreach (var ui in changeOnlyWhenEnabledUI)
 		{
 			if (!ui.activeSelf) return;
 		}
-		foreach (GameObject ui in changeOnlyWhenDisabledUI)
+		foreach (var ui in changeOnlyWhenDisabledUI)
 		{
 			if (ui.activeSelf) return;
 		}
 
 		//The change
-		foreach (GameObject ui in standardUI)
+		foreach (var ui in standardUI)
 		{
 			ui.SetActive(!ui.activeSelf);
 		}
-		foreach (GameObject ui in secondUI)
+		foreach (var ui in secondUI)
 		{
 			ui.SetActive(!ui.activeSelf);
 		}
 	}
-
-	public void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace))
-		{
-			string currentScene = SceneManager.GetActiveScene().name;
-			if (currentScene == "LevelSelect" || currentScene == "levelTutorial" || currentScene == "bonus" || currentScene == "About")
-			{
-				StartScene();
-			}
-			else if (currentScene == "MarcPresents")
-			{
-				Quit();
-			}
-			else
-			{
-				ToggleUI();
-			}
-
-			//Pause in game is handled in Pause.cs
-		}
-		if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
-		{
-			if(SceneManager.GetActiveScene().name == "Start")
-			{
-				LevelSelect();
-			}
-		}
-	}
-
 }
