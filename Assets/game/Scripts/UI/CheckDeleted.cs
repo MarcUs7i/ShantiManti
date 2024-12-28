@@ -39,7 +39,7 @@ public class CheckDeleted : MonoBehaviour
             }
             count++;
             Exit = 0;
-            if (PlayerSaving.level == 0 && PlayerSaving.coins == 0 && !PlayerSaving.hasCompletedTutorial && PlayerSaving.movingClouds)
+            if (PlayerSaving.Level == 0 && PlayerSaving.Coins == 0 && !PlayerSaving.HasCompletedTutorial && PlayerSaving.MovingClouds)
             {
                 
                 Deleted.SetActive(true);
@@ -62,7 +62,7 @@ public class CheckDeleted : MonoBehaviour
             PlayerSaving.LoadPlayer();
         	count++;
             Delete = 0;
-            if (PlayerSaving.level == 0 && PlayerSaving.coins == 0 && !PlayerSaving.hasCompletedTutorial && PlayerSaving.movingClouds)
+            if (PlayerSaving.Level == 0 && PlayerSaving.Coins == 0 && !PlayerSaving.HasCompletedTutorial && PlayerSaving.MovingClouds)
             {
                 Deleted.SetActive(true);
                 Debug.Log("Done Stage: " + count);

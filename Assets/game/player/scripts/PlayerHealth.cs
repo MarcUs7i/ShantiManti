@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
 			if (SC_2DCoin.TotalCoins > coinDeductions[i] && health <= 0)
 			{
 				// Subtract coins based on the level
-				if (PlayerSaving.level <= coinDeductions[i])
+				if (PlayerSaving.Level <= coinDeductions[i])
 				{
 					SC_2DCoin.TotalCoins -= coinDeductions[i];
 					Minus = true;
@@ -68,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
 				}
 
 				// Save the updated coin count
-				PlayerSaving.coins = SC_2DCoin.TotalCoins;
+				PlayerSaving.Coins = SC_2DCoin.TotalCoins;
 				PlayerSaving.SavePlayer();
 			}
 		}

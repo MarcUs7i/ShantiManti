@@ -35,8 +35,8 @@ public class ClearData : MonoBehaviour
 
         int[] defaultInts = { 0, 0 };
         bool[] defaultBools = { false, true };
-        int[] checkInts = { PlayerSaving.level, PlayerSaving.coins };
-        bool[] checkBools = { PlayerSaving.hasCompletedTutorial, PlayerSaving.movingClouds };
+        int[] checkInts = { PlayerSaving.Level, PlayerSaving.Coins };
+        bool[] checkBools = { PlayerSaving.HasCompletedTutorial, PlayerSaving.MovingClouds };
 
         for (int i = 0; i < defaultInts.Length; i++)
         {

@@ -5,16 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public int savedLevels = 0;
-    public int savedCoins = 0;
-    public bool tutorial = false;
-    public bool cloudsMove = true;
+    public int savedLevels;
+    public int savedCoins;
+    public bool tutorial;
+    public bool cloudsMove;
 
-    public PlayerData ()
+    public PlayerData()
     {
-        savedLevels = PlayerSaving.level;
-        savedCoins = PlayerSaving.coins;
-        tutorial = PlayerSaving.hasCompletedTutorial;
-        cloudsMove = PlayerSaving.movingClouds;
+        savedLevels = PlayerSaving.Level;
+        savedCoins = PlayerSaving.Coins;
+        tutorial = PlayerSaving.HasCompletedTutorial;
+        cloudsMove = PlayerSaving.MovingClouds;
     }
 }

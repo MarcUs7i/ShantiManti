@@ -14,7 +14,7 @@ public class CloudsToggle : MonoBehaviour
     {
         changingStates = true;
 
-        cloudsCanMove = PlayerSaving.movingClouds;
+        cloudsCanMove = PlayerSaving.MovingClouds;
         cloudsToggle.isOn = cloudsCanMove;
         previousCloudsCanMoveState = cloudsCanMove;
 
@@ -32,7 +32,7 @@ public class CloudsToggle : MonoBehaviour
         if (cloudsCanMove != previousCloudsCanMoveState)
         {
             //Debug.Log("State changed. Saving Clouds state: " + cloudsCanMove);
-            PlayerSaving.movingClouds = cloudsCanMove;
+            PlayerSaving.MovingClouds = cloudsCanMove;
             PlayerSaving.SavePlayer();
             previousCloudsCanMoveState = cloudsCanMove;
         }

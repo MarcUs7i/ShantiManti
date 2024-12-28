@@ -13,7 +13,7 @@ public class Endlevel : MonoBehaviour
     {
         //Make Collider2D as trigger 
         GetComponent<Collider2D>().isTrigger = true;
-        level = PlayerSaving.level;
+        level = PlayerSaving.Level;
         SetLevel = GetValueForSetLevel();
     }
 
@@ -27,11 +27,11 @@ public class Endlevel : MonoBehaviour
 
     void Update()
     {
-        if (level != PlayerSaving.level)
+        if (level != PlayerSaving.Level)
         {
-            if (PlayerSaving.level < level)
+            if (PlayerSaving.Level < level)
             {
-                PlayerSaving.level = level;
+                PlayerSaving.Level = level;
                 PlayerSaving.SavePlayer();
                 //Debug.Log("Saved " + PlayerSaving.levels + " Level");
             }

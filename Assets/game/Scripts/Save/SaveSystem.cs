@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
-    public static void SavePlayer ()
+    public static void SavePlayer()
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/player.save";
@@ -16,7 +16,7 @@ public static class SaveSystem
         stream.Close();
     }
 
-    public static PlayerData LoadPlayer ()
+    public static PlayerData LoadPlayer()
     {
         string path = Application.persistentDataPath + "/player.save";
         if (File.Exists(path))
@@ -29,13 +29,11 @@ public static class SaveSystem
 
             return data;
         }
-        else
-        {
-            Debug.LogError("SaveFile not found in " + path);
-            Debug.Log("Creating new save file...");
-            SavePlayer();
-            return LoadPlayer();
-        }
+        
+        Debug.LogError("SaveFile not found in " + path);
+        Debug.Log("Creating new save file...");
+        SavePlayer();
+        return LoadPlayer();
     }
     
 }

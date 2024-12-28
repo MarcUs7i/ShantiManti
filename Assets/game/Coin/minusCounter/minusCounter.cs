@@ -36,7 +36,7 @@ public class minusCounter : MonoBehaviour
         for (int i = 0; i < levelRanges.Length; i++)
         {
             // Check if player's level is within the range for the current coin value
-            if (PlayerSaving.level <= levelRanges[i] && (i == 0 || PlayerSaving.level > levelRanges[i - 1]))
+            if (PlayerSaving.Level <= levelRanges[i] && (i == 0 || PlayerSaving.Level > levelRanges[i - 1]))
             {
                 if (SC_2DCoin.TotalCoins + levelRanges[i] < levelRanges[i])
                 {

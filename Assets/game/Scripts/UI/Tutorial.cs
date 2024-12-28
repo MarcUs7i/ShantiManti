@@ -49,7 +49,7 @@ public class Tutorial : MonoBehaviour
 
     IEnumerator StartGame()
     {
-        PlayerSaving.hasCompletedTutorial = true;
+        PlayerSaving.HasCompletedTutorial = true;
         PlayerSaving.SavePlayer();
         yield return new WaitForSeconds(0.5f);
         mainMenu.StartLevel(1);

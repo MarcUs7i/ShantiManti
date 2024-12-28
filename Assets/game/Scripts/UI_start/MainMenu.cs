@@ -26,7 +26,7 @@ public class MainMenu : MonoBehaviour
 
 	public void StartLevel(int level)
 	{
-		bool tutorial = PlayerSaving.hasCompletedTutorial;
+		bool tutorial = PlayerSaving.HasCompletedTutorial;
 		if (level == 1 && !tutorial)
 		{
 			sceneFader.FadeTo(scenes[3]);

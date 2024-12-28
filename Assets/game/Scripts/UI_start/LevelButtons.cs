@@ -21,7 +21,7 @@ public class LevelButtons : MonoBehaviour
         }
         mainMenu = FindObjectOfType<MainMenu>().GetComponent<MainMenu>();
 
-        level = PlayerSaving.level;
+        level = PlayerSaving.Level;
 
         InitializeButtonListeners();
         UpdateButtons();

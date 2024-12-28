@@ -15,7 +15,7 @@ public class SC_2DCoin : MonoBehaviour
     {
         //Make Collider2D as trigger 
         GetComponent<Collider2D>().isTrigger = true;
-        TotalCoins = PlayerSaving.coins;
+        TotalCoins = PlayerSaving.Coins;
     }
 
     private void OnTriggerEnter2D(Collider2D c2d)
@@ -42,9 +42,9 @@ public class SC_2DCoin : MonoBehaviour
 
     private void Update()
     {
-        if (TotalCoins != PlayerSaving.coins)
+        if (TotalCoins != PlayerSaving.Coins)
         {
-            PlayerSaving.coins = TotalCoins;
+            PlayerSaving.Coins = TotalCoins;
             PlayerSaving.SavePlayer();
         }
     }
