@@ -5,25 +5,23 @@ using UnityEngine;
 public class BulletAli : MonoBehaviour
 {
     public float speed = 20f;
-    public int damage = 40;
     public GameObject impactEffect;
-    Rigidbody2D rb;
-    SpriteRenderer spriteRenderer;
+    private Rigidbody2D _rb;
 
-    void Start()
+    private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
+        GetComponent<SpriteRenderer>();
+        _rb = GetComponent<Rigidbody2D>();
         Vector3 newScale = transform.localScale;
 
         newScale.x *= Ali.BulletAliDirection;
-        rb.linearVelocity = transform.right * Ali.BulletAliDirection * speed;
+        _rb.linearVelocity = transform.right * Ali.BulletAliDirection * speed;
         transform.localScale = newScale;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             Enemy.TookDamage = true;
         }

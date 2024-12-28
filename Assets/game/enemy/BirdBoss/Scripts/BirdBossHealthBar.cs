@@ -6,22 +6,22 @@ using System;
 
 public class BirdBossHealthBar : MonoBehaviour
 {
-    BirdBoss birdBoss;
-	Animator animator;
+	private BirdBoss _birdBoss;
+	private Animator _animator;
 
-	void Start()
+	private void Start()
 	{
-		birdBoss = GetComponentInParent<BirdBoss>();
-		animator = GetComponent<Animator>();
-		animator.SetBool("100", true);
+		_birdBoss = GetComponentInParent<BirdBoss>();
+		_animator = GetComponent<Animator>();
+		_animator.SetBool("100", true);
 	}
 
-	void Update()
+	private void Update()
     {
 		int[] health = { 100, 75, 50, 25 };
 		for (int i = 0; i < 4; i++)
 		{
-			animator.SetBool(health[i].ToString(), birdBoss.health >= health[i]);
+			_animator.SetBool(health[i].ToString(), _birdBoss.health >= health[i]);
 		}
     }
 }

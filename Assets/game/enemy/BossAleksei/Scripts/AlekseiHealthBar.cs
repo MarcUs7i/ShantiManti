@@ -5,25 +5,25 @@ using UnityEngine.UI;
 
 public class AlekseiHealthBar : MonoBehaviour
 {
-    Aleksei aleksei;
-	Animator animator;
-	int NewHealth = 100;
+	private Aleksei _aleksei;
+	private Animator _animator;
+	private int _newHealth = 100;
 
-	void Start()
+	private void Start()
 	{
-		aleksei = GetComponentInParent<Aleksei>();
-		animator = GetComponent<Animator>();
-		animator.SetBool("100", true);
+		_aleksei = GetComponentInParent<Aleksei>();
+		_animator = GetComponent<Animator>();
+		_animator.SetBool("100", true);
 	}
 
-	void Update()
+	private void Update()
     {
-		NewHealth = (aleksei.health * 100) / 200;
+		_newHealth = (_aleksei.health * 100) / 200;
 
 		int[] health = { 100, 75, 50, 25 };
 		for (int i = 0; i < 4; i++)
 		{
-			animator.SetBool(health[i].ToString(), health[i] == NewHealth);
+			_animator.SetBool(health[i].ToString(), health[i] == _newHealth);
 		}
     }
 }

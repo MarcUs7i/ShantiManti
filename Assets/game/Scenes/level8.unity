@@ -196,12 +196,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
-  m_StreamingVersion: 20170927
-  m_LegacyPriority: 10
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 820667352}
     LookAtTarget: {fileID: 0}
@@ -3526,10 +3526,6 @@ PrefabInstance:
     - target: {fileID: 2419347479429335664, guid: 8349dd52104ed2149a34ee68d7706e88, type: 3}
       propertyPath: m_Name
       value: BirdBoss
-      objectReference: {fileID: 0}
-    - target: {fileID: 2419347479429335679, guid: 8349dd52104ed2149a34ee68d7706e88, type: 3}
-      propertyPath: m_RootOrder
-      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2419347479429335679, guid: 8349dd52104ed2149a34ee68d7706e88, type: 3}
       propertyPath: m_LocalPosition.x

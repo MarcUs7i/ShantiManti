@@ -85,11 +85,12 @@ public class Ali : MonoBehaviour
 
     private void OnPathComplete (Path p)
     {
-        if (!p.error)
+        if (p.error)
         {
-            _path = p;
-            _currentWaypoint = 0;
+            return;
         }
+        _path = p;
+        _currentWaypoint = 0;
     }
 
     private void FixedUpdate()
@@ -99,8 +100,8 @@ public class Ali : MonoBehaviour
             return;
         }
 
-        float distance = Vector2.Distance(transform.position, _player.position);
-        if (distance < range)
+        var distance = Vector2.Distance(transform.position, _player.position);
+        if (distance < range && !_startGoing)
         {
             _startGoing = true;
         }
@@ -290,7 +291,7 @@ public class Ali : MonoBehaviour
 
     private IEnumerator PlaySfx()
     {
-        float oldVolume = BackgroundMusic.volume;
+        var oldVolume = BackgroundMusic.volume;
         BackgroundMusic.volume = 0.25f;
         _audioSfx.Play();
 
