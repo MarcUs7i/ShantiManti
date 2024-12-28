@@ -8,7 +8,7 @@ public class Niko : MonoBehaviour
     [Header("Speed & Range")]
     public float SlowSpeed = 0.5f;
     public float NormalSpeed = 3f;
-    float speed = 3f;
+    private float _speed = 3f;
     public float range = 10f;
 
     [Header("Weapon")]
@@ -21,38 +21,40 @@ public class Niko : MonoBehaviour
 
     [Header("")]
     public Collider2D groundCheckCollider;
-    public Transform enemyGFX;
+    
+    [Header("AnimationIDs")]
+    private static readonly int DamageAnimationID = Animator.StringToHash("Damage");
+    private static readonly int AttackAnimationID = Animator.StringToHash("Attack");
 
-    //Rigidbody2D rb;
-    Transform player;
-    Animator animator;
+    private Transform _player;
+    private Animator _animator;
 
     public static float BulletHamDirection;
-    bool StopAttack = false;
-    bool StopHurting = false;
+    private bool _stopAttack;
+    private bool _stopHurting;
+    private bool _canDestroyItself;
 
-    void Start()
+    private void Start()
     {
-        //rb = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        _animator = GetComponentInChildren<Animator>();
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
         BulletHamDirection = -1f;
-        speed = NormalSpeed;
+        _speed = NormalSpeed;
     }
 
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
-            animator.SetBool("Damage", true);
+            _animator.SetBool(DamageAnimationID, true);
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        float distance = Vector2.Distance(transform.position, player.position);
-        if (collider.gameObject.tag == "Bullet" && distance < range && !StopHurting)
+        var distance = Vector2.Distance(transform.position, _player.position);
+        if (collider.gameObject.CompareTag("Bullet") && distance < range && !_stopHurting)
         {
             StartCoroutine(BulletAttacked());
             TakeDamage(50);
@@ -60,22 +62,23 @@ public class Niko : MonoBehaviour
     }
 
 
-    public void TakeDamage(int damage)
+    private void TakeDamage(int damage)
     {
-        if (!MainMenu.ExitLevel)
-		{
-			health -= damage;
+        if (MainMenu.ExitLevel)
+        {
+            return;
+        }
+        health -= damage;
 
-			if (health <= 0)
-			{
-				DestroyEnemy();
-			}
-		}
+        if (health <= 0)
+        {
+            DestroyEnemy();
+        }
     }
 
-    void Update()
+    private void Update()
     {
-        if (animator.GetBool("Damage"))
+        if (_animator.GetBool(DamageAnimationID))
         {
             StartCoroutine(DamageAnimation());
         }
@@ -86,24 +89,16 @@ public class Niko : MonoBehaviour
         }
         
         // calculate the distance between the enemy and the player
-        float distance = Vector2.Distance(transform.position, player.position);
+        var distance = Vector2.Distance(transform.position, _player.position);
 
         // if the distance between the enemy and the player is less than the range
         if (distance < range)
         {
             // move the enemy towards the player at the specified speed
-            /*Vector2 direction = (player.position - transform.position).normalized;
-            Debug.Log(direction);
-            rb.velocity = direction * speed;*/
-            transform.position += Vector3.left * speed * Time.deltaTime;
-            distance = Vector2.Distance(transform.position, player.position);
-            if (!StopAttack)
+            transform.position += Vector3.left * (_speed * Time.deltaTime);
+            if (!_stopAttack)
             {
                 StartCoroutine(Attack());
-            }
-            if (distance > range)
-            {
-                Destroy(gameObject);
             }
 
             // check if the enemy is not on the ground
@@ -111,40 +106,47 @@ public class Niko : MonoBehaviour
             {
                 DestroyEnemy();
             }
+
+            _canDestroyItself = true;
+        }
+        
+        if (distance > range && _canDestroyItself)
+        {
+            Destroy(gameObject);
         }
     }
 
-    IEnumerator Attack()
+    private IEnumerator Attack()
     {
-        StopAttack = true;
+        _stopAttack = true;
         yield return new WaitForSeconds(2.0f);
-        speed = SlowSpeed;
-        animator.SetBool("Attack", true);
+        _speed = SlowSpeed;
+        _animator.SetBool(AttackAnimationID, true);
         Instantiate(EnemyWeapon, firePoint.position, firePoint.rotation);
         yield return new WaitForSeconds(2.0f);
-        speed = NormalSpeed;
-        animator.SetBool("Attack", false);
+        _speed = NormalSpeed;
+        _animator.SetBool(AttackAnimationID, false);
         
         yield return new WaitForSeconds(2.0f);
-        StopAttack = false;
+        _stopAttack = false;
     }
 
-    IEnumerator DamageAnimation()
+    private IEnumerator DamageAnimation()
     {
         yield return new WaitForSeconds(2.0f);
-        animator.SetBool("Damage", false);
+        _animator.SetBool(DamageAnimationID, false);
     }
 
-    IEnumerator BulletAttacked()
+    private IEnumerator BulletAttacked()
     {
-        animator.SetBool("Damage", true);
-        StopHurting = true;
+        _animator.SetBool(DamageAnimationID, true);
+        _stopHurting = true;
         yield return new WaitForSeconds(0.5f);
-        StopHurting = false;
-        animator.SetBool("Damage", false);
+        _stopHurting = false;
+        _animator.SetBool(DamageAnimationID, false);
     }
 
-    bool IsOnGround()
+    private bool IsOnGround()
     {
         // perform an overlap check with the ground check collider
         Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheckCollider.bounds.center, groundCheckCollider.bounds.size, 0f);
@@ -161,7 +163,7 @@ public class Niko : MonoBehaviour
         return false;
     }
 
-    void DestroyEnemy()
+    private void DestroyEnemy()
     {
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);

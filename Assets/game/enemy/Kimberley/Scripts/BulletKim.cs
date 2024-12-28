@@ -5,19 +5,18 @@ using UnityEngine;
 public class BulletKim : MonoBehaviour
 {
     public float speed = 20f;
-    public int damage = 40;
     public GameObject impactEffect;
-    Rigidbody2D rb;
+    private Rigidbody2D _rb;
 
-    void Start()
+    private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.linearVelocity = transform.right * Kimberley.BulletKimDirection * speed;
+        _rb = GetComponent<Rigidbody2D>();
+        _rb.linearVelocity = transform.right * Kimberley.BulletKimDirection * speed;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             Enemy.TookDamage = true;
         }

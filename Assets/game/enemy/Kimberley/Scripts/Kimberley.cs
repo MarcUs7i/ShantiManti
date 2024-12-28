@@ -12,7 +12,7 @@ public class Kimberley : MonoBehaviour
 
     [Header("Pathfinding")]
     public float nextWaypointDistance = 3f;
-    int currentWaypoint = 0;
+    private int _currentWaypoint;
 
     [Header("Health")]
     public int health = 100;
@@ -26,95 +26,97 @@ public class Kimberley : MonoBehaviour
     public Collider2D groundCheckCollider;
     public Transform enemyGFX;
 
-    Path path;
-    Seeker seeker;
-    Rigidbody2D rb;
-    Transform player;
-    Animator animator;
+    [Header("AnimationIDs")]
+    private static readonly int DamageAnimationID = Animator.StringToHash("Damage");
+    private static readonly int AttackAnimationID = Animator.StringToHash("Attack");
+    
+    private Path _path;
+    private Seeker _seeker;
+    private Rigidbody2D _rb;
+    private Transform _player;
+    private Animator _animator;
 
     public static float BulletKimDirection;
-    bool StopAttack = false;
-    bool StopHurting = false;
-    bool DestroyYourSelf = false;
-    bool WalkStop = false;
+    private bool _stopAttack;
+    private bool _stopHurting;
+    private bool _canDestroyItself;
+    private bool _walkStop;
 
-    void Start()
+    private void Start()
     {
-        seeker = GetComponent<Seeker>();
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        _seeker = GetComponent<Seeker>();
+        _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        InvokeRepeating("UpdatePath", 0f, .5f);
+        InvokeRepeating(nameof(UpdatePath), 0f, .5f);
     }
 
-    void UpdatePath()
+    private void UpdatePath()
     {
-        if (seeker.IsDone())
+        if (_seeker.IsDone())
         {
-            seeker.StartPath(rb.position, player.position, OnPathComplete);
+            _seeker.StartPath(_rb.position, _player.position, OnPathComplete);
         }
     }
 
-    void OnPathComplete (Path p)
+    private void OnPathComplete (Path p)
     {
-        if (!p.error)
+        if (p.error)
         {
-            path = p;
-            currentWaypoint = 0;
+            return;
+        }
+        _path = p;
+        _currentWaypoint = 0;
+    }
+
+    private void TakeDamage(int damage)
+    {
+        if (MainMenu.ExitLevel)
+        {
+            return;
+        }
+        health -= damage;
+
+        if (health <= 0)
+        {
+            DestroyEnemy();
         }
     }
 
-    public void TakeDamage(int damage)
-    {
-        if (!MainMenu.ExitLevel)
-		{
-			health -= damage;
-
-			if (health <= 0)
-			{
-				DestroyEnemy();
-			}
-		}
-    }
-
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (Pause.IsPause)
         {
             return;
         }
 
-        float distance = Vector2.Distance(transform.position, player.position);
-        if (distance < range && !WalkStop)
+        var distance = Vector2.Distance(transform.position, _player.position);
+        if (distance < range && !_walkStop)
         {
-            if (path == null)
-            {
-                return;
-            }
-            if (currentWaypoint >= path.vectorPath.Count)
+            if (_path == null || _currentWaypoint >= _path.vectorPath.Count)
             {
                 return;
             }
 
-            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] -rb.position).normalized;
-            Vector2 force = direction * speed * Time.deltaTime;
+            Vector2 direction = ((Vector2)_path.vectorPath[_currentWaypoint] -_rb.position).normalized;
+            Vector2 force = direction * (speed * Time.deltaTime);
 
-            rb.AddForce(force);
+            _rb.AddForce(force);
 
-            distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+            distance = Vector2.Distance(_rb.position, _path.vectorPath[_currentWaypoint]);
 
             if (distance < nextWaypointDistance)
             {
-                currentWaypoint++;
+                _currentWaypoint++;
             }
             //You can make look it differently, if you delete 'rb.velocity' and add 'force' instead.
-            if (rb.linearVelocity.x >= 0.01f)
+            if (_rb.linearVelocity.x >= 0.01f)
             {
                 enemyGFX.transform.localScale = new Vector3(-1f, 1f, 1f);
                 BulletKimDirection = 1f;
             }
-            else if (rb.linearVelocity.x <= -0.01f)
+            else if (_rb.linearVelocity.x <= -0.01f)
             {
                 enemyGFX.transform.localScale = new Vector3(1f, 1f, 1f);
                 BulletKimDirection = -1f;
@@ -122,13 +124,13 @@ public class Kimberley : MonoBehaviour
 
             if (distance < attackRange)
             {
-                if (!StopAttack)
+                if (!_stopAttack)
                 {
                     StartCoroutine(Attack());
                 }
             }
 
-            DestroyYourSelf = true;
+            _canDestroyItself = true;
         }
 
         if (!IsOnGround())
@@ -138,60 +140,59 @@ public class Kimberley : MonoBehaviour
         }
 
         // destroy the enemy game object if it is out of range
-        distance = Vector2.Distance(transform.position, player.position);
-        if (distance > range && DestroyYourSelf)
+        distance = Vector2.Distance(transform.position, _player.position);
+        if (distance > range && _canDestroyItself)
         {
             Destroy(gameObject);
         }
         
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
-            animator.SetBool("Damage", true);
+            _animator.SetBool(DamageAnimationID, true);
         }
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        float distance = Vector2.Distance(transform.position, player.position);
-        if (collider.gameObject.tag == "Bullet" && distance < range && !StopHurting)
+        var distance = Vector2.Distance(transform.position, _player.position);
+        if (collider.gameObject.CompareTag("Bullet") && distance < range && !_stopHurting)
         {
             StartCoroutine(BulletAttacked());
             TakeDamage(40);
         }
     }
 
-    IEnumerator Attack()
+    private IEnumerator Attack()
     {
-        //Debug.Log("Attacked");
-        StopAttack = true;
+        _stopAttack = true;
         yield return new WaitForSeconds(2.0f);
-        WalkStop = true;
-        animator.SetBool("Attack", true);
+        _walkStop = true;
+        _animator.SetBool(AttackAnimationID, true);
         Instantiate(EnemyWeapon, firePoint.position, firePoint.rotation);
         yield return new WaitForSeconds(2.0f);
-        WalkStop = false;
-        animator.SetBool("Attack", false);
+        _walkStop = false;
+        _animator.SetBool(AttackAnimationID, false);
         
         yield return new WaitForSeconds(2.0f);
-        StopAttack = false;
+        _stopAttack = false;
     }
 
-    IEnumerator BulletAttacked()
+    private IEnumerator BulletAttacked()
     {
-        WalkStop = true;
-        animator.SetBool("Damage", true);
-        StopHurting = true;
+        _walkStop = true;
+        _animator.SetBool(DamageAnimationID, true);
+        _stopHurting = true;
         yield return new WaitForSeconds(2.0f);
-        StopHurting = false;
-        WalkStop = false;
-        animator.SetBool("Damage", false);
+        _stopHurting = false;
+        _walkStop = false;
+        _animator.SetBool(DamageAnimationID, false);
     }
 
-    bool IsOnGround()
+    private bool IsOnGround()
     {
         // perform an overlap check with the ground check collider
         Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheckCollider.bounds.center, groundCheckCollider.bounds.size, 0f);
@@ -209,7 +210,7 @@ public class Kimberley : MonoBehaviour
     }
 
 
-    void DestroyEnemy()
+    private void DestroyEnemy()
     {
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);

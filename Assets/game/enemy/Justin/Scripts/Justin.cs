@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Justin : MonoBehaviour
 {
+
     [Header("Speed & Range")]
     public float range = 10f;
     public float speed = 5f;
@@ -15,34 +16,28 @@ public class Justin : MonoBehaviour
     [Header("Death Effect Prefab")]
     public GameObject deathEffect;
     
-    private Animator playerAnimator;
-    private Transform player;
-    private Rigidbody2D rb;
+    private Transform _player;
+    private bool _canDestroyItself;
 
-    void Start()
+    private void Start()
     {
         // find the player's transform by finding the object with the "Player" tag
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        playerAnimator = player.GetComponent<Animator>();
-
-        rb = GetComponent<Rigidbody2D>();
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    void Update()
+    private void FixedUpdate()
     {
+        if(Pause.IsPause)
+        {
+            return;
+        }
+        
         // calculate the distance between the enemy and the player
-        float distance = Vector2.Distance(transform.position, player.position);
-
-        // if the distance between the enemy and the player is less than the range
-        if (distance < range && !Pause.IsPause)
+        var distance = Vector2.Distance(transform.position, _player.position);
+        if (distance < range)
         {
             // move the enemy towards the player at the specified speed
-            transform.position += Vector3.left * speed * Time.deltaTime;
-            distance = Vector2.Distance(transform.position, player.position);
-            if (distance > range)
-            {
-                Destroy(gameObject);
-            }
+            transform.position += Vector3.left * (speed * Time.deltaTime);
 
             // check if the enemy is not on the ground
             if (!IsOnGround())
@@ -55,21 +50,26 @@ public class Justin : MonoBehaviour
                 Enemy.TookDamage = true;
                 DestroyEnemy();
             }
+            
+            _canDestroyItself = true;
+        }
+        
+        if (distance > range && _canDestroyItself)
+        {
+            Destroy(gameObject);
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             //If player jumps on top
-            PlayerMovement.jump = true;
-            playerAnimator.SetBool("IsJumping", true);
             DestroyEnemy();
         }
     }
 
-    bool IsOnGround()
+    private bool IsOnGround()
     {
         // perform an overlap check with the ground check collider
         Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheckCollider.bounds.center, groundCheckCollider.bounds.size, 0f);
@@ -86,7 +86,12 @@ public class Justin : MonoBehaviour
         return false;
     }
 
-    bool CollidesWithPlayer()
+    /// <summary>
+    /// Check if the enemy upper collider collides with the player
+    /// (For some reason it ignores the upper one and only checks the others)
+    /// </summary>
+    /// <returns>True if the enemy collides with the player</returns>
+    private bool CollidesWithPlayer()
     {
         // perform an overlap check with the isJumpedOn collider
         Collider2D[] colliders = Physics2D.OverlapBoxAll(collisionWithPlayerCollider.bounds.center, collisionWithPlayerCollider.bounds.size, 0f);
@@ -104,7 +109,7 @@ public class Justin : MonoBehaviour
     }
 
 
-    void DestroyEnemy()
+    private void DestroyEnemy()
     {
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);

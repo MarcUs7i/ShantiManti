@@ -12,12 +12,12 @@ public class Claudia : MonoBehaviour
     [Header("Pathfinding")]
     public float nextWaypointDistance = 3f;
 
-    Path path;
-    Seeker seeker;
-    Transform player;
-    Rigidbody2D rb;
-    Transform enemyGFX;
-    Animator animator;
+    private Path _path;
+    private Seeker _seeker;
+    private Transform _player;
+    private Rigidbody2D _rb;
+    private Transform _enemyGfx;
+    private Animator _animator;
 
     [Header("Health")]
     public int health = 100;
@@ -25,94 +25,100 @@ public class Claudia : MonoBehaviour
     
     [Header("Ground Check")]
     public Collider2D groundCheckCollider;
+    
+    [Header("Animation IDs")]
+    private static readonly int AttackAnimationID = Animator.StringToHash("Attack");
+    private static readonly int DamageAnimationID = Animator.StringToHash("Damage");
 
-    bool StopHurting = false;
-    bool StopAttack = false;
-    bool Stop = false;
-    bool InNear = false;
-    int currentWaypoint = 0;
+    private bool _stopHurting;
+    private bool _stopAttack;
+    private bool _stop;
+    private bool _startGoing;
+    private int _currentWaypoint;
 
-    void Start()
+    public Claudia(Path path)
     {
-        seeker = GetComponent<Seeker>();
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        enemyGFX = GetComponentInChildren<SpriteRenderer>().transform;
-
-
-        InvokeRepeating("UpdatePath", 0f, .5f);
+        _path = path;
     }
 
-    void UpdatePath()
+    private void Start()
     {
-        if (seeker.IsDone())
+        _seeker = GetComponent<Seeker>();
+        _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        _enemyGfx = GetComponentInChildren<SpriteRenderer>().transform;
+
+        InvokeRepeating(nameof(UpdatePath), 0f, .5f);
+    }
+
+    private void UpdatePath()
+    {
+        if (_seeker.IsDone())
         {
-            seeker.StartPath(rb.position, player.position, OnPathComplete);
+            _seeker.StartPath(_rb.position, _player.position, OnPathComplete);
         }
     }
 
-    void OnPathComplete (Path p)
+    private void OnPathComplete (Path p)
     {
-        if (!p.error)
+        if (p.error)
         {
-            path = p;
-            currentWaypoint = 0;
+            return;
         }
+        _path = p;
+        _currentWaypoint = 0;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (Pause.IsPause)
         {
             return;
         }
 
-        float distance = Vector2.Distance(transform.position, player.position);
-        if (!Stop && InNear && !StopAttack)
+        var distance = Vector2.Distance(transform.position, _player.position);
+        
+        if (distance < range && !_startGoing)
         {
-            if (path == null)
+            _startGoing = true;
+        }
+        
+        if (_startGoing && !_stop && !_stopAttack)
+        {
+            if (_path == null || _currentWaypoint >= _path.vectorPath.Count)
             {
                 return;
             }
-            if (currentWaypoint >= path.vectorPath.Count)
-            {
-                return;
-            }
 
-            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] -rb.position).normalized;
-            Vector2 force = direction * speed * Time.deltaTime;
+            Vector2 direction = ((Vector2)_path.vectorPath[_currentWaypoint] -_rb.position).normalized;
+            Vector2 force = direction * (speed * Time.deltaTime);
 
-            rb.AddForce(force);
+            _rb.AddForce(force);
 
-            distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+            distance = Vector2.Distance(_rb.position, _path.vectorPath[_currentWaypoint]);
 
             if (distance < nextWaypointDistance)
             {
-                currentWaypoint++;
+                _currentWaypoint++;
             }
             
             //You can make look it differently, if you delete 'rb.velocity' and add 'force' instead.
-            if (rb.linearVelocity.x >= 0.01f)
+            if (_rb.linearVelocity.x >= 0.01f)
             {
-                enemyGFX.transform.localScale = new Vector3(-1f, 1f, 1f);
+                _enemyGfx.transform.localScale = new Vector3(-1f, 1f, 1f);
             }
-            else if (rb.linearVelocity.x <= -0.01f)
+            else if (_rb.linearVelocity.x <= -0.01f)
             {
-                enemyGFX.transform.localScale = new Vector3(1f, 1f, 1f);
+                _enemyGfx.transform.localScale = new Vector3(1f, 1f, 1f);
             }
         }
-
-        distance = Vector2.Distance(transform.position, player.position);
-        if (distance < range)
+        
+        // check if the enemy is out of range
+        if (distance > range)
         {
-            InNear = true;
-            distance = Vector2.Distance(transform.position, player.position);
-            if (distance > range)
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
 
         // check if the enemy is not on the ground
@@ -122,61 +128,62 @@ public class Claudia : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" && !StopAttack)
+        if (collision.gameObject.CompareTag("Player") && !_stopAttack)
         {
             StartCoroutine(Attack());
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        float distance = Vector2.Distance(transform.position, player.position);
-        if (collider.gameObject.tag == "Bullet" && distance < range && !StopHurting)
+        var distance = Vector2.Distance(transform.position, _player.position);
+        if (collider.gameObject.CompareTag("Bullet") && distance < range && !_stopHurting)
         {
             StartCoroutine(BulletAttacked());
             TakeDamage(50);
         }
     }
 
-    public void TakeDamage(int damage)
+    private void TakeDamage(int damage)
     {
-        if (!MainMenu.ExitLevel)
-		{
-			health -= damage;
+        if (MainMenu.ExitLevel)
+        {
+            return;
+        }
+        health -= damage;
 
-			if (health <= 0)
-			{
-				DestroyEnemy();
-			}
-		}
+        if (health <= 0)
+        {
+            DestroyEnemy();
+        }
     }
 
-    IEnumerator Attack()
+    private IEnumerator Attack()
     {
-        StopAttack = true;
+        _stopAttack = true;
 
-        animator.SetBool("Attack", true);
+        _animator.SetBool(AttackAnimationID, true);
         Enemy.TookDamage = true;
         yield return new WaitForSeconds(2.0f);
-        animator.SetBool("Attack", false);
+        _animator.SetBool(AttackAnimationID, false);
 
-        StopAttack = false;
+        _stopAttack = false;
     }
 
-    IEnumerator BulletAttacked()
+    private IEnumerator BulletAttacked()
     {
-        Stop = true;
-        animator.SetBool("Damage", true);
-        StopHurting = true;
+        _stop = true;
+        _animator.SetBool(DamageAnimationID, true);
+        _stopHurting = true;
         yield return new WaitForSeconds(2.0f);
-        StopHurting = false;
-        animator.SetBool("Damage", false);
-        Stop = false;
+        _stopHurting = false;
+        _animator.SetBool(DamageAnimationID, false);
+        _stop = false;
     }
 
-    bool IsOnGround()
+    private bool IsOnGround()
     {
         // perform an overlap check with the ground check collider
         Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheckCollider.bounds.center, groundCheckCollider.bounds.size, 0f);
@@ -194,7 +201,7 @@ public class Claudia : MonoBehaviour
     }
 
 
-    void DestroyEnemy()
+    private void DestroyEnemy()
     {
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
