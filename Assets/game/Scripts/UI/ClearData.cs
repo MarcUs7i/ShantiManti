@@ -12,7 +12,7 @@ public class ClearData : MonoBehaviour
     [Header("")]
     public float waitForDeletion = 0.1f;
 
-    void Start()
+    private void Start()
     {
         ConfirmationDialog.SetActive(true);
         DarkBackground.SetActive(false);
@@ -28,7 +28,7 @@ public class ClearData : MonoBehaviour
         StartCoroutine(CheckDelete());
     }
 
-   IEnumerator CheckDelete()
+    private IEnumerator CheckDelete()
     {
         PlayerSaving.DeletePlayer();
         yield return new WaitForSeconds(waitForDeletion);
@@ -38,7 +38,7 @@ public class ClearData : MonoBehaviour
         int[] checkInts = { PlayerSaving.Level, PlayerSaving.Coins };
         bool[] checkBools = { PlayerSaving.HasCompletedTutorial, PlayerSaving.MovingClouds };
 
-        for (int i = 0; i < defaultInts.Length; i++)
+        for (var i = 0; i < defaultInts.Length; i++)
         {
             if (checkInts[i] != defaultInts[i] || checkBools[i] != defaultBools[i])
             {
@@ -48,7 +48,7 @@ public class ClearData : MonoBehaviour
             }
         }
 
-        MainMenu mainMenu = FindObjectOfType<MainMenu>().GetComponent<MainMenu>();
+        var mainMenu = FindFirstObjectByType<MainMenu>().GetComponent<MainMenu>();
         mainMenu.LoadScene(0);
     }
 }
