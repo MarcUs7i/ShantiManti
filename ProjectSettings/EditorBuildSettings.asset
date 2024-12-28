@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/game/Scenes/MarcPresents.unity
     guid: 955537fc2c627cb448ee293d20f94586
@@ -86,4 +83,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/game/Scenes/About.unity
     guid: e90fae59456329244b0c6d7ce1ad8b0e
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: bbf97a3321c15364ca23f63ce74f192c, type: 3}
+  m_UseUCBPForAssetBundles: 0

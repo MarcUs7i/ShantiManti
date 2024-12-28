@@ -1,134 +1,152 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
+    public CharacterController2D controller;
+    public Animator animator;
+    public AudioSource audioSource;
 
-	public CharacterController2D controller;
-	public Animator animator;
-	public AudioSource audioSource;
+    public float runSpeed = 40f;
+    public float sprintSpeed = 80f;
+    private float _speed;
 
-	public float runSpeed = 40f;
+    private Vector2 _movementInputNormalized;
+    private static Vector2 _movementInput;
+    public static float HorizontalMove => _movementInput.x;
+    private bool _jump;
+    public static bool Crouch;
 
-	public static float HorizontalMove;
-	private static bool _jump;
-	public static bool Crouch;
-	private bool _moveLeft;
-	private bool _moveRight;
-	
-	private static readonly int Speed = Animator.StringToHash("Speed");
-	private static readonly int IsJumping = Animator.StringToHash("IsJumping");
-	private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
+    private static readonly int Speed = Animator.StringToHash("Speed");
+    private static readonly int IsJumping = Animator.StringToHash("IsJumping");
+    private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
 
-	private void Start()
-	{
-		Crouch = false;
-	}
+    public static InputActions InputActions;
 
-	public void PlayCoinSound()
-	{
-		audioSource.Play();
-	}
+    private void Awake()
+    {
+        _speed = runSpeed;
+        InputActions = new InputActions();
 
-	private void Update()
-	{
-		if (Pause.IsPause)
-		{
-			return;
-		}
-		
-		//UI buttons
-		if (_moveLeft && !Bonus.BonusForJump)
-		{
-			HorizontalMove = -40f;
-		}
-		if (_moveRight && !Bonus.BonusForJump)
-		{
-			HorizontalMove = 40f;
-		}
-		else if (!_moveLeft && !_moveRight)
-		{
-			HorizontalMove = 0f;
-		}
-		if (HorizontalMove == 0f && !Bonus.BonusForJump)
-		{
-			HorizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-		}
-	
-		animator.SetFloat(Speed, Mathf.Abs(HorizontalMove));
+        // Bind the Move action
+        InputActions.Player.Move.performed += ctx =>
+        {
+            _movementInputNormalized = ctx.ReadValue<Vector2>();
+            _movementInput = _movementInputNormalized * _speed;
+        };
+        InputActions.Player.Move.canceled += ctx =>
+        {
+            _movementInputNormalized = Vector2.zero;
+            _movementInput = Vector2.zero;
+        };
 
-		if (Input.GetButtonDown("Jump") && !Bonus.BonusForJump)
-		{
-			_jump = true;
-			animator.SetBool(IsJumping, true);
-		}
+        // Bind the Jump action
+        InputActions.Player.Jump.performed += ctx => _jump = true;
 
-		if (Enemy.TookDamage)
-		{
-			_jump = true;
-			animator.SetBool(IsJumping, true);
-		}
+        // Bind the Crouch action
+        InputActions.Player.Crouch.performed += ctx => Crouch = true;
+        InputActions.Player.Crouch.canceled += ctx => Crouch = false;
+        
+        // Bind the Sprint action
+        InputActions.Player.Sprint.performed += ctx =>
+        {
+            _speed = sprintSpeed;
+            _movementInput.x = _movementInputNormalized.x * _speed;
+        };
+        InputActions.Player.Sprint.canceled += ctx =>
+        {
+            _speed = runSpeed; 
+            _movementInput.x = _movementInputNormalized.x * _speed;
+        };
+    }
 
-		if (Input.GetButtonDown("Crouch") && !Bonus.BonusForJump)
-		{
-			Crouch = true;
-		}
-		else if (Input.GetButtonUp("Crouch"))
-		{
-			Crouch = false;
-		}
-	}
+    private void OnEnable()
+    {
+        InputActions.Enable();
+    }
 
-	public void OnLanding()
-	{
-		animator.SetBool(IsJumping, false);
-	}
+    private void OnDisable()
+    {
+        InputActions.Disable();
+    }
 
-	public void OnCrouching(bool isCrouching)
-	{
-		animator.SetBool(IsCrouching, isCrouching);
-	}
+    public void PlayCoinSound()
+    {
+        audioSource.Play();
+    }
 
-	private void FixedUpdate()
-	{
-		// Move our character
-		controller.Move(HorizontalMove * Time.fixedDeltaTime, Crouch, _jump);
-		_jump = false;
-	}
+    private void Update()
+    {
+        if (Pause.IsPause)
+        {
+            _movementInputNormalized = Vector2.zero;
+            _movementInput = Vector2.zero;
+            _jump = false;
+            animator.SetBool(IsJumping, false);
+            animator.SetFloat(Speed, 0f);
+            return;
+        }
 
-	public void PointerDownLeft()
-	{
-		_moveLeft = true;
-	}
+        animator.SetFloat(Speed, Mathf.Abs(_movementInput.x));
 
-	public void PointerUpLeft()
-	{
-		_moveLeft = false;
-	}
+        if (_jump)
+        {
+            animator.SetBool(IsJumping, true);
+        }
+    }
 
-	public void PointerDownRight()
-	{
-		_moveRight = true;
-	}
+    public void OnLanding()
+    {
+        animator.SetBool(IsJumping, false);
+    }
 
-	public void PointerUpRight()
-	{
-		_moveRight = false;
-	}
+    public void OnCrouching(bool isCrouching)
+    {
+        animator.SetBool(IsCrouching, isCrouching);
+    }
 
-	public void JumpButton()
-	{
-		_jump = true;
-		animator.SetBool(IsJumping, true);
-	}
+    private void FixedUpdate()
+    {
+        // Move our character
+        controller.Move(_movementInput.x * Time.fixedDeltaTime, Crouch, _jump);
+        _jump = false;
+    }
 
-	public void CrouchButtonDown()
-	{
-		Crouch = true;
-	}
+    // UI Button Methods
+    public void PointerDownLeft()
+    {
+        _movementInput.x = -_speed;
+    }
 
-	public void CrouchButtonUP()
-	{
-		Crouch = false;
-	}
+    public void PointerUpLeft()
+    {
+        _movementInput.x = 0;
+    }
+
+    public void PointerDownRight()
+    {
+        _movementInput.x = _speed;
+    }
+
+    public void PointerUpRight()
+    {
+        _movementInput.x = 0;
+    }
+
+    public void JumpButton()
+    {
+        _jump = true;
+    }
+
+    public void CrouchButtonDown()
+    {
+        Crouch = true;
+    }
+
+    public void CrouchButtonUP()
+    {
+        Crouch = false;
+    }
 }

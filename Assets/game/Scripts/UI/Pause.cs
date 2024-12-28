@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pause : MonoBehaviour
 {
-    public static bool IsPause = false;
+    public static bool IsPause;
     public Animator animator;
     public GameObject HealthBar;
     public GameObject CoinCounterUI;
@@ -28,41 +28,36 @@ public class Pause : MonoBehaviour
         PauseGame();
     }
 
-    void Update()
+    private void Start() //Set to Start() or else InputActions will be null (not initialized fast enough)
     {
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
-        {
-            PauseGame();
-        }
+        PlayerMovement.InputActions.Player.Pause.performed += ctx => PauseGame();
     }
+    
     public void PauseGame()
     {
-        if (!Bonus.BonusForJump)
+        if (Bonus.BonusForJump)
         {
-            IsPause = !IsPause;
-            PauseMenu.SetActive(IsPause);
-            PauseButton.SetActive(!IsPause);
-            CoinCounterUI.SetActive(!IsPause);
-            HealthBar.SetActive(!IsPause);
-            Left.SetActive(!IsPause);
-            Right.SetActive(!IsPause);
-            Jump.SetActive(!IsPause);
-            Crouch.SetActive(!IsPause);
-            Fire.SetActive(!IsPause);
-            if (Image != null && IsPause)
-            {
-                Image.SetActive(false);
-            }
-            if (IsPause)
-            {
-                //PlayerMovement.HorizontalMove = 0f;
-                //animator.SetFloat("Speed", 0f);
-            }
-            else
-            {
-                PlayerMovement.Crouch = false;
-                animator.SetBool("IsCrouching", false);
-            }
+            return;
+        }
+        
+        IsPause = !IsPause;
+        PauseMenu.SetActive(IsPause);
+        PauseButton.SetActive(!IsPause);
+        CoinCounterUI.SetActive(!IsPause);
+        HealthBar.SetActive(!IsPause);
+        Left.SetActive(!IsPause);
+        Right.SetActive(!IsPause);
+        Jump.SetActive(!IsPause);
+        Crouch.SetActive(!IsPause);
+        Fire.SetActive(!IsPause);
+        if (Image != null && IsPause)
+        {
+            Image.SetActive(false);
+        }
+        if(!IsPause) // if going back to the game
+        {
+            PlayerMovement.Crouch = false;
+            animator.SetBool("IsCrouching", false);
         }
     }
 }
