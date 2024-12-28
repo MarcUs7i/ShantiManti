@@ -34,6 +34,12 @@ public class PlayerMovement : MonoBehaviour
         InputActions.Player.Move.performed += ctx =>
         {
             _movementInputNormalized = ctx.ReadValue<Vector2>();
+            _movementInputNormalized.x = _movementInputNormalized.x switch
+            {
+                > 0 => 1,
+                < 0 => -1,
+                _ => 0
+            };
             _movementInput = _movementInputNormalized * _speed;
         };
         InputActions.Player.Move.canceled += ctx =>
