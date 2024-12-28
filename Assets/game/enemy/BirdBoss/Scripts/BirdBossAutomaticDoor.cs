@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class BirdBossAutomaticDoor : MonoBehaviour
 {
-    Transform door;
-    BirdBoss birdBoss;
     public float speed = 5f;
-    bool isAllowedToOpen = true;
+    private BirdBoss _birdBoss;
+    private bool _isAllowedToOpen = true;
 
-    void Start()
+    private void Start()
     {
-        door = GetComponent<Transform>();
-        birdBoss = FindObjectOfType<BirdBoss>().GetComponent<BirdBoss>();
+        _birdBoss = FindFirstObjectByType<BirdBoss>().GetComponent<BirdBoss>();
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        if (birdBoss.health <= 0 && isAllowedToOpen)
+        if (_birdBoss.health > 0 || !_isAllowedToOpen)
         {
-            transform.position += Vector3.up * speed * Time.deltaTime;
-            StartCoroutine(StopDoor());
+            return;
         }
+        
+        transform.position += Vector3.up * (speed * Time.deltaTime);
+        StartCoroutine(StopDoor());
     }
 
-    IEnumerator StopDoor()
+    private IEnumerator StopDoor()
     {
         yield return new WaitForSeconds(2.0f);
-        isAllowedToOpen = false;
+        _isAllowedToOpen = false;
     }
 }

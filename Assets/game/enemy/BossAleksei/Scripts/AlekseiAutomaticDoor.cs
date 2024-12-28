@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class AlekseiAutomaticDoor : MonoBehaviour
 {
-    Transform door;
-    Aleksei aleksei;
     public float speed = 5f;
-    bool isAllowedToOpen = true;
+    private Aleksei _aleksei;
+    private bool _isAllowedToOpen = true;
 
-    void Start()
+    private void Start()
     {
-        aleksei = FindObjectOfType<Aleksei>().GetComponent<Aleksei>();
-        door = GetComponent<Transform>();
+        _aleksei = FindFirstObjectByType<Aleksei>().GetComponent<Aleksei>();
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        if (aleksei.health <= 0 && isAllowedToOpen)
+        if (_aleksei.health > 0 || !_isAllowedToOpen)
         {
-            transform.position += Vector3.up * speed * Time.deltaTime;
-            StartCoroutine(StopDoor());
+            return;
         }
+        
+        transform.position += Vector3.up * (speed * Time.deltaTime);
+        StartCoroutine(StopDoor());
     }
 
-    IEnumerator StopDoor()
+    private IEnumerator StopDoor()
     {
         yield return new WaitForSeconds(2.0f);
-        isAllowedToOpen = false;
+        _isAllowedToOpen = false;
     }
 }
