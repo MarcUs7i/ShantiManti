@@ -6,44 +6,47 @@ public class Weapon : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
-    bool canShoot = true;
+    private bool _canShoot = true;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
-        if (Pause.IsPause == false)
+        if (Pause.IsPause)
         {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                Shoot();
-            }
+            return;
+        }
+        
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Shoot();
         }
     }
 
-    void Shoot ()
+    private void Shoot()
     {
-        if (Pause.IsPause == false)
+        if (Pause.IsPause)
         {
-            // shooting logic
-            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            return;
         }
+        
+        // shooting logic
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
     }
 
     public void ButtonShoot()
     {
         // shooting logic
-        if (Pause.IsPause == false && canShoot == true)
+        if (Pause.IsPause || !_canShoot)
         {
-            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            StartCoroutine(Wait());
+            return;
         }
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        StartCoroutine(Wait());
     }
 
-    IEnumerator Wait()
+    private IEnumerator Wait()
     {
-        canShoot = false;
+        _canShoot = false;
         yield return new WaitForSeconds(0.1f);
-        canShoot = true;
+        _canShoot = true;
     }
 }
