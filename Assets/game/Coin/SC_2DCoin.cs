@@ -25,8 +25,8 @@ public class SC_2DCoin : MonoBehaviour
             _canPickUp = false; // Disable picking up coins temporarily
             
             TotalCoins++;
-
-            c2d.GetComponent<PlayerMovement>().PlayCoinSound();
+            
+            PlayerMovement.ShouldPlayCoinSound = true;
             Destroy(gameObject);
     
             // Start the cooldown coroutine

@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
 
     public static InputActions InputActions;
+    public static bool ShouldPlayCoinSound;
 
     private void Awake()
     {
@@ -94,6 +95,12 @@ public class PlayerMovement : MonoBehaviour
         if (_jump)
         {
             animator.SetBool(IsJumping, true);
+        }
+
+        if (ShouldPlayCoinSound)
+        {
+            ShouldPlayCoinSound = false;
+            PlayCoinSound();
         }
     }
 
