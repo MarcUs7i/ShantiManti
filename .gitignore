@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 # Ignore Rider files
 /.idea/
+
+# Auto-generated build files
+Assets/Resources/BuildInfo.txt*
