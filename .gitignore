@@ -76,3 +76,4 @@ crashlytics-build.properties
 
 # Auto-generated build files
 Assets/Resources/BuildInfo.txt*
+.utmp/
