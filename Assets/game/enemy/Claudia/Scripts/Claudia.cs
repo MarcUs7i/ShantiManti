@@ -114,12 +114,6 @@ public class Claudia : MonoBehaviour
                 _enemyGfx.transform.localScale = new Vector3(1f, 1f, 1f);
             }
         }
-        
-        // check if the enemy is out of range
-        if (distance > range)
-        {
-            Destroy(gameObject);
-        }
 
         // check if the enemy is not on the ground
         if (!IsOnGround())
