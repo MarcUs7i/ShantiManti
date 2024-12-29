@@ -4,15 +4,25 @@ Welcome to the Shanti Manti repository!
 
 Here you can get access to the Unity Project or you can download the compiled version!
 
-# Compiled version:
-Download Links:
+## How to play in Unity
 
-https://rafaelbalota.com/marc/download-center/
+1. Open the Unity Project
+2. Click on Build → Inject Build Date (Optional; only for info window in Start scene useful)
+3. Click on Play
 
-https://marcus7.itch.io/shanti-manti
+## How to compile
+
+1. Open the Unity Project
+2. Click on File → Build Profiles
+3. Select your target platform
+4. Click on Build
+
+## Compiled version:
+
+- [GitHub Releases](https://github.com/MarcUs7i/ShantiManti/releases)
+
+- [itch.io](https://marcus7i.itch.io/shanti-manti)
 
 # Source Code
 
-Alternatively, you can download the Unity Project (v2.1) here:
-
-https://mega.nz/file/87VVwRBY#zERlghmzkOoKwcOmoc9TY1WAISUGK3yA2lg5QrNEGH4
+`git clone https://github.com/MarcUs7i/ShantiManti.git`
