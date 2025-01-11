@@ -6,18 +6,18 @@ public class Endlevel : MonoBehaviour
 {
     public string levelToLoad = "Level2";
     public SceneFader sceneFader;
-    public static int level = 0;
-    private int SetLevel;
+    public static int Level;
+    private int _setLevel;
 
-    void Awake()
+    private void Awake()
     {
         //Make Collider2D as trigger 
         GetComponent<Collider2D>().isTrigger = true;
-        level = PlayerSaving.Level;
-        SetLevel = GetValueForSetLevel();
+        Level = PlayerSaving.Level;
+        _setLevel = GetValueForSetLevel();
     }
 
-    void OnTriggerEnter2D(Collider2D c2d)
+    private void OnTriggerEnter2D(Collider2D c2d)
     {
         if (c2d.CompareTag("Player"))
         {
@@ -25,27 +25,26 @@ public class Endlevel : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
-        if (level != PlayerSaving.Level)
+        if (Level != PlayerSaving.Level)
         {
-            if (PlayerSaving.Level < level)
+            if (PlayerSaving.Level < Level)
             {
-                PlayerSaving.Level = level;
+                PlayerSaving.Level = Level;
                 PlayerSaving.SavePlayer();
-                //Debug.Log("Saved " + PlayerSaving.levels + " Level");
             }
         }
     }
 
     public void GoToNextLevel()
     {
-        level = SetLevel;
-        Debug.Log(level);
+        Level = _setLevel;
+        Debug.Log(Level);
         sceneFader.FadeTo(levelToLoad);
     }
 
-    public int GetValueForSetLevel()
+    private int GetValueForSetLevel()
     {
         if(!levelToLoad.StartsWith("level"))
         {

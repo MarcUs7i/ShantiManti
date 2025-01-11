@@ -7,19 +7,22 @@ public class Weapon : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
     private bool _canShoot = true;
-
-    private void Update()
+    
+    private static InputActions _inputActions;
+    
+    private void Awake()
     {
-        if (Pause.IsPause)
+        _inputActions = new InputActions(); 
+        _inputActions.Player.Attack.performed += ctx =>
         {
-            return;
-        }
-        
-        if (Input.GetButtonDown("Fire1"))
-        {
+            if (Pause.IsPause) return;
             Shoot();
-        }
+        };
     }
+    
+    private void OnEnable() => _inputActions.Enable();
+
+    private void OnDisable() => _inputActions.Disable();
 
     private void Shoot()
     {

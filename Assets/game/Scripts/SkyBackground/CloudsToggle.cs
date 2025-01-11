@@ -5,51 +5,54 @@ using UnityEngine.UI;
 
 public class CloudsToggle : MonoBehaviour
 {
-    public static bool cloudsCanMove;
+    public static bool CloudsCanMove;
     public Toggle cloudsToggle;
-    bool previousCloudsCanMoveState;
-    bool changingStates = false;
+    private bool _previousCloudsCanMoveState;
+    private bool _changingStates;
 
-    void Start()
+    private static InputActions _inputActions;
+
+    private void Awake()
     {
-        changingStates = true;
-
-        cloudsCanMove = PlayerSaving.MovingClouds;
-        cloudsToggle.isOn = cloudsCanMove;
-        previousCloudsCanMoveState = cloudsCanMove;
-
-        changingStates = false;
+        _inputActions = new InputActions(); 
+        _inputActions.Player.Clouds.performed += ctx => ChangeBool();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            ChangeBool();
-        }
+        _changingStates = true;
 
-        if (cloudsCanMove != previousCloudsCanMoveState)
-        {
-            //Debug.Log("State changed. Saving Clouds state: " + cloudsCanMove);
-            PlayerSaving.MovingClouds = cloudsCanMove;
-            PlayerSaving.SavePlayer();
-            previousCloudsCanMoveState = cloudsCanMove;
-        }
+        CloudsCanMove = PlayerSaving.MovingClouds;
+        cloudsToggle.isOn = CloudsCanMove;
+        _previousCloudsCanMoveState = CloudsCanMove;
+
+        _changingStates = false;
+    }
+    
+    private void OnEnable() => _inputActions.Enable();
+
+    private void OnDisable() => _inputActions.Disable();
+
+    private void Update()
+    {
+        if (CloudsCanMove == _previousCloudsCanMoveState) return;
+        
+        PlayerSaving.MovingClouds = CloudsCanMove;
+        PlayerSaving.SavePlayer();
+        _previousCloudsCanMoveState = CloudsCanMove;
     }
 
     public void ChangeBool()
     {
-        if (changingStates)
+        if (_changingStates)
         {
             return;
         }
-        changingStates = true;
+        _changingStates = true;
 
-        cloudsToggle.isOn = !cloudsCanMove;
-        cloudsCanMove = !cloudsCanMove;
+        cloudsToggle.isOn = !CloudsCanMove;
+        CloudsCanMove = !CloudsCanMove;
         
-        changingStates = false;
-        //Debug.Log("Clouds state changed by user: " + cloudsCanMove);
+        _changingStates = false;
     }
 }

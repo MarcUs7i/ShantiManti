@@ -5,31 +5,31 @@ using System;
 
 public class Mountains : MonoBehaviour
 {
-    float horizontalMountainMove = 0;
-    private Rigidbody2D rb;
+    private float _horizontalMountainMove;
+    private Rigidbody2D _rb;
     public Transform clonePoint;
     public Transform destroyPoint;
     //public Transform camera;
     public GameObject mountain;
     public float speed = 5;
     //public float height = 0.96f;
-    void Start()
+    private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
-        if (horizontalMountainMove / 2 != PlayerMovement.HorizontalMove)
+        if (!Mathf.Approximately(_horizontalMountainMove / 2, PlayerMovement.HorizontalMove))
         {
-            horizontalMountainMove = PlayerMovement.HorizontalMove / 2;
+            _horizontalMountainMove = PlayerMovement.HorizontalMove / 2;
         }
 
-        float distance = Vector2.Distance(transform.position, destroyPoint.position);
-        int distanceOfDestroyPoint = (int)Math.Round(distance);
+        var distance = Vector2.Distance(transform.position, destroyPoint.position);
+        var distanceOfDestroyPoint = (int)Math.Round(distance);
         if (!Pause.IsPause)
         {
-            transform.position += Vector3.left * horizontalMountainMove * Time.deltaTime * speed;
+            transform.position += Vector3.left * (_horizontalMountainMove * Time.deltaTime * speed);
             //rb.velocity = transform.right * speed * horizontalMountainMove;
             if (distanceOfDestroyPoint <= 0)
             {

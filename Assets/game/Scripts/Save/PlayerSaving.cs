@@ -31,7 +31,7 @@ public class PlayerSaving : MonoBehaviour
 
         Debug.Log($"Loaded level: {Level}, coins: {Coins}, tutorial: {HasCompletedTutorial}, cloudsMove: {MovingClouds}");
         SC_2DCoin.TotalCoins = Coins;
-        Endlevel.level = Level;
+        Endlevel.Level = Level;
     }
 
     public static void DeletePlayer()

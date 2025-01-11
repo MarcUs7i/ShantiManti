@@ -5,27 +5,26 @@ using System;
 
 public class Clouds : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
     public Transform clonePoint;
     public Transform destroyPoint;
-    new public Transform camera;
+    public new Transform camera;
     public GameObject cloudPrefab;
     public float speed = 5;
     public float height = 2.064558f;
     public float spaceBetween = 15.841f;
-    //public float maxCloudClonesAtStart = 200;
-    void Start()
+    private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
-        float distanceX = destroyPoint.position.x - transform.position.x;
+        var distanceX = destroyPoint.position.x - transform.position.x;
 
-        if (!Pause.IsPause && CloudsToggle.cloudsCanMove)
+        if (!Pause.IsPause && CloudsToggle.CloudsCanMove)
         {
-            transform.position += Vector3.right * Time.deltaTime * speed;
+            transform.position += Vector3.right * (Time.deltaTime * speed);
             //rb.velocity = transform.right * speed;
             if (distanceX <= 0)
             {
@@ -38,9 +37,9 @@ public class Clouds : MonoBehaviour
         UpdateYPosition(clonePoint);
     }
 
-    void UpdateYPosition(Transform targetTransform)
+    private void UpdateYPosition(Transform targetTransform)
     {
-        Vector3 newPosition = targetTransform.position;
+        var newPosition = targetTransform.position;
         newPosition.y = camera.position.y + height;
         targetTransform.position = newPosition;
     }
